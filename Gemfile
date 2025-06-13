@@ -23,6 +23,8 @@ gem "tailwindcss-rails"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+gem 'slim-rails'
+
 # Use the database-backed adapters for Rails.cache and Active Job
 gem "solid_cache"
 gem "solid_queue"
@@ -56,4 +58,5 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'slim_lint', require: false
 end
