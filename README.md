@@ -1,24 +1,7 @@
-# README
+# TenjiGroupTalk
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+点字でグループトーク！というサービスは、オンライン上で点字を用いた情報共有を行うのが難しいという問題を解決するための、点字を学習している人向けの、点字が使用できるグループ掲示板です。
 
-Things you may want to cover:
+利用ユーザーは掲示板を作成することができ、一般的な掲示板サービスに加えて、ひらがな入力から点字に変換して送信することができ、「ひらがな・点字の読み面・書き面」の全てを切り替えて表示することができます。
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ユニコード変換のサイトから点字をコピーして他の SNS に貼り付けて送ったり、点字器などで作成した内容を写真で撮ってメールで送付したりするなどとは違って、送受信の手間が省かれることにより情報共有の効率を上げることができます。
