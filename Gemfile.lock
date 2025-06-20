@@ -238,6 +238,7 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
+    rexml (3.4.1)
     rubocop (1.76.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -277,6 +278,17 @@ GEM
       rubocop (~> 1.72, >= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    slim (5.2.1)
+      temple (~> 0.10.0)
+      tilt (>= 2.1.0)
+    slim-rails (3.7.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 6.0, != 5.0.0)
+    slim_lint (0.33.0)
+      rexml (~> 3.2)
+      rubocop (>= 1.0, < 2.0)
+      slim (>= 3.0, < 6.0)
     solid_cache (1.0.7)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -314,11 +326,13 @@ GEM
     tailwindcss-ruby (4.1.10-arm64-darwin)
     tailwindcss-ruby (4.1.10-x86_64-linux-gnu)
     tailwindcss-ruby (4.1.10-x86_64-linux-musl)
+    temple (0.10.3)
     thor (1.3.2)
     thruster (0.1.14)
     thruster (0.1.14-aarch64-linux)
     thruster (0.1.14-arm64-darwin)
     thruster (0.1.14-x86_64-linux)
+    tilt (2.6.0)
     timeout (0.4.3)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
@@ -369,6 +383,8 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rails-omakase
   rubocop-rspec
+  slim-rails
+  slim_lint
   solid_cache
   solid_queue
   sqlite3 (>= 2.1)
