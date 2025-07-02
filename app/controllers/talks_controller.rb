@@ -25,7 +25,7 @@ class TalksController < ApplicationController
 
     respond_to do |format|
       if @talk.save
-        format.html { redirect_to @talk, notice: "Talk was successfully created." }
+        format.html { redirect_to @talk, notice: 'Talk was successfully created.' }
         format.json { render :show, status: :created, location: @talk }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class TalksController < ApplicationController
   def update
     respond_to do |format|
       if @talk.update(talk_params)
-        format.html { redirect_to @talk, notice: "Talk was successfully updated." }
+        format.html { redirect_to @talk, notice: 'Talk was successfully updated.' }
         format.json { render :show, status: :ok, location: @talk }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class TalksController < ApplicationController
     @talk.destroy!
 
     respond_to do |format|
-      format.html { redirect_to talks_path, status: :see_other, notice: "Talk was successfully destroyed." }
+      format.html { redirect_to talks_path, status: :see_other, notice: 'Talk was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

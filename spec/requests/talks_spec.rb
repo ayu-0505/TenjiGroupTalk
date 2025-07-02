@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/talks", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Talk. As you add validations to Talk, be sure to
   # adjust the attributes here as well.
@@ -74,7 +73,7 @@ RSpec.describe "/talks", type: :request do
       it "does not create a new Talk" do
         expect {
           post talks_url, params: { talk: invalid_attributes }
-        }.to change(Talk, :count).by(0)
+        }.not_to change(Talk, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
