@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/groups", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Group. As you add validations to Group, be sure to
   # adjust the attributes here as well.
@@ -74,7 +73,7 @@ RSpec.describe "/groups", type: :request do
       it "does not create a new Group" do
         expect {
           post groups_url, params: { group: invalid_attributes }
-        }.to change(Group, :count).by(0)
+        }.not_to change(Group, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
