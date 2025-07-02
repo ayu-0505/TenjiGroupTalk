@@ -1,0 +1,10 @@
+h1 Editing talk
+
+== render "form", talk: @talk
+
+br
+
+div
+  => link_to "Show this talk", @talk
+  '|
+  =< link_to "Back to talks", talks_path
