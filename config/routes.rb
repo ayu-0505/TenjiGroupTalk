@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :groups
   root "home#index"
   resources :users, only: %i[show edit update destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
