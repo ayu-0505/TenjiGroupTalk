@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Talks
+
+#talks
+  - @talks.each do |talk|
+    == render talk
+    p
+      = link_to "Show this talk", talk
+
+= link_to "New talk", new_talk_path

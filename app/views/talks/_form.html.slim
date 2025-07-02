@@ -1,0 +1,26 @@
+= form_with(model: talk) do |form|
+  - if talk.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(talk.errors.count, "error")} prohibited this talk from being saved:"
+      ul
+        - talk.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+
+  div
+    = form.label :description, style: "display: block"
+    = form.textarea :description
+
+  div
+    = form.label :user_id, style: "display: block"
+    = form.text_field :user_id
+
+  div
+    = form.label :group_id, style: "display: block"
+    = form.text_field :group_id
+
+  div
+    = form.submit
