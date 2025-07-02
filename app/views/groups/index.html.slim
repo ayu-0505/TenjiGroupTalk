@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Groups
+
+#groups
+  - @groups.each do |group|
+    == render group
+    p
+      = link_to "Show this group", group
+
+= link_to "New group", new_group_path
