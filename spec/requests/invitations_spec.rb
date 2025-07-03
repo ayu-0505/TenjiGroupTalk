@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/invitations", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Invitation. As you add validations to Invitation, be sure to
   # adjust the attributes here as well.
@@ -74,7 +73,7 @@ RSpec.describe "/invitations", type: :request do
       it "does not create a new Invitation" do
         expect {
           post invitations_url, params: { invitation: invalid_attributes }
-        }.to change(Invitation, :count).by(0)
+        }.not_to change(Invitation, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
