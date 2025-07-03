@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root "home#index"
   resources :users, only: %i[show edit update destroy]
   resources :groups do
-    resources :talks
+    resources :talks do
+      resources :comments, only: %i[create update destory]
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
