@@ -13,7 +13,6 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/comments", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Comment. As you add validations to Comment, be sure to
   # adjust the attributes here as well.
@@ -74,7 +73,7 @@ RSpec.describe "/comments", type: :request do
       it "does not create a new Comment" do
         expect {
           post comments_url, params: { comment: invalid_attributes }
-        }.to change(Comment, :count).by(0)
+        }.not_to change(Comment, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
