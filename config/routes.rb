@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :comments, only: %i[create update destory]
     end
   end
+  resources :invitations, only: %i[show create update destory] 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
