@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_014306) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_051000) do
   create_table "comments", force: :cascade do |t|
     t.text "description", null: false
     t.integer "user_id", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_014306) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "talk_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["talk_id"], name: "index_subscriptions_on_talk_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "talks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -65,6 +74,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_014306) do
   add_foreign_key "comments", "users"
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users"
+  add_foreign_key "subscriptions", "talks"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "talks", "groups"
   add_foreign_key "talks", "users"
 end
