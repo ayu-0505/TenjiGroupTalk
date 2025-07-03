@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_051000) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_052636) do
   create_table "comments", force: :cascade do |t|
     t.text "description", null: false
     t.integer "user_id", null: false
@@ -19,6 +19,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_051000) do
     t.datetime "updated_at", null: false
     t.index ["talk_id"], name: "index_comments_on_talk_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -72,6 +81,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_051000) do
 
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
+  add_foreign_key "group_memberships", "groups"
+  add_foreign_key "group_memberships", "users"
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users"
   add_foreign_key "subscriptions", "talks"
