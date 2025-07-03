@@ -1,0 +1,13 @@
+div id="#{dom_id invitation}"
+  p
+    strong Token:
+    =< invitation.token
+  p
+    strong Expires at:
+    =< invitation.expires_at
+  p
+    strong User:
+    =< invitation.user_id
+  p
+    strong Group:
+    =< invitation.group_id
