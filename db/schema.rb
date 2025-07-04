@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_052636) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_055314) do
+  create_table "brailles", force: :cascade do |t|
+    t.text "original_text", null: false
+    t.text "raised_braille", null: false
+    t.text "indented_braille", null: false
+    t.integer "user_id", null: false
+    t.string "brailleable_type", null: false
+    t.integer "brailleable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brailleable_type", "brailleable_id"], name: "index_brailles_on_brailleable"
+    t.index ["user_id"], name: "index_brailles_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "description", null: false
     t.integer "user_id", null: false
@@ -79,6 +92,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_052636) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  add_foreign_key "brailles", "users"
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
   add_foreign_key "group_memberships", "groups"
