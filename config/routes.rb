@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[show edit update destroy]
   resources :groups do
     resources :talks do
-      resources :comments, only: %i[create update destory]
+      resources :comments, only: %i[create update destroy]
     end
   end
-  resources :invitations, only: %i[show create update destory] 
+  resources :invitations, only: %i[show create update destroy] 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
