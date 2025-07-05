@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_055314) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_05_004554) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -61,6 +61,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_055314) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.boolean "read", default: false, null: false
+    t.integer "user_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "talk_id", null: false
@@ -99,6 +110,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_055314) do
   add_foreign_key "group_memberships", "users"
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users"
+  add_foreign_key "notifications", "users"
   add_foreign_key "subscriptions", "talks"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "talks", "groups"
