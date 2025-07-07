@@ -68,3 +68,7 @@ group :development do
   gem 'slim_lint', require: false
    gem 'html2slim', github: 'slim-template/html2slim', require: false
 end
+
+group :test do
+  gem 'capybara'
+end
