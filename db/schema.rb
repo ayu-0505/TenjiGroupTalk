@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_05_004554) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_05_060214) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -99,6 +99,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_05_004554) do
     t.string "nickname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
