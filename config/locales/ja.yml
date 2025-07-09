@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      group: グループ
+      talk: トーク
+      comment: コメント
+      braille: 点字
+      group_membership: メンバー
+      invitation: 招待
+      notification: 通知
+      subscription: 気になる
+    attributes:
+      user:
+        name: 名前
+        nickname: ニックネーム
+      group:
+        name: グループ名
+      talk:
+        taitle: タイトル
+        description: 内容
+      comment:
+        description: 内容
+      braille:
+        original_text: ひらがな文
+        raised_braille: 凸面
+        indented_braille: 凹面
