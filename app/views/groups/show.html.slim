@@ -3,8 +3,8 @@ p style="color: green" = notice
 == render @group
 
 div
-  => link_to "Edit this group", edit_group_path(@group)
+  => link_to 'グループ名を編集する', edit_group_path(@group)
   '|
-  =< link_to "Back to groups", groups_path
+  =< link_to 'グループ一覧へ戻る', groups_path
 
-  = button_to "Destroy this group", @group, method: :delete
+  = button_to 'グループを削除する', @group, method: :delete

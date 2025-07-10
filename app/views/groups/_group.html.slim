@@ -1,4 +1,6 @@
 div id="#{dom_id group}"
   p
-    strong Name:
-    =< group.name
+  = group.name
+  - group.users.each do |user|
+     div
+       = user.name
