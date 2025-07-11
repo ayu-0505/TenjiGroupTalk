@@ -1,11 +1,13 @@
 p style="color: green" = notice
 
-h1 Groups
+h1 所属グループ一覧
 
 #groups
-  - @groups.each do |group|
-    == render group
-    p
-      = link_to "Show this group", group
+  - if @groups.size == 0
+    p 所属グループがまだありません
+  - else
+    - @groups.each do |group|
+      div
+        = link_to "#{group.name}", group
 
-= link_to "New group", new_group_path
+= link_to 'グループを新規作成', new_group_path

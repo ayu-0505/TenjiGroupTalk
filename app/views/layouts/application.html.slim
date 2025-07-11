@@ -28,5 +28,5 @@ html
       - else
         | ゲストさん
         = button_to 'Googleでログイン', '/auth/google_oauth2', method: :post, data: { turbo: false }
-    main.container.mx-auto.mt-28.px-5.flex
+    main.container.mx-auto.mt-28.px-5
       = yield

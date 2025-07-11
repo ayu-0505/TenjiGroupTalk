@@ -58,3 +58,7 @@ Metrics/MethodLength:
 # 未使用メソッドの自動修正を無効化
 Lint/UnusedMethodArgument:
   AutoCorrect: false
+
+# １つのテストケース内の複数アサーションを許可
+RSpec/MultipleExpectations:
+  Enabled: false
