@@ -18,15 +18,12 @@ html
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  body
+  body.bg-lime-100
     header
       - if current_user
         = image_tag current_user.image
         = current_user.name
         | さん
         = link_to 'ログアウト', log_out_path
-      - else
-        | ゲストさん
-        = button_to 'Googleでログイン', '/auth/google_oauth2', method: :post, data: { turbo: false }
     main.container.mx-auto.mt-28.px-5
       = yield
