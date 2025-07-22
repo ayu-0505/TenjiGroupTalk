@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_05_060214) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_22_073809) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -34,15 +34,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_05_060214) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "group_memberships", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "group_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_group_memberships_on_group_id"
-    t.index ["user_id"], name: "index_group_memberships_on_user_id"
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -59,6 +50,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_05_060214) do
     t.index ["group_id"], name: "index_invitations_on_group_id"
     t.index ["token"], name: "index_invitations_on_token", unique: true
     t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -107,10 +107,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_05_060214) do
   add_foreign_key "brailles", "users"
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
-  add_foreign_key "group_memberships", "groups"
-  add_foreign_key "group_memberships", "users"
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users"
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "subscriptions", "talks"
   add_foreign_key "subscriptions", "users"
