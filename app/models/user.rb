@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_many :talks
   has_many :comments
   has_many :subscriptions
-  has_many :group_memberships, dependent: :destroy
+  has_many :memberships, dependent: :destroy
   has_many :groups, through: :group_memberships
 
   class << self
