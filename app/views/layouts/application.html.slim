@@ -21,7 +21,7 @@ html
   body.bg-lime-100
     header
       - if current_user
-        = image_tag current_user.image
+        = image_tag current_user.image, class: 'w-16'
         = current_user.name
         | さん
         = link_to 'ログアウト', log_out_path
