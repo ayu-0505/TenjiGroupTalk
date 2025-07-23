@@ -1,4 +1,17 @@
-h1 Dashboard#index
-p ログイン後ルート画面
+- if @groups.size == 0
+  | まだ所属グループがありません！<br>
+  | グループを作成し、他のユーザーを招待してみましょう。<br>
+  |
+  |グループに招待されていますか？<br>
+  |招待されたページでグループに参加してください。<br>
+
+- elsif @groups.size == 1
+  - group = @groups.first
+  = render template: 'talks/index', talks: group.talks
+
+- else
+  - @groups.each do |group|
+    = link_to "#{group.name}", group
+    p
 
 = link_to 'グループ一覧', groups_path
