@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :talks do
       resources :comments, only: %i[create update destroy]
     end
+    resources :memberships, only: %i[create destroy]
   end
   resources :invitations, only: %i[show create update destroy] 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
