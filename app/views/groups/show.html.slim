@@ -2,9 +2,13 @@ p style="color: green" = notice
 
 == render @group
 
+= link_to 'グループのトーク一覧へ行く', group_talks_path(@group)
+
 div
   => link_to 'グループ名を編集する', edit_group_path(@group)
   '|
   =< link_to 'グループ一覧へ戻る', groups_path
 
+  - if @membership.present?
+    = button_to 'グループから抜ける', group_membership_path(@group, @membership), { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'}}
   = button_to 'グループを削除する', @group, method: :delete

@@ -25,5 +25,6 @@ html
         = current_user.name
         | さん
         = link_to 'ログアウト', log_out_path
+        = link_to 'トップへ戻る', dashboard_path
     main.container.mx-auto.mt-28.px-5
       = yield
