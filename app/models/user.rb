@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :subscriptions
   has_many :memberships, dependent: :destroy
-  has_many :groups, through: :group_memberships
+  has_many :groups, through: :memberships
 
   class << self
     def find_or_create_from_auth_hash(auth_hash)
