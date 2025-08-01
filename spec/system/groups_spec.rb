@@ -9,6 +9,18 @@ RSpec.describe "Groups", type: :system do
     log_in_as user
   end
 
+    describe 'Actions available only to group members' do
+      context 'when a non-member user accesses' do
+        it 'is prevented' do
+          visit group_path(group)
+          expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+
+          visit edit_group_path(group)
+          expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+        end
+      end
+    end
+
     describe 'group page' do
      context 'when the group has only one member' do
       it 'prevents the user from leaving the group' do
