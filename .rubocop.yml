@@ -62,3 +62,7 @@ Lint/UnusedMethodArgument:
 # １つのテストケース内の複数アサーションを許可
 RSpec/MultipleExpectations:
   Enabled: false
+
+# テストの長い行数を許可
+RSpec/ExampleLength:
+  Enabled: false
