@@ -1,26 +1,18 @@
-= form_with(model: talk) do |form|
+= form_with(model: [group, talk]) do |form|
   - if talk.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(talk.errors.count, "error")} prohibited this talk from being saved:"
+    div style='color: red'
+      h2 = "#{t('errors.template.header', model: Talk.model_name.human, count: talk.errors.count)}"
       ul
         - talk.errors.each do |error|
           li = error.full_message
 
   div
-    = form.label :title, style: "display: block"
-    = form.text_field :title
+    = form.label :title, style: 'display: block'
+    = form.text_field :title, class: 'border border-blue-400'
 
   div
-    = form.label :description, style: "display: block"
-    = form.textarea :description
+    = form.label :description, style: 'display: block'
+    = form.textarea :description, class: 'border border-blue-400'
 
   div
-    = form.label :user_id, style: "display: block"
-    = form.text_field :user_id
-
-  div
-    = form.label :group_id, style: "display: block"
-    = form.text_field :group_id
-
-  div
-    = form.submit
+    = form.submit 'トークを作成'

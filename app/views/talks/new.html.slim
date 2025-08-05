@@ -1,8 +1,8 @@
-h1 New talk
+.text-lg.font-bold トーク新規作成
 
-== render "form", talk: @talk
+== render 'form', group: @group, talk: @talk
 
 br
 
 div
-  = link_to "Back to talks", talks_path
+  = link_to 'キャンセル', group_talks_path(@group)

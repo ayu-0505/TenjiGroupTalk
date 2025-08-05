@@ -1,10 +1,10 @@
-h1 Editing talk
+= link_to "トーク一覧に戻る", group_talks_path(@group)
 
-== render "form", talk: @talk
+.text-lg.font-bold トークを編集する
+
+== render 'form', group: @group, talk: @talk
 
 br
 
 div
-  => link_to "Show this talk", @talk
-  '|
-  =< link_to "Back to talks", talks_path
+  = link_to 'トークページに戻る', group_talk_path(@group, @talk)
