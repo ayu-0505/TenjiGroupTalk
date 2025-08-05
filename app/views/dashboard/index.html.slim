@@ -12,7 +12,7 @@ p style="color: red" = alert
 
 - elsif @groups.size == 1
   - group = @groups.first
-  = render template: 'talks/index', talks: group.talks
+  = render 'talks/talks', group: group, talks: group.talks
 
 - else
   - @groups.each do |group|

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :talk do
-    title { "MyString" }
-    description { "MyText" }
-    user { nil }
-    group { nil }
+    title { 'Talk Title' }
+    description { 'Talk Text' }
+    user
+    group
   end
 end
