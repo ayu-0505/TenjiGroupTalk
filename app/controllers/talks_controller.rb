@@ -1,6 +1,7 @@
 class TalksController < ApplicationController
   before_action :set_group
   before_action :set_talk, only: %i[ show edit update destroy ]
+  before_action :authorize_owner, only: %i[ edit update destroy ]
 
   # GET /talks or /talks.json
   def index
@@ -41,7 +42,7 @@ class TalksController < ApplicationController
   def update
     respond_to do |format|
       if @talk.update(talk_params)
-        format.html { redirect_to group_talk_path(@group, @talk), notice: 'Talk was successfully updated.' }
+        format.html { redirect_to group_talk_path(@group, @talk), notice: 'トークを更新しました！' }
         format.json { render :show, status: :ok, location: @talk }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,6 +68,12 @@ class TalksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_talk
       @talk = @group.talks.find(params.expect(:id))
+    end
+
+    def authorize_owner
+      return if @talk.user == current_user
+
+      redirect_back_or_to dashboard_path, alert: 'この操作はトーク作成者のみ可能です'
     end
 
     # Only allow a list of trusted parameters through.

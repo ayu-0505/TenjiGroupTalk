@@ -15,4 +15,7 @@
     = form.textarea :description, class: 'border border-blue-400'
 
   div
-    = form.submit 'トークを作成'
+    - if params[:action] == 'new'
+      = form.submit 'トークを作成'
+    - else
+      = form.submit 'トークを更新'
