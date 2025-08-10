@@ -1,9 +1,11 @@
 class TalksController < ApplicationController
+  before_action :set_group
   before_action :set_talk, only: %i[ show edit update destroy ]
+  before_action :authorize_owner, only: %i[ edit update destroy ]
 
   # GET /talks or /talks.json
   def index
-    @talks = Talk.all
+    @talks = @group.talks.order(created_at: :desc)
   end
 
   # GET /talks/1 or /talks/1.json
@@ -22,10 +24,12 @@ class TalksController < ApplicationController
   # POST /talks or /talks.json
   def create
     @talk = Talk.new(talk_params)
+    @talk.group = @group
+    @talk.user = current_user
 
     respond_to do |format|
       if @talk.save
-        format.html { redirect_to @talk, notice: 'Talk was successfully created.' }
+        format.html { redirect_to group_talk_path(@group, @talk), notice: 'トークが作成されました！' }
         format.json { render :show, status: :created, location: @talk }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,7 @@ class TalksController < ApplicationController
   def update
     respond_to do |format|
       if @talk.update(talk_params)
-        format.html { redirect_to @talk, notice: 'Talk was successfully updated.' }
+        format.html { redirect_to group_talk_path(@group, @talk), notice: 'トークを更新しました！' }
         format.json { render :show, status: :ok, location: @talk }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,28 @@ class TalksController < ApplicationController
     @talk.destroy!
 
     respond_to do |format|
-      format.html { redirect_to talks_path, status: :see_other, notice: 'Talk was successfully destroyed.' }
+      format.html { redirect_to group_talks_path(@group), status: :see_other, notice: 'トークは削除されました' }
       format.json { head :no_content }
     end
   end
 
   private
+    def set_group
+      @group = current_user.groups.find(params.expect(:group_id))
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_talk
-      @talk = Talk.find(params.expect(:id))
+      @talk = @group.talks.find(params.expect(:id))
+    end
+
+    def authorize_owner
+      return if @talk.user == current_user
+
+      redirect_back_or_to dashboard_path, alert: 'この操作はトーク作成者のみ可能です'
     end
 
     # Only allow a list of trusted parameters through.
     def talk_params
-      params.expect(talk: [ :title, :description, :user_id, :group_id ])
+      params.expect(talk: [ :title, :description ])
     end
 end

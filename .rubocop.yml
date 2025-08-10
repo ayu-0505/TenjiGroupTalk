@@ -8,7 +8,7 @@ plugins:
   - rubocop-capybara
   - rubocop-factory_bot
 
-# 結果のsuggest部分を非表示、最新のCopを自動有効、
+# 結果のsuggest部分を非表示、最新のCopを自動有効
 AllCops:
   SuggestExtensions: false
   NewCops: enable
@@ -66,3 +66,13 @@ RSpec/MultipleExpectations:
 # テストの長い行数を許可
 RSpec/ExampleLength:
   Enabled: false
+
+# ネストの深さの許容度設定
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 5 # default: 3
+
+# letの定義回数の上限
+RSpec/MultipleMemoizedHelpers:
+  Enabled: true
+  Max: 8 # default: 5

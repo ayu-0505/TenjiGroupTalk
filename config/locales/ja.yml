@@ -17,7 +17,7 @@ ja:
       group:
         name: グループ名
       talk:
-        taitle: タイトル
+        title: タイトル
         description: 内容
       comment:
         description: 内容

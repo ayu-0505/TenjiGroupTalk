@@ -1,0 +1,13 @@
+.text-lg.font-bold
+  = "#{group.name}のトーク一覧"
+= link_to '新しいトークを作成する', new_group_talk_path(group)
+
+- if talks.size == 0
+  p トークがありません。
+- else
+  - talks.each do |talk|
+    .talk
+      = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition' do
+        .text-lg.font-bold
+          = talk.title
+        = truncate(simple_format(talk.description), length: 150, separator: " ")
