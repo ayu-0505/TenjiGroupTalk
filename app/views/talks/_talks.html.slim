@@ -6,7 +6,8 @@
   p トークがありません。
 - else
   - talks.each do |talk|
-    = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition' do
-      .text-lg.font-bold
-        = talk.title
-      = truncate(talk.description, length: 150, separator: " ")
+    .talk
+      = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition' do
+        .text-lg.font-bold
+          = talk.title
+        = truncate(simple_format(talk.description), length: 150, separator: " ")

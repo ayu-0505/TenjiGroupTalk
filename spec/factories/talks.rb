@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :talk do
-    title { 'Talk Title' }
-    description { 'Talk Text' }
+    sequence(:title) { |n| "Talk Title No.#{n}" }
+    sequence(:description) { |n| "Talk Text No.#{n}" }
     user
     group
   end
