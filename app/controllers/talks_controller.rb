@@ -10,6 +10,7 @@ class TalksController < ApplicationController
 
   # GET /talks/1 or /talks/1.json
   def show
+    @comments = @talk.comments
   end
 
   # GET /talks/new

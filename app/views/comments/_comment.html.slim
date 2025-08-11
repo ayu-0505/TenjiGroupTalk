@@ -5,6 +5,5 @@ div id="#{dom_id comment}"
   p
     strong User:
     =< comment.user_id
-  p
-    strong Talk:
-    =< comment.talk_id
+  = link_to 'コメントを編集する', edit_group_talk_comment_path(group, talk, comment)
+  = button_to 'コメントを削除する', group_talk_comment_path(group, talk, comment), { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'}}

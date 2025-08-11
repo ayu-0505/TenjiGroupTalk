@@ -1,0 +1,4 @@
+.text-lg.font-bold コメント
+
+= render partial: 'comments/comment', collection: comments, locals: { group: group, talk: talk }
+= render 'comments/new_comment', group: group, talk: talk, comment: Comment.new
