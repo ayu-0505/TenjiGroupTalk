@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    description { "MyText" }
-    user { nil }
-    talk { nil }
+    sequence(:description) { |n| "Comment Text No.#{n}" }
+    user
+    talk
   end
 end

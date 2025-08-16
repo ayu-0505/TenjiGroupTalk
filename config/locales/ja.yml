@@ -18,9 +18,9 @@ ja:
         name: グループ名
       talk:
         title: タイトル
-        description: 内容
+        description: トーク内容
       comment:
-        description: 内容
+        description: コメント内容
       braille:
         original_text: ひらがな文
         raised_braille: 凸面

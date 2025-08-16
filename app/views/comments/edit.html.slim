@@ -1,0 +1,5 @@
+= turbo_frame_tag @comment do
+  p style="color: red" = alert
+  = render 'comments/form', group: @group, talk: @talk, comment: @comment
+  
+  = link_to 'キャンセル', group_talk_path(@group, @talk)

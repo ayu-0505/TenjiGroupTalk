@@ -1,0 +1,9 @@
+.text-lg.font-bold コメント追加
+p style="color: red" = alert
+- if flash[:error].present?
+  ul class='error'
+    - flash[:error].each do |error|
+      li
+        p style='color: red' = error
+
+= render 'comments/form', group: group, talk: talk, comment: comment

@@ -1,10 +1,12 @@
-div id="#{dom_id comment}"
-  p
-    strong Description:
-    =< comment.description
-  p
-    strong User:
-    =< comment.user_id
-  p
-    strong Talk:
-    =< comment.talk_id
+= turbo_frame_tag comment do
+  .comment id="#{dom_id comment}"
+    p
+      strong 投稿者:
+      =< comment.user_id
+  
+    p
+      strong 内容:
+      =< simple_format(comment.description)
+  
+    = link_to 'コメントを編集する', edit_group_talk_comment_path(group, talk, comment)
+    = button_to 'コメントを削除する', group_talk_comment_path(group, talk, comment), { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'}}

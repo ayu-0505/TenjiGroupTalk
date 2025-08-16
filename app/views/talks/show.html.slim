@@ -1,4 +1,4 @@
-p style="color: green" = notice
+p style='color: green' = notice
 
 = link_to 'トーク一覧へ戻る', group_talks_path(@group)
 
@@ -8,3 +8,6 @@ div
   - if @talk.user == current_user
     = link_to 'トークを編集する', edit_group_talk_path(@group, @talk)
     = button_to 'トークを削除する', group_talk_path(@group, @talk), { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'}}
+
+.comments
+  = render 'comments/comments', group: @group, talk: @talk, comments: @comments

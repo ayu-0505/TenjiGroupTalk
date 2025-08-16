@@ -3,4 +3,6 @@ class Comment < ApplicationRecord
   belongs_to :talk
   has_one :braille, as: :brailleable
   has_many :notifications, as: :notifiable
+
+  validates :description, presence: true
 end
