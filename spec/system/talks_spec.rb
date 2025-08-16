@@ -74,6 +74,7 @@ RSpec.describe 'Talks', type: :system do
   describe 'delete the talk', :js do
     it 'deletes the talk' do
       visit group_talk_path(group, talks[0])
+      expect(page).to have_text(talks[0].title)
       expect(page).to have_text('トークを削除する')
       page.accept_confirm 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？' do
         click_on 'トークを削除する'

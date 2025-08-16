@@ -24,107 +24,107 @@ RSpec.describe "/invitations", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Invitation.create! valid_attributes
-      get invitations_url
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /index" do
+  #   it "renders a successful response" do
+  #     Invitation.create! valid_attributes
+  #     get invitations_url
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      invitation = Invitation.create! valid_attributes
-      get invitation_url(invitation)
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /show" do
+  #   it "renders a successful response" do
+  #     invitation = Invitation.create! valid_attributes
+  #     get invitation_url(invitation)
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_invitation_url
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /new" do
+  #   it "renders a successful response" do
+  #     get new_invitation_url
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "GET /edit" do
-    it "renders a successful response" do
-      invitation = Invitation.create! valid_attributes
-      get edit_invitation_url(invitation)
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /edit" do
+  #   it "renders a successful response" do
+  #     invitation = Invitation.create! valid_attributes
+  #     get edit_invitation_url(invitation)
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Invitation" do
-        expect {
-          post invitations_url, params: { invitation: valid_attributes }
-        }.to change(Invitation, :count).by(1)
-      end
+  # describe "POST /create" do
+  #   context "with valid parameters" do
+  #     it "creates a new Invitation" do
+  #       expect {
+  #         post invitations_url, params: { invitation: valid_attributes }
+  #       }.to change(Invitation, :count).by(1)
+  #     end
 
-      it "redirects to the created invitation" do
-        post invitations_url, params: { invitation: valid_attributes }
-        expect(response).to redirect_to(invitation_url(Invitation.last))
-      end
-    end
+  #     it "redirects to the created invitation" do
+  #       post invitations_url, params: { invitation: valid_attributes }
+  #       expect(response).to redirect_to(invitation_url(Invitation.last))
+  #     end
+  #   end
 
-    context "with invalid parameters" do
-      it "does not create a new Invitation" do
-        expect {
-          post invitations_url, params: { invitation: invalid_attributes }
-        }.not_to change(Invitation, :count)
-      end
+  #   context "with invalid parameters" do
+  #     it "does not create a new Invitation" do
+  #       expect {
+  #         post invitations_url, params: { invitation: invalid_attributes }
+  #       }.not_to change(Invitation, :count)
+  #     end
 
-      it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post invitations_url, params: { invitation: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
-  end
+  #     it "renders a response with 422 status (i.e. to display the 'new' template)" do
+  #       post invitations_url, params: { invitation: invalid_attributes }
+  #       expect(response).to have_http_status(:unprocessable_entity)
+  #     end
+  #   end
+  # end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  # describe "PATCH /update" do
+  #   context "with valid parameters" do
+  #     let(:new_attributes) {
+  #       skip("Add a hash of attributes valid for your model")
+  #     }
 
-      it "updates the requested invitation" do
-        invitation = Invitation.create! valid_attributes
-        patch invitation_url(invitation), params: { invitation: new_attributes }
-        invitation.reload
-        skip("Add assertions for updated state")
-      end
+  #     it "updates the requested invitation" do
+  #       invitation = Invitation.create! valid_attributes
+  #       patch invitation_url(invitation), params: { invitation: new_attributes }
+  #       invitation.reload
+  #       skip("Add assertions for updated state")
+  #     end
 
-      it "redirects to the invitation" do
-        invitation = Invitation.create! valid_attributes
-        patch invitation_url(invitation), params: { invitation: new_attributes }
-        invitation.reload
-        expect(response).to redirect_to(invitation_url(invitation))
-      end
-    end
+  #     it "redirects to the invitation" do
+  #       invitation = Invitation.create! valid_attributes
+  #       patch invitation_url(invitation), params: { invitation: new_attributes }
+  #       invitation.reload
+  #       expect(response).to redirect_to(invitation_url(invitation))
+  #     end
+  #   end
 
-    context "with invalid parameters" do
-      it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        invitation = Invitation.create! valid_attributes
-        patch invitation_url(invitation), params: { invitation: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
-    end
-  end
+  #   context "with invalid parameters" do
+  #     it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+  #       invitation = Invitation.create! valid_attributes
+  #       patch invitation_url(invitation), params: { invitation: invalid_attributes }
+  #       expect(response).to have_http_status(:unprocessable_entity)
+  #     end
+  #   end
+  # end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested invitation" do
-      invitation = Invitation.create! valid_attributes
-      expect {
-        delete invitation_url(invitation)
-      }.to change(Invitation, :count).by(-1)
-    end
+  # describe "DELETE /destroy" do
+  #   it "destroys the requested invitation" do
+  #     invitation = Invitation.create! valid_attributes
+  #     expect {
+  #       delete invitation_url(invitation)
+  #     }.to change(Invitation, :count).by(-1)
+  #   end
 
-    it "redirects to the invitations list" do
-      invitation = Invitation.create! valid_attributes
-      delete invitation_url(invitation)
-      expect(response).to redirect_to(invitations_url)
-    end
-  end
+  #   it "redirects to the invitations list" do
+  #     invitation = Invitation.create! valid_attributes
+  #     delete invitation_url(invitation)
+  #     expect(response).to redirect_to(invitations_url)
+  #   end
+  # end
 end

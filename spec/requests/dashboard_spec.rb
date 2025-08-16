@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "Dashboards", type: :request do
   describe "GET /dashboard" do
+    let(:user) { create(:user) }
+
     it 'display contents only login user' do
-      user = create(:user)
       log_in_as(user)
 
-      expect(page).to have_text('ログイン後ルート画面')
+      expect(page).to have_text('ダッシュボード')
     end
   end
 end
