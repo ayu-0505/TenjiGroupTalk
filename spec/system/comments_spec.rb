@@ -46,7 +46,7 @@ RSpec.describe "Comments", type: :system do
     describe 'delete the comment', :js do
     it 'deletes the comment' do
       visit group_talk_path(group, talk)
-       expect(page).to have_text(talk.title)
+      expect(page).to have_text(comments[1].description)
       expect(page).to have_text('コメントを削除する')
       page.accept_confirm 'コメントを削除します。よろしいですか？' do
         click_on 'コメントを削除する', match: :first

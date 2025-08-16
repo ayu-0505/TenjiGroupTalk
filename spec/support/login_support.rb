@@ -17,6 +17,7 @@ module LoginSupport
 
     visit root_path
     click_on 'Googleでログイン', match: :first
+    expect(page).to have_text('ダッシュボード')
   end
 
   def sign_in(user)
