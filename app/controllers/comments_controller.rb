@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :set_group_and_talk, only: %i[ edit create update destroy]
+  before_action :set_group_and_talk, only: %i[ edit create update destroy ]
   before_action :set_comment, only: %i[ edit update destroy ]
+
+  # TODO: 一部でHotwire使用のため、noticeが意図通り動かない。flashに変更後、turbo_streamを使って同時更新を行うこと
 
   def edit
   end
@@ -28,7 +30,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to group_talk_path(@group, @talk), notice: 'コメントが更新されました！' }
         format.json { render :show, status: :ok, location: @comment }
       else
-        format.html { redirect_to group_talk_path(@group, @talk), flash: { error: @comment.errors.full_messages } }
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -39,8 +41,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to group_talk_path(@group, @talk), status: :see_other, notice: 'コメントが削除されました' }
-      format.json { head :no_content }
+      format.turbo_stream
     end
   end
 
