@@ -1,6 +1,9 @@
 div id="#{dom_id group}"
-  .text-2xl
+  .flex.justify-center.text-2xl.font-bold.my-8.mx-4
     = group.name
-  - group.users.each do |user|
-     div
-       = user.name
+  
+  .flex.flex-col.justify-center.items-center
+    .text-xl.font-bold メンバー
+    - group.users.each do |user|
+      div
+        = image_tag user.image, class: 'w-8'

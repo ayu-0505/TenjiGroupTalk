@@ -1,13 +1,14 @@
 p style='color: green' = notice
-
-= link_to 'トーク一覧へ戻る', group_talks_path(@group)
-
-== render @talk
-
-div
-  - if @talk.user == current_user
-    = link_to 'トークを編集する', edit_group_talk_path(@group, @talk)
-    = button_to 'トークを削除する', group_talk_path(@group, @talk), { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'}}
-
-.comments
-  = render 'comments/comments', group: @group, talk: @talk, comments: @comments
+.mx-auto.max-w-screen-md
+  = link_to 'トーク一覧へ戻る', group_talks_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  == render @talk
+  
+  div
+    - if @talk.user == current_user
+      = link_to 'トークを編集する', edit_group_talk_path(@group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+      = button_to 'トークを削除する', group_talk_path(@group, @talk),
+      { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
+      class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
+  
+  .comments
+    = render 'comments/comments', group: @group, talk: @talk, comments: @comments

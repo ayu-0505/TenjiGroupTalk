@@ -1,12 +1,12 @@
 p style="color: red" = alert
 
-h1 グループ名を編集
+h1.flex.justify-center.text-2xl.font-bold.my-8.mx-4 グループ名を編集
 
 == render 'form', group: @group
 
 br
 
 div
-  => link_to 'グループページに戻る', @group
+  => link_to 'グループページに戻る', @group, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
   '|
-  =< link_to 'グループ一覧へ戻る', groups_path
+  =< link_to 'グループ一覧へ戻る', groups_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

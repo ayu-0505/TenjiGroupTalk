@@ -1,7 +1,7 @@
 p style="color: green" = notice
 p style="color: red" = alert
 
-h1 所属グループ一覧
+h1.flex.justify-center.text-2xl.font-bold.my-8.mx-4 所属グループ一覧
 
 #groups
   - if @groups.size == 0
@@ -9,6 +9,6 @@ h1 所属グループ一覧
   - else
     - @groups.each do |group|
       div
-        = link_to "#{group.name}", group
+        = link_to "#{group.name}", group, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
-= link_to 'グループを新規作成', new_group_path
+= link_to 'グループを新規作成', new_group_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

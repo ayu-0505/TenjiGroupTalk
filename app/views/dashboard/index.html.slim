@@ -1,22 +1,23 @@
-p style="color: green" = notice
-p style="color: red" = alert
-
-.text-lg.font-bold ダッシュボード
-
-- if @groups.size == 0
-  | まだ所属グループがありません！<br>
-  | グループを作成し、他のユーザーを招待してみましょう。<br>
-  |
-  |グループに招待されていますか？<br>
-  |招待されたページでグループに参加してください。<br>
-
-- elsif @groups.size == 1
-  - group = @groups.first
-  = render 'talks/talks', group: group, talks: group.talks
-
-- else
-  - @groups.each do |group|
-    = link_to "#{group.name}", group
-    p
-
-= link_to 'グループ一覧', groups_path
+.flex.flex-col.mx-auto.max-w-screen-md
+  p style="color: green" = notice
+  p style="color: red" = alert
+  
+  .flex.justify-center.text-2xl.font-bold.my-8.mx-4 ダッシュボード
+  
+  - if @groups.size == 0
+    | まだ所属グループがありません！<br>
+    | グループを作成し、他のユーザーを招待してみましょう。<br>
+    |
+    |グループに招待されていますか？<br>
+    |招待されたページでグループに参加してください。<br>
+  
+  - elsif @groups.size == 1
+    - group = @groups.first
+    = render 'talks/talks', group: group, talks: group.talks
+  
+  - else
+    - @groups.each do |group|
+      = link_to "#{group.name}", group, class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition'
+      p
+  
+  = link_to 'グループ一覧', groups_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
