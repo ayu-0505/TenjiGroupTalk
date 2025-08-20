@@ -12,6 +12,6 @@
 
   div
     - if params[:action] == 'edit'
-      = form.submit '更新'
+      = form.submit '更新', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     - else
-      = form.submit '新規作成'
+      = form.submit '新規作成', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

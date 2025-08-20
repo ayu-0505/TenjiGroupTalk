@@ -1,15 +1,16 @@
-p style="color: green" = notice
-p style="color: red" = alert
-
-== render @group
-
-= link_to 'グループのトーク一覧へ行く', group_talks_path(@group)
-
-div
-  => link_to 'グループ名を編集する', edit_group_path(@group)
-  '|
-  =< link_to 'グループ一覧へ戻る', groups_path
+.flex.flex-col.mx-auto.max-w-screen-md
+  p style="color: green" = notice
+  p style="color: red" = alert
+  
+  == render @group
+  
+  = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  
+  = link_to 'グループ名を編集する', edit_group_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  = link_to 'グループ一覧へ戻る', groups_path,  class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
   - if @membership.present?
-    = button_to 'グループから抜ける', group_membership_path(@group, @membership), { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'}}
-  = button_to 'グループを削除する', @group, method: :delete
+    = button_to 'グループから抜ける', group_membership_path(@group, @membership),
+                { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
+                class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
+  = button_to 'グループを削除する', @group, method: :delete, class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'

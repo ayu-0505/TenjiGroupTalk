@@ -18,13 +18,8 @@ html
     = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  body.bg-lime-100
-    header
-      - if current_user
-        = image_tag current_user.image, class: 'w-16'
-        = current_user.name
-        | さん
-        = link_to 'ログアウト', log_out_path
-        = link_to 'トップへ戻る', dashboard_path
-    main.container.mx-auto.mt-28.px-5
+  body.flex.flex-col.items-center.h-screen.bg-lime-50
+    - if current_user
+      = render 'layouts/header'
+    main.container.mx-auto.max-w-screen-md.bg-white
       = yield

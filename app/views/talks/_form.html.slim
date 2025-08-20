@@ -16,6 +16,6 @@
 
   div
     - if params[:action] == 'new'
-      = form.submit 'トークを作成'
+      = form.submit 'トークを作成', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     - else
-      = form.submit 'トークを更新'
+      = form.submit 'トークを更新', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
