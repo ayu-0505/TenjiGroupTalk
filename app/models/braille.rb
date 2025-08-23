@@ -213,7 +213,7 @@ class Braille < ApplicationRecord
 
   def braille_mirror(char)
     code_point = char.ord
-    return char unless (0x2800..0x28FF).cover?(code_point)
+    return char unless (0x2800..0x283F).cover?(code_point)
 
     dots = code_point - 0x2800
     mirrored = 0
