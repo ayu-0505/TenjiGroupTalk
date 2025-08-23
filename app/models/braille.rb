@@ -2,7 +2,7 @@ class Braille < ApplicationRecord
   belongs_to :user
   belongs_to :brailleable, polymorphic: true
 
-  before_validation :initialize_raised_braille, on: :create
+  before_validation :initialize_raised_braille, on: %i[create update]
   before_save :generate_indented_braille
 
   KANA = {
@@ -160,8 +160,9 @@ class Braille < ApplicationRecord
     private
 
   def initialize_raised_braille
-    if raised_braille.blank? && original_text.present?
+    if original_text.present?
       self.raised_braille = convert_to_braille(original_text)
+      puts self.raised_braille
     end
   end
 
