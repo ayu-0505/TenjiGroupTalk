@@ -16,10 +16,12 @@ class TalksController < ApplicationController
   # GET /talks/new
   def new
     @talk = Talk.new
+    @talk.build_braille
   end
 
   # GET /talks/1/edit
   def edit
+    @talk.build_braille if @talk.braille.nil?
   end
 
   # POST /talks or /talks.json
@@ -79,6 +81,7 @@ class TalksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def talk_params
-      params.expect(talk: [ :title, :description ])
+      original_params = params.expect(talk: [ :title, :description, braille_attributes: [ :id, :original_text, :raised_braille, :indented_braille ] ])
+      original_params.deep_merge!(braille_attributes: { user_id: current_user.id })
     end
 end

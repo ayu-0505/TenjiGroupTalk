@@ -2,6 +2,9 @@ class Braille < ApplicationRecord
   belongs_to :user
   belongs_to :brailleable, polymorphic: true
 
+  before_validation :initialize_raised_braille, on: :create
+  before_save :generate_indented_braille
+
   KANA = {
     # 清音
     'ア' => '⠁', 'イ' => '⠃', 'ウ' => '⠉', 'エ' => '⠋', 'オ' => '⠊',
@@ -155,6 +158,20 @@ class Braille < ApplicationRecord
   end
 
     private
+
+  def initialize_raised_braille
+    if raised_braille.blank? && original_text.present?
+      self.raised_braille = convert_to_braille(original_text)
+    end
+  end
+
+  def generate_indented_braille
+    if raised_braille.present?
+      self.indented_braille = convert_to_indented_braille(raised_braille)
+    else
+      self.indented_braille = nil
+    end
+  end
 
   def normalize_for_braille(text)
     result = ''

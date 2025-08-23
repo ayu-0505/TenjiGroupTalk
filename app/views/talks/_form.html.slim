@@ -15,6 +15,18 @@
     = form.textarea :description, class: 'border border-blue-400'
 
   div
+    = form.fields_for :braille do |braille_form|
+      = braille_form.label :original_text, style: 'display: block'
+      = braille_form.textarea :original_text, class: 'border border-blue-400'
+
+      - if params[:action] == 'edit'
+        = braille_form.label :raised_braille, style: 'display: block'
+        = braille_form.textarea :raised_braille, class: 'border border-blue-400'
+  
+        = braille_form.label :indented_braille, style: 'display: block'
+        = braille_form.textarea :indented_braille, class: 'border border-blue-400'
+
+  div
     - if params[:action] == 'new'
       = form.submit 'トークを作成', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     - else
