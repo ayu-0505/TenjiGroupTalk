@@ -4,13 +4,13 @@
   p
     = simple_format(talk.description)
 
-  .border.w-full.mt-2
-    p
-      = braille.original_text
-  
-  .border.w-full.mt-2
-    P
-      = braille.raised_braille
-  .border.w-full.mt-2
-    p
-      = braille.indented_braille
+  - if braille.present?
+    .border.w-full.mt-2
+      p
+        = braille.original_text
+    .border.w-full.mt-2
+      P
+        = braille.raised_braille
+    .border.w-full.mt-2
+      p
+        = braille.indented_braille
