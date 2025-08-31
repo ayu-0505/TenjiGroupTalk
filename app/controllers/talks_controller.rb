@@ -15,24 +15,21 @@ class TalksController < ApplicationController
 
   # GET /talks/new
   def new
-    @talk = Talk.new
-    @talk.build_braille
+    @talk_form = TalkBrailleForm.new(group: @group)
   end
 
   # GET /talks/1/edit
   def edit
-    @talk.build_braille if @talk.braille.nil?
+    @talk_form = TalkBrailleForm.new(group: @group, talk: @talk)
   end
 
   # POST /talks or /talks.json
   def create
-    @talk = Talk.new(talk_params)
-    @talk.group = @group
-    @talk.user = current_user
+    @talk_form = TalkBrailleForm.new(user: current_user, group: @group, attributes: talk_braille_params)
 
     respond_to do |format|
-      if @talk.save
-        format.html { redirect_to group_talk_path(@group, @talk), notice: 'トークが作成されました！' }
+      if @talk_form.save
+        format.html { redirect_to group_talk_path(@group, @talk_form.talk), notice: 'トークが作成されました！' }
         format.json { render :show, status: :created, location: @talk }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,8 +40,9 @@ class TalksController < ApplicationController
 
   # PATCH/PUT /talks/1 or /talks/1.json
   def update
+    @talk_form = TalkBrailleForm.new(user: current_user, group: @group, talk: @talk, attributes: talk_braille_params)
     respond_to do |format|
-      if @talk.update(talk_params)
+      if @talk_form.update
         format.html { redirect_to group_talk_path(@group, @talk), notice: 'トークを更新しました！' }
         format.json { render :show, status: :ok, location: @talk }
       else
@@ -79,9 +77,7 @@ class TalksController < ApplicationController
       redirect_back_or_to dashboard_path, alert: 'この操作はトーク作成者のみ可能です'
     end
 
-    # Only allow a list of trusted parameters through.
-    def talk_params
-      original_params = params.expect(talk: [ :title, :description, braille_attributes: [ :id, :original_text, :raised_braille, :indented_braille ] ])
-      original_params.deep_merge!(braille_attributes: { user_id: current_user.id })
+    def talk_braille_params
+      params.expect(talk_braille_form: [ :title, :description, :original_text ])
     end
 end

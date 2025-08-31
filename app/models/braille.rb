@@ -157,6 +157,10 @@ class Braille < ApplicationRecord
     raised_braille.chars.map { |char| braille_mirror(char) }.reverse.join
   end
 
+  def same_content?(original_text:)
+    self.original_text == original_text
+  end
+
     private
 
   def initialize_raised_braille
