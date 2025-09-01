@@ -2,6 +2,9 @@ class Braille < ApplicationRecord
   belongs_to :user
   belongs_to :brailleable, polymorphic: true
 
+  before_validation :initialize_raised_braille, on: %i[create update]
+  before_save :generate_indented_braille
+
   KANA = {
     # 清音
     'ア' => '⠁', 'イ' => '⠃', 'ウ' => '⠉', 'エ' => '⠋', 'オ' => '⠊',
@@ -154,7 +157,26 @@ class Braille < ApplicationRecord
     raised_braille.chars.map { |char| braille_mirror(char) }.reverse.join
   end
 
+  def same_content?(original_text:)
+    self.original_text == original_text
+  end
+
     private
+
+  def initialize_raised_braille
+    if original_text.present?
+      self.raised_braille = convert_to_braille(original_text)
+      puts self.raised_braille
+    end
+  end
+
+  def generate_indented_braille
+    if raised_braille.present?
+      self.indented_braille = convert_to_indented_braille(raised_braille)
+    else
+      self.indented_braille = nil
+    end
+  end
 
   def normalize_for_braille(text)
     result = ''
@@ -196,7 +218,7 @@ class Braille < ApplicationRecord
 
   def braille_mirror(char)
     code_point = char.ord
-    return char unless (0x2800..0x28FF).cover?(code_point)
+    return char unless (0x2800..0x283F).cover?(code_point)
 
     dots = code_point - 0x2800
     mirrored = 0

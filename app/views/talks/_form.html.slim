@@ -1,9 +1,9 @@
-= form_with(model: [group, talk]) do |form|
-  - if talk.errors.any?
+= form_with( model: talk_form, **talk_form.form_with_options) do |form|
+  - if talk_form.errors.any?
     div style='color: red'
-      h2 = "#{t('errors.template.header', model: Talk.model_name.human, count: talk.errors.count)}"
+      h2 = "#{t('errors.template.header', model: TalkBrailleForm.model_name.human, count: talk_form.errors.count)}"
       ul
-        - talk.errors.each do |error|
+        - talk_form.errors.each do |error|
           li = error.full_message
 
   div
@@ -15,7 +15,21 @@
     = form.textarea :description, class: 'border border-blue-400'
 
   div
-    - if params[:action] == 'new'
-      = form.submit 'トークを作成', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-    - else
+    = form.label :original_text, style: 'display: block'
+    = form.textarea :original_text, class: 'border border-blue-400'
+
+  - if params[:action] == 'edit' && @talk.braille.present?
+    .border.w-full.mt-2
+      p
+        = Braille.human_attribute_name(:raised_braille)
+        = @talk.braille.raised_braille
+    .border.w-full.mt-2
+      p
+        = Braille.human_attribute_name(:indented_braille)
+        = @talk.braille.indented_braille
+
+  div
+    - if params[:action] == 'edit'
       = form.submit 'トークを更新', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    - else
+      = form.submit 'トークを作成', class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
