@@ -7,12 +7,12 @@ RSpec.describe '/talks', type: :request do
   let!(:group) { create(:group) }
   let!(:talk) { create(:talk, group: group, user: owner_user) }
 
-  let(:valid_attributes) {
-    attributes_for(:talk, title: 'Valid Title', description: 'this text is valid.')
-  }
-  let(:invalid_attributes) {
-    attributes_for(:talk, title: "#{ 'test'*100 } Invalid Title", description: '')
-  }
+  let(:valid_attributes) { {
+    title: 'Valid Title', description: 'this text is valid.', original_text: 'こんにちは'
+  } }
+  let(:invalid_attributes) { {
+    title: "#{ 'test'*100 } Invalid Title", description: '', original_text: 'こんにちは'
+  } }
 
   before do
     group.users << member_user
@@ -123,12 +123,12 @@ RSpec.describe '/talks', type: :request do
 
       it 'creates a new Talk' do
         expect {
-          post group_talks_url(talk.group), params: { talk: valid_attributes }
+          post group_talks_url(talk.group), params: { talk_braille_form: valid_attributes }
         }.to change(Talk, :count).by(1)
       end
 
       it 'redirects to the created talk' do
-        post group_talks_url(talk.group), params: { talk: valid_attributes }
+        post group_talks_url(talk.group), params: { talk_braille_form: valid_attributes }
         expect(response).to redirect_to(group_talk_url(talk.group, Talk.last))
       end
     end
@@ -138,18 +138,18 @@ RSpec.describe '/talks', type: :request do
 
       it 'does not create a new Talk' do
         expect {
-          post group_talks_url(talk.group), params: { talk: invalid_attributes }
+          post group_talks_url(talk.group), params: { talk_braille_form: invalid_attributes }
         }.not_to change(Talk, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post group_talks_url(talk.group), params: { talk: invalid_attributes }
+        post group_talks_url(talk.group), params: { talk_braille_form: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
     context 'when user is non member' do
-      subject { post group_talks_url(talk.group), params: { talk: valid_attributes } }
+      subject { post group_talks_url(talk.group), params: { talk_braille_form: valid_attributes } }
 
       before { sign_in(non_member_user) }
 
@@ -158,15 +158,15 @@ RSpec.describe '/talks', type: :request do
   end
 
   describe 'PATCH /update' do
-    let(:new_attributes) {
-      attributes_for(:talk, title: 'New Title', description: 'New Text')
-    }
+    let(:new_attributes) { {
+      title: 'New Title', description: 'New Text', original_text: 'こんばんは'
+    } }
 
     context 'when user is owner with valid parameters' do
       before { sign_in(owner_user) }
 
       it 'updates the requested talk and redirects to the talk' do
-        patch group_talk_url(talk.group, talk), params: { talk: new_attributes }
+        patch group_talk_url(talk.group, talk), params: { talk_braille_form: new_attributes }
         talk.reload
         expect(talk.title).to eq 'New Title'
         expect(talk.description).to eq 'New Text'
@@ -178,7 +178,7 @@ RSpec.describe '/talks', type: :request do
       before { sign_in(owner_user) }
 
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        patch group_talk_url(talk.group, talk), params: { talk: invalid_attributes }
+        patch group_talk_url(talk.group, talk), params: { talk_braille_form: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -190,14 +190,14 @@ RSpec.describe '/talks', type: :request do
       end
 
       it 'does not update the talk and redirects to the last requested path (dashboard_path)' do
-        patch group_talk_url(talk.group, talk), params: { talk: new_attributes }
+        patch group_talk_url(talk.group, talk), params: { talk_braille_form: new_attributes }
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(dashboard_path)
       end
     end
 
     context 'when user is non member' do
-      subject { patch group_talk_url(talk.group, talk), params: { talk: new_attributes } }
+      subject { patch group_talk_url(talk.group, talk), params: { talk_braille_form: new_attributes } }
 
       before { sign_in(non_member_user) }
 
