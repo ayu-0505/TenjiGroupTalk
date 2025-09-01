@@ -65,7 +65,7 @@ class TalkBrailleForm
         )
 
       # 入力されたひらがなが、既存の点字内容と違う場合、既存点字を破棄して新規作成
-      elsif !@talk.braille.same_content?(original_text:)
+      elsif !@talk.braille.same_content?(original_text)
         @talk.braille.destroy!
          @talk.create_braille!(
           original_text: original_text,
