@@ -22,26 +22,27 @@
     .text-blue-600.hover:text-blue-800.active:text-blue-900.underline.transition
       button type="button" data-action="click->braille-converter#convert" 変換
 
-    .border.w-full.mt-2
-      p
-        = Braille.human_attribute_name(:raised_braille)
+    - if params[:action] == 'edit' && @talk.braille.present?
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:raised_braille)
         span data-braille-converter-target="raised"
-
-    .border.w-full.mt-2
-      p
-        = Braille.human_attribute_name(:indented_braille)
+          = @talk.braille.raised_braille
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:indented_braille)
         span data-braille-converter-target="indented"
-
-
-  - if params[:action] == 'edit' && @talk.braille.present?
-    .border.w-full.mt-2
-      p
-        = Braille.human_attribute_name(:raised_braille)
-        = @talk.braille.raised_braille
-    .border.w-full.mt-2
-      p
-        = Braille.human_attribute_name(:indented_braille)
-        = @talk.braille.indented_braille
+          = @talk.braille.indented_braille
+    - else
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:raised_braille)
+        span data-braille-converter-target="raised"
+  
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:indented_braille)
+        span data-braille-converter-target="indented"
 
   div
     - if params[:action] == 'edit'
