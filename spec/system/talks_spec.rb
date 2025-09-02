@@ -83,4 +83,30 @@ RSpec.describe 'Talks', type: :system do
       expect(page).to have_no_content(talks[0].title)
     end
   end
+
+  describe 'converts text to braille in the form', :js do
+    context 'when clicking the convert button in the new form' do
+      it 'converts to raised braille and indented braille' do
+        visit new_group_talk_path(group)
+        fill_in 'ひらがな文', with: 'こんにちわ'
+        click_button '変換'
+
+        expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+        expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
+        sleep 10
+      end
+    end
+
+    context 'when clicking the convert button in the edit form' do
+      it 'converts to raised braille and indented braille' do
+        visit edit_group_talk_path(group, talks[0])
+        fill_in 'ひらがな文', with: 'こんにちわ'
+        click_button '変換'
+
+        expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+        expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
+        sleep 10
+      end
+    end
+  end
 end
