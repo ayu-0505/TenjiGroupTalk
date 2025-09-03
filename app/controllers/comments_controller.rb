@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_group_and_talk, only: %i[ edit create update destroy ]
+  before_action :set_talk, only: %i[ edit create update destroy ]
   before_action :set_comment, only: %i[ edit update destroy ]
 
   # TODO: 一部でHotwire使用のため、noticeが意図通り動かない。flashに変更後、turbo_streamを使って同時更新を行うこと
@@ -14,10 +14,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if comment.save
-        format.html { redirect_to group_talk_path(@group, @talk), notice: 'コメントを投稿しました！' }
+        format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { redirect_to group_talk_path(@group, @talk), flash: { error: comment.errors.full_messages } }
+        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: comment.errors.full_messages } }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to group_talk_path(@group, @talk), notice: 'コメントが更新されました！' }
+        format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントが更新されました！' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -46,9 +46,8 @@ class CommentsController < ApplicationController
   end
 
   private
-    def set_group_and_talk
-      @group = current_user.groups.find(params.expect(:group_id))
-      @talk = @group.talks.find(params.expect(:talk_id))
+    def set_talk
+      @talk = Talk.find(params.expect(:talk_id))
     end
 
     # Use callbacks to share common setup or constraints between actions.

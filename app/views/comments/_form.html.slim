@@ -1,4 +1,4 @@
-= form_with(model: [group, talk, comment]) do |form|
+= form_with(model: [talk, comment]) do |form|
   - if comment.errors.any?
     div style='color: red'
       h2 =  "#{t('errors.template.header', model: Comment.model_name.human, count: comment.errors.count)}"
