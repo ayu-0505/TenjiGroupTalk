@@ -5,28 +5,30 @@ class CommentsController < ApplicationController
   # TODO: 一部でHotwire使用のため、noticeが意図通り動かない。flashに変更後、turbo_streamを使って同時更新を行うこと
 
   def edit
+    @comment_form = CommentBrailleForm.new(talk: @talk, comment: @comment)
   end
 
   # POST /comments or /comments.json
   def create
-    comment = @talk.comments.build(comment_params)
-    comment.user = current_user
+    comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
+    # comment = @talk.comments.build(comment_params)
 
     respond_to do |format|
-      if comment.save
+      if comment_form.save
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: comment.errors.full_messages } }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: comment_form.errors.full_messages } }
+        format.json { render json: comment_form.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
+    @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, comment: @comment, attributes: comment_braille_params)
     respond_to do |format|
-      if @comment.update(comment_params)
+      if @comment_form.update
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントが更新されました！' }
         format.json { render :show, status: :ok, location: @comment }
       else
@@ -56,7 +58,7 @@ class CommentsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def comment_params
-      params.expect(comment: [ :description ])
+    def comment_braille_params
+      params.expect(comment_braille_form: [ :description, :original_text ])
     end
 end

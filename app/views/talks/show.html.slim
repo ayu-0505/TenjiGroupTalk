@@ -11,4 +11,4 @@ p style='color: green' = notice
       class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
   
   .comments
-    = render 'comments/comments', group: @group, talk: @talk, comments: @comments
+    = render 'comments/comments', talk: @talk, comments: @comments, comment_form: @comment_form
