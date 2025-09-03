@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
   resources :sessions, only: %i[create destroy]
 
+  namespace :api do
+    resource :braille_converter, only: :create
+  end
+
   resources :users, only: %i[show edit update destroy]
   resources :groups do
     resources :talks do
