@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_talk, only: %i[ edit create update destroy ]
   before_action :set_comment, only: %i[ edit update destroy ]
+  before_action :authorize_group_member
 
   # TODO: 一部でHotwire使用のため、noticeが意図通り動かない。flashに変更後、turbo_streamを使って同時更新を行うこと
 
@@ -60,5 +61,11 @@ class CommentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def comment_braille_params
       params.expect(comment_braille_form: [ :description, :original_text ])
+    end
+
+    def authorize_group_member
+      return if current_user.groups.include?(@talk.group)
+
+      head :not_found
     end
 end
