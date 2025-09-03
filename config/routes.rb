@@ -14,8 +14,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show edit update destroy]
   resources :groups do
-    resources :talks do
-    end
+    resources :talks
     resources :memberships, only: %i[create destroy]
   end
   resources :talks, only: :show do
