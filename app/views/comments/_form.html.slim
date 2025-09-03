@@ -10,19 +10,36 @@
     = form.label :description, style: 'display: block'
     = form.textarea :description, class: 'border border-blue-400'
 
-  div
-    = form.label :original_text, style: 'display: block'
-    = form.textarea :original_text, class: 'border border-blue-400'
+  div data-controller="braille-converter"
+    div
+      = form.label :original_text, style: 'display: block'
+      = form.textarea :original_text, class: 'border border-blue-400', data: { braille_converter_target: "input"}
 
-      - if params[:action] == 'edit' && @comment.braille.present?
+    .text-blue-600.hover:text-blue-800.active:text-blue-900.underline.transition
+      button type="button" data-action="click->braille-converter#convert" 変換
+
+    - if params[:action] == 'edit' && @comment.braille.present?
       .border.w-full.mt-2
         p
           = Braille.human_attribute_name(:raised_braille)
-          = @talk.braille.raised_braille
+        span data-braille-converter-target="raised"
+          = @comment.braille.raised_braille
       .border.w-full.mt-2
         p
           = Braille.human_attribute_name(:indented_braille)
-          = @talk.braille.indented_braille
+        span data-braille-converter-target="indented"
+          = @comment.braille.indented_braille
+    - else
+      .hidden data-braille-converter-target="result"
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:raised_braille)
+          span data-braille-converter-target="raised"
+
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:indented_braille)
+          span data-braille-converter-target="indented"
 
   div
     - if params[:action] == 'edit'

@@ -34,15 +34,16 @@
         span data-braille-converter-target="indented"
           = @talk.braille.indented_braille
     - else
-      .border.w-full.mt-2
-        p
-          = Braille.human_attribute_name(:raised_braille)
-        span data-braille-converter-target="raised"
-  
-      .border.w-full.mt-2
-        p
-          = Braille.human_attribute_name(:indented_braille)
-        span data-braille-converter-target="indented"
+      .hidden data-braille-converter-target="result"
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:raised_braille)
+          span data-braille-converter-target="raised"
+
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:indented_braille)
+          span data-braille-converter-target="indented"
 
   div
     - if params[:action] == 'edit'
