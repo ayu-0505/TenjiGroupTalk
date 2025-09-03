@@ -11,6 +11,9 @@
     - if comment.braille.present?
       .border.w-full.mt-2
         P
+          = comment.braille.original_text
+      .border.w-full.mt-2
+        P
           = comment.braille.raised_braille
       .border.w-full.mt-2
         p
