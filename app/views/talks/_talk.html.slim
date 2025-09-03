@@ -1,16 +1,17 @@
-.flex.flex-col.items-center.talk.block.p-4.my-4.border id="#{dom_id talk}"
-  p.text-lg.font-bold
-    = talk.title
-  p
-    = simple_format(talk.description)
-
-  - if braille.present?
-    .border.w-full.mt-2
-      p
-        = braille.original_text
-    .border.w-full.mt-2
-      P
-        = braille.raised_braille
-    .border.w-full.mt-2
-      p
-        = braille.indented_braille
+.talk
+  .flex.flex-col.items-center.talk.block.p-4.my-4.border id="#{dom_id talk}"
+    p.text-lg.font-bold
+      = talk.title
+    p
+      = simple_format(talk.description)
+  
+    - if braille.present?
+      .border.w-full.mt-2
+        p
+          = braille.original_text
+      .border.w-full.mt-2
+        P
+          = braille.raised_braille
+      .border.w-full.mt-2
+        p
+          = braille.indented_braille

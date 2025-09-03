@@ -32,7 +32,7 @@ RSpec.describe "Comments", type: :system do
     end
   end
 
-    describe 'update the comment' do
+  describe 'update the comment' do
     it 'updates the comment with valid input' do
       visit group_talk_path(group, talk)
       click_on 'コメントを編集する', match: :first
@@ -43,7 +43,7 @@ RSpec.describe "Comments", type: :system do
     end
   end
 
-    describe 'delete the comment', :js do
+  describe 'delete the comment', :js do
     it 'deletes the comment' do
       visit group_talk_path(group, talk)
       expect(page).to have_text(comments[1].description)
@@ -53,6 +53,55 @@ RSpec.describe "Comments", type: :system do
       end
       expect(page).to have_content(comments[1].description)
       expect(page).to have_no_content(comments[0].description)
+    end
+  end
+
+  describe 'converts text to braille in the form', :js do
+    context 'when clicking the convert button in the new form' do
+      it 'converts to raised braille and indented braille' do
+        visit group_talk_path(group, talk)
+        within(".new_comment") do
+          fill_in 'ひらがな文', with: 'こんにちわ'
+          click_button '変換'
+
+          expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+          expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
+        end
+      end
+    end
+
+    context 'when clicking the convert button in the first comment' do
+      it 'converts to raised braille and indented braillein the first comment' do
+        visit group_talk_path(group, talk)
+        within(".comment#comment_#{comments[0].id}") do
+          click_on 'コメントを編集する'
+        end
+
+        within(".edit_comment") do
+          fill_in 'ひらがな文', with: 'こんにちわ'
+          click_button '変換'
+
+          expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+          expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
+        end
+      end
+
+      it "does not convert the text in other comments" do
+        visit group_talk_path(group, talk)
+        within(".comment#comment_#{comments[0].id}") do
+          click_on 'コメントを編集する'
+        end
+
+        within(".edit_comment") do
+          fill_in 'ひらがな文', with: 'こんにちわ'
+          click_button '変換'
+        end
+
+        within(".comment#comment_#{comments[2].id}") do
+          expect(page).to have_no_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+          expect(page).to have_no_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
+        end
+      end
     end
   end
 end
