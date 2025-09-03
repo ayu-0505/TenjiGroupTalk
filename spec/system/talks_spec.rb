@@ -93,7 +93,6 @@ RSpec.describe 'Talks', type: :system do
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
         expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
-        sleep 10
       end
     end
 
@@ -105,7 +104,6 @@ RSpec.describe 'Talks', type: :system do
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
         expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
-        sleep 10
       end
     end
   end
