@@ -1,5 +1,5 @@
 = turbo_frame_tag @comment do
   p style="color: red" = alert
-  = render 'comments/form', group: @group, talk: @talk, comment: @comment
+  = render 'comments/form', comment_form: @comment_form
   
-  = link_to 'キャンセル', group_talk_path(@group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  = link_to 'キャンセル', group_talk_path(@talk.group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

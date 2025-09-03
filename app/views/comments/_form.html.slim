@@ -1,14 +1,28 @@
-= form_with(model: [group, talk, comment]) do |form|
-  - if comment.errors.any?
+= form_with(model: comment_form, **comment_form.form_with_options) do |form|
+  - if comment_form.errors.any?
     div style='color: red'
-      h2 =  "#{t('errors.template.header', model: Comment.model_name.human, count: comment.errors.count)}"
+      h2 = "#{t('errors.template.header', model: CommentBrailleForm.model_name.human, count: comment_form.errors.count)}"
       ul
-        - comment.errors.each do |error|
+        - comment_form.errors.each do |error|
           li = error.full_message
 
   div
     = form.label :description, style: 'display: block'
     = form.textarea :description, class: 'border border-blue-400'
+
+  div
+    = form.label :original_text, style: 'display: block'
+    = form.textarea :original_text, class: 'border border-blue-400'
+
+      - if params[:action] == 'edit' && @comment.braille.present?
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:raised_braille)
+          = @talk.braille.raised_braille
+      .border.w-full.mt-2
+        p
+          = Braille.human_attribute_name(:indented_braille)
+          = @talk.braille.indented_braille
 
   div
     - if params[:action] == 'edit'

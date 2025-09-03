@@ -11,6 +11,7 @@ class TalksController < ApplicationController
   # GET /talks/1 or /talks/1.json
   def show
     @comments = @talk.comments
+    @comment_form = CommentBrailleForm.new(talk: @talk)
   end
 
   # GET /talks/new

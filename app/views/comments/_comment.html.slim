@@ -2,13 +2,21 @@
   .comment.block.p-4.my-4.border id="#{dom_id comment}"
     p
       strong 投稿者:
-      =< comment.user_id
+      =< comment.user.name
   
     p
       strong 内容:
       =< simple_format(comment.description)
+
+    - if comment.braille.present?
+      .border.w-full.mt-2
+        P
+          = comment.braille.raised_braille
+      .border.w-full.mt-2
+        p
+          = comment.braille.indented_braille
   
-    = link_to 'コメントを編集する', edit_group_talk_comment_path(group, talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-    = button_to 'コメントを削除する', group_talk_comment_path(group, talk, comment),
+    = link_to 'コメントを編集する', edit_talk_comment_path(talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    = button_to 'コメントを削除する', talk_comment_path(talk, comment),
      { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'},
      class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
