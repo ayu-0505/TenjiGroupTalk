@@ -18,7 +18,6 @@ class Braille < ApplicationRecord
   def initialize_raised_braille
     if original_text.present?
       self.raised_braille = converter.convert_to_tenji(original_text)
-      puts self.raised_braille
     end
   end
 
