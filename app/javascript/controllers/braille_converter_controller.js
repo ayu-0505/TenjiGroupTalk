@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { FetchRequest } from "@rails/request.js";
 
 // Connects to data-controller="braille-convert"
 export default class extends Controller {
@@ -6,17 +7,11 @@ export default class extends Controller {
 
   async convert() {
     const text = this.inputTarget.value;
-    const response = await fetch("/api/braille_converter", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": document.head.querySelector("meta[name=csrf-token]")
-          ?.content,
-      },
+    const request = new FetchRequest("post", "/api/braille_converter", {
       body: JSON.stringify({ text: text }),
     });
-
-    const data = await response.json();
+    const response = await request.perform();
+    const data = await response.json;
 
     this.raisedTarget.textContent = data.raised;
     this.indentedTarget.textContent = data.indented;
