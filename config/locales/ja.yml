@@ -28,10 +28,16 @@ ja:
   activemodel:
     models:
       talk_braille_form: トーク・点字
+      comment_braille_form: コメント・点字
     attributes:
       talk_braille_form:
         title: タイトル
         description: トーク内容
+        original_text: ひらがな文
+        raised_braille: 凸面
+        indented_braille: 凹面
+      comment_braille_form:
+        description: コメント内容
         original_text: ひらがな文
         raised_braille: 凸面
         indented_braille: 凹面
