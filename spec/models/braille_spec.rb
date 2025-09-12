@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Braille, type: :model do
   let(:user) { create(:user) }
-  let(:group) { create(:group, user: user) }
-  let(:talk) { create(:talk, user: user) }
   let(:braille) { create(:talk_braille, user: user) }
 
   # WARNING: 点字のスペースはスペースのコードではなく、点字の無点（U+2800）

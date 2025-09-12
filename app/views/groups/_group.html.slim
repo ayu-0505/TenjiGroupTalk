@@ -1,8 +1,12 @@
 div id="#{dom_id group}"
   .flex.justify-center.text-2xl.font-bold.my-8.mx-4
     = group.name
-  
-  .flex.flex-col.justify-center.items-center
+
+  .flex.justify-center.text-xl.font-bold
+    p 管理者
+    div
+      = image_tag group.admin.image, class: 'w-8'
+  .flex.flex-col.justify-center.items-center.mt-10
     .text-xl.font-bold メンバー
     - group.users.each do |user|
       div

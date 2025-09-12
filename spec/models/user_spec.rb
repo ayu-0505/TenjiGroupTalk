@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#member_of?' do
-    let(:user)  { create(:user) }
+    let(:user) { create(:user) }
     let(:group) { create(:group) }
 
     context 'when user is not member of the group' do
