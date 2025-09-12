@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
+  has_many :invitations
   has_many :admin_groups, class_name: 'Group', foreign_key: :admin_id
 
   def member_of?(group)
