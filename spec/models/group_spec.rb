@@ -4,14 +4,14 @@ RSpec.describe Group, type: :model do
   describe 'name' do
     context 'when it is empty' do
       it 'is invalid' do
-        group = build(:group, name: '')
+        group = build(:group, name: '', admin: create(:user))
         expect(group).to be_invalid
       end
     end
 
     context 'when it is long name' do
       it 'is invalid' do
-        group = build(:group, name: "50文字以上のグループ名#{'あ'*50}")
+        group = build(:group, name: "50文字以上のグループ名#{'あ'*50}", admin: create(:user))
         expect(group).to be_invalid
       end
     end
