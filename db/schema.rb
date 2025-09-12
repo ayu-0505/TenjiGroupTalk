@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_24_004132) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_12_000246) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -38,6 +38,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_24_004132) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "admin_id", null: false
+    t.index ["admin_id"], name: "index_groups_on_admin_id"
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -108,6 +110,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_24_004132) do
   add_foreign_key "brailles", "users"
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
+  add_foreign_key "groups", "users", column: "admin_id"
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users"
   add_foreign_key "memberships", "groups"
