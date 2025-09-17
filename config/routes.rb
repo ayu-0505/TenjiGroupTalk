@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  root "home#index"
-
+  root 'home#index'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'log_out', to: 'sessions#destroy', as: 'log_out'
@@ -21,6 +20,7 @@ Rails.application.routes.draw do
   resources :talks, only: :show do
     resources :comments, only: %i[edit create update destroy]
   end
+  get 'welcome', to: 'home#welcome'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

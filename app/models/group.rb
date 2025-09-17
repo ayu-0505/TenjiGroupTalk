@@ -11,7 +11,7 @@ class Group < ApplicationRecord
     users.count
   end
 
-  def last_invitation
+  def last_valid_invitation
     invitations
       .where('expires_at > ?', Time.current)
       .order(expires_at: :desc)

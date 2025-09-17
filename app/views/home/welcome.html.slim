@@ -1,0 +1,22 @@
+.mx-auto.my-8.px-4.text-center
+  .flex.justify-center
+    = image_tag 'logo_beta.png', alt: '点字グループトークロゴ'
+  .mx-auto.w-3/4
+    p
+      | ひらがなからすぐ点字に変換できるグループ掲示板！<br>
+      | 点字はボタンひとつで凸面、凹面、ひらがなのそれぞれを表示できます。<br>
+      | 点字を使ってコミュニケーションしてみよう！<br>
+
+  .my-8
+    p 招待されています。以下のボタンからグループに参加してください！
+    = button_to 'Googleでログイン', "/auth/google_oauth2/?invitation_token=#{@invitation_token}", method: :post, data: { turbo: false },
+      class: 'inline-block px-4 py-3 w-1/2 rounded-full bg-orange-300 text-orange-950 text-lg hover:bg-orange-400'
+  .mb-8
+    p 利用規約 ・ プライバシーポリシー に同意した上でログインしてください。
+
+  .mx-auto.w-3/4
+    ul
+      li 点字専用入力欄にひらがなで入力して投稿します。
+      li 投稿された点字は凸面で表示されます。
+      li 凹面・ひらがなボタンでそれぞれの内容を表示させることができます。
+      li 他の人の投稿した点字も自由に凹面・ひらがなを表示して確認することができます。

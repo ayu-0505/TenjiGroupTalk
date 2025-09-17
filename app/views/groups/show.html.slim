@@ -5,10 +5,10 @@
   == render @group
 
   - if @group.admin == current_user
-    - if (invitation = @group.last_invitation)
-      / 招待URLを出す
+    - if (invitation = @group.last_valid_invitation)
+      / TODO: 招待コードをコピーするボタン
       p 招待コード 
-      = invitation
+      = welcome_url(invitation_token: invitation.token)
     - else
       p グループに招待する
       = button_to '招待URLを作成', group_invitations_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
