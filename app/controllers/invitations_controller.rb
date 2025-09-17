@@ -4,9 +4,7 @@ class InvitationsController < ApplicationController
   # POST /invitations or /invitations.json
   def create
     group = current_user.groups.find(params[:group_id])
-    expires_at = Time.current + 7.days
-    token = SecureRandom.urlsafe_base64
-    invitation = current_user.invitations.build(token:, expires_at:, group:)
+    invitation = current_user.invitations.build(group:)
 
     if invitation.save
       redirect_to group_path(group), notice: '招待が作成されました'
