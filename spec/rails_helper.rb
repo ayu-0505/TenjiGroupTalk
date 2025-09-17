@@ -81,4 +81,11 @@ RSpec.configure do |config|
       driven_by :rack_test
     end
   end
+
+  # NOTE: request specのsession_specにて、Rails.application.env_configをテストごとにリセットする処理
+  config.around do |example|
+    old_env = Rails.application.env_config.dup
+    example.run
+    Rails.application.env_config.replace(old_env)
+  end
 end
