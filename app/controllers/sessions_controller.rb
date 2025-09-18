@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if token.present?
       invitation = Invitation.find_by(token:)
       if invitation.nil? || invitation.expired?
-        redirect_to root_path, alert: '無効な招待リンク、または期限が切れています'
+        redirect_to root_path, alert: '無効な招待リンク、または期限が切れています', status: :see_other
         return
       end
     end
@@ -22,16 +22,16 @@ class SessionsController < ApplicationController
 
     reset_session
     session[:user_id] = user.id
-    redirect_to dashboard_path, notice: 'ログインしました'
+    redirect_to dashboard_path, notice: 'ログインしました', status: :see_other
 
   rescue => e
     Rails.logger.error("Session#create failed: #{e.message}")
-    redirect_to root_path, alert: 'ログインに失敗しました'
+    redirect_to root_path, alert: 'ログインに失敗しました', status: :see_other
   end
 
   def destroy
     reset_session
-    redirect_to root_path
+    redirect_to root_path, status: :see_other
   end
 
   def auth_failure
