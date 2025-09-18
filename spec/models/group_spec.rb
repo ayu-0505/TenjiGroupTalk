@@ -26,4 +26,20 @@ RSpec.describe Group, type: :model do
       expect(group.member_count).to eq(1)
     end
   end
+
+  describe '#last_valid_invitation' do
+    it 'returns the invitation if a valid one exists' do
+      group = create(:group)
+      invitation = create(:invitation, group:)
+
+      expect(group.last_valid_invitation).to eq invitation
+    end
+
+    it 'returns nil if there is no valid invitation' do
+      group = create(:group)
+      create(:invitation, group:, expires_at: Time.current.yesterday)
+
+      expect(group.last_valid_invitation).to be_nil
+    end
+  end
 end
