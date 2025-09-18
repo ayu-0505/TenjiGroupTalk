@@ -171,4 +171,13 @@ RSpec.describe 'Sessions', type: :request do
       expect(response).to redirect_to(root_path)
     end
   end
+
+  describe 'GET /auth_failure' do
+    it 'deletes the session and redirects to the root' do
+      get auth_failure_path
+      expect(session[:user_id]).to be_nil
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end
