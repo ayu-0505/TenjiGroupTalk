@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
   resources :talks, only: :show do
     resources :comments, only: %i[edit create update destroy]
+    resources :subscriptions, only: %i[create destroy]
   end
   get 'welcome', to: 'home#welcome'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
