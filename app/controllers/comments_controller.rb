@@ -17,6 +17,8 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if comment_form.save
         Subscription.find_or_create_by!(user: current_user, talk: @talk)
+        Notification.create_notifications_by(current_user, comment_form.comment)
+
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
         format.json { render :show, status: :created, location: @comment }
       else
