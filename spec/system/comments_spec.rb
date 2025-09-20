@@ -30,6 +30,20 @@ RSpec.describe "Comments", type: :system do
       click_on '新規作成'
       expect(page).to have_content('面白そう！')
     end
+
+    describe 'auto subscription' do
+      before do
+        log_in_as non_owner_user
+      end
+
+      it 'creates a new subscription and shows the delete button on the talk' do
+        visit group_talk_path(group, talk)
+        expect(page).to have_css('#create_subscription')
+        fill_in 'コメント内容', with: '面白そう！'
+        click_on '新規作成'
+        expect(page).to have_css('#delete_subscription')
+      end
+    end
   end
 
   describe 'update the comment' do
