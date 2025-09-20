@@ -24,4 +24,15 @@ class Notification < ApplicationRecord
       '新しい通知があります'
     end
   end
+
+  def link_path
+    case notifiable
+    when Comment
+      talk = notifiable.talk
+      group = talk.group
+      Rails.application.routes.url_helpers.group_talk_path(group, talk)
+    else
+      Rails.application.routes.url_helpers.dashboard_path
+    end
+  end
 end

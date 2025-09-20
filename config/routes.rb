@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: 'dashboard#index'
   resources :sessions, only: %i[create destroy]
+  resources :notifications, only: %i[update]
 
   namespace :api do
     resource :braille_converter, only: :create
