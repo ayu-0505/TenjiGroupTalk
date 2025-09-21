@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :subscriptions, only: %i[create destroy]
   end
   get 'welcome', to: 'home#welcome'
+  get 'terms', to: 'home#terms'
+  get 'privacy', to: 'home#privacy'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

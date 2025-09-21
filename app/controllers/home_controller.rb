@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate, only: %i[index welcome]
+  skip_before_action :authenticate, only: %i[index welcome terms privacy]
 
   def index
     redirect_to dashboard_path if current_user.present?
@@ -25,4 +25,8 @@ class HomeController < ApplicationController
       end
     end
   end
+
+  def terms; end
+
+  def privacy; end
 end
