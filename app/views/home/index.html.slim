@@ -15,7 +15,9 @@
   .mb-8
     p
       = link_to '利用規約', terms_path, class: 'text-green-500 hover:underline'
-      | ・ プライバシーポリシー に同意した上でログインしてください。
+      | ・
+      = link_to 'プライバシーポリシー', privacy_path, class: 'text-green-500 hover:underline'
+      | に同意した上でログインしてください。
 
   .mx-auto.w-3/4
     ul
