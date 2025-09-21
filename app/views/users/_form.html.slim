@@ -7,24 +7,8 @@
           li = error.full_message
 
   div
-    = form.label :name, style: "display: block"
-    = form.text_field :name
-
-  div
-    = form.label :email, style: "display: block"
-    = form.text_field :email
-
-  div
-    = form.label :image, style: "display: block"
-    = form.text_field :image
-
-  div
-    = form.label :uid, style: "display: block"
-    = form.text_field :uid
-
-  div
     = form.label :nickname, style: "display: block"
-    = form.text_field :nickname
+    = form.text_field :nickname, class: 'border border-blue-400'
 
-  div
+  .text-blue-600.hover:text-blue-800.active:text-blue-900.underline.transition
     = form.submit

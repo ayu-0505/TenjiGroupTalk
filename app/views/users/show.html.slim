@@ -1,10 +1,15 @@
 p style="color: green" = notice
 
-== render @user
+.flex.justify-center.text-2xl.font-bold.my-8.mx-4 プロフィール
+
+= render @user
 
 div
-  => link_to "Edit this user", edit_user_path(@user)
-  '|
-  =< link_to "Back to users", users_path
+  = link_to 'ユーザー名編集', edit_user_path(@user), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  .text-xl.font-bold 所属グループ
+  - @user.groups.each do |group|
+    = link_to group.name, group
 
-  = button_to "Destroy this user", @user, method: :delete
+  = button_to 'アカウント削除', @user,
+    { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
+    class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}

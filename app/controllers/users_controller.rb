@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'ニックネームを更新しました' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -21,11 +21,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    reset_session
+    redirect_to root_path, status: :see_other, notice: 'ユーザーを削除しました'
   end
 
   private
@@ -36,6 +33,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :name, :email, :image, :uid, :nickname ])
+      params.expect(user: [ :nickname ])
     end
 end
