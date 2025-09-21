@@ -1,6 +1,9 @@
 p style='color: green' = notice
 .mx-auto.max-w-screen-md
   = link_to 'トーク一覧へ戻る', group_talks_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  #subscription_toggle
+    = render 'subscriptions/toggle', talk: @talk
+
   == render @talk, braille: @talk.braille
   
   div
