@@ -2,4 +2,5 @@ header.container.mx-auto.max-w-screen-md.bg-white
   .w-full.flex.items-center.justify-between.mx-auto.h-16.max-w-screen-md.border-b.border-blue-400
     = link_to 'ログアウト', log_out_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     = link_to 'トップへ戻る', dashboard_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    = link_to 'プロフィール', user_path(current_user), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     = image_tag current_user.image, class: 'w-12 rounded-full'

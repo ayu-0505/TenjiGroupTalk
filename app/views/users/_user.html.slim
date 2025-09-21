@@ -1,16 +1,4 @@
 div id="#{dom_id user}"
-  p
-    strong Name:
-    =< user.name
-  p
-    strong Email:
-    =< user.email
-  p
-    strong Image:
-    =< user.image
-  p
-    strong Uid:
-    =< user.uid
-  p
-    strong Nickname:
-    =< user.nickname
+  = image_tag current_user.image, class: 'w-12 rounded-full'
+  p ユーザー名
+  = current_user.nickname
