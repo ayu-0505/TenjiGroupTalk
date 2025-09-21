@@ -19,7 +19,7 @@ html
     = javascript_importmap_tags
 
   body.flex.flex-col.items-center.h-screen.bg-lime-50
-    - if logged_in?
+    - unless current_page?(root_path) || current_page?(welcome_path)
       = render 'layouts/header'
     main.container.mx-auto.max-w-screen-md.bg-white
       = yield
