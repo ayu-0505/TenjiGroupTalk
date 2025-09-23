@@ -76,3 +76,7 @@ RSpec/NestedGroups:
 RSpec/MultipleMemoizedHelpers:
   Enabled: true
   Max: 8 # default: 5
+
+# ナンバリング変数の許容
+RSpec/IndexedLet:
+  Enabled: false
