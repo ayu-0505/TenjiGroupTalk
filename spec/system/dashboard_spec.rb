@@ -11,10 +11,10 @@ RSpec.describe 'Dashboard', type: :system do
       log_in_as user
 
       expect(page).to have_css('.notification')
-      click_on "#{talk.title}に#{comment.user.name}よりコメントがありました"
+      click_on "#{talk.title}に#{comment.user.nickname}よりコメントがありました"
       expect(page).to have_content(talk.description)
       click_on 'トップへ戻る'
-      expect(page).to have_no_content("#{talk.title}に#{comment.user.name}よりコメントがありました")
+      expect(page).to have_no_content("#{talk.title}に#{comment.user.nickname}よりコメントがありました")
     end
   end
 end
