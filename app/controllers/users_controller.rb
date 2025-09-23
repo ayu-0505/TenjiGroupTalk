@@ -20,9 +20,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy!
+    @user.soft_delete!
     reset_session
-    redirect_to root_path, status: :see_other, notice: 'ユーザーを削除しました'
+    redirect_to root_path, status: :see_other, notice: '退会しました'
   end
 
   private
