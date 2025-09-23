@@ -12,10 +12,11 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
-    ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: comment_form.comment)
 
     respond_to do |format|
       if comment_form.save
+        ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: comment_form.comment)
+
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
         format.json { render :show, status: :created, location: @comment }
       else

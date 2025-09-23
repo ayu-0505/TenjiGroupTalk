@@ -27,10 +27,11 @@ class TalksController < ApplicationController
   # POST /talks or /talks.json
   def create
     @talk_form = TalkBrailleForm.new(user: current_user, group: @group, attributes: talk_braille_params)
-    ActiveSupport::Notifications.instrument('talk.create', user: current_user, talk: @talk_form.talk)
 
     respond_to do |format|
       if @talk_form.save
+        ActiveSupport::Notifications.instrument('talk.create', user: current_user, talk: @talk_form.talk)
+
         format.html { redirect_to group_talk_path(@group, @talk_form.talk), notice: 'トークが作成されました！' }
         format.json { render :show, status: :created, location: @talk }
       else
