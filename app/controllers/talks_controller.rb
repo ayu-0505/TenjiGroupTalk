@@ -30,7 +30,6 @@ class TalksController < ApplicationController
 
     respond_to do |format|
       if @talk_form.save
-        Subscription.find_or_create_by!(user: current_user, talk: @talk_form.talk)
         format.html { redirect_to group_talk_path(@group, @talk_form.talk), notice: 'トークが作成されました！' }
         format.json { render :show, status: :created, location: @talk }
       else

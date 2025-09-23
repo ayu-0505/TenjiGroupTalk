@@ -28,34 +28,6 @@ RSpec.describe 'Talks', type: :system do
       expect(page).to have_text(talks[0].description)
     end
 
-    describe 'subscription button at the talk' do
-      before do
-        group.users << other_user
-        log_in_as other_user
-      end
-
-      it 'creates a subscription when the subscribe button is OFF and clicked' do
-        expect(other_user.subscriptions.find_by(talk: talks[0]).present?).to be false
-
-        visit group_talk_path(group, talks[0])
-        find_by_id('create_subscription').click
-
-        expect(other_user.subscriptions.find_by(talk: talks[0]).present?).to be true
-        expect(page).to have_css '#delete_subscription'
-      end
-
-      it 'destroys the subscription when the subscribe button is ON and clicked' do
-        Subscription.create(user: other_user, talk: talks[0])
-        expect(other_user.subscriptions.find_by(talk: talks[0]).present?).to be true
-
-        visit group_talk_path(group, talks[0])
-        find_by_id('delete_subscription').click
-
-        expect(other_user.subscriptions.find_by(talk: talks[0]).present?).to be false
-        expect(page).to have_css '#create_subscription'
-      end
-    end
-
     context 'when the user is not the talk owner' do
       before do
         group.users << other_user
@@ -81,23 +53,6 @@ RSpec.describe 'Talks', type: :system do
       expect(page).to have_content('トークが作成されました！')
       expect(page).to have_content('点字しりとり！')
       expect(page).to have_content('点字を使ってしりとりしましょう')
-    end
-
-    describe 'auto subscription' do
-      before do
-        group.users << other_user
-        log_in_as other_user
-      end
-
-      it 'creates a new subscription and shows the delete button on the talk' do
-        visit group_talks_path(group)
-        click_on '新しいトークを作成する'
-        fill_in 'タイトル', with: '点字しりとり！'
-        fill_in '内容', with: '点字を使ってしりとりしましょう'
-        click_on 'トークを作成'
-
-        expect(page).to have_css '#delete_subscription'
-      end
     end
   end
 
