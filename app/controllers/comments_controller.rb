@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
-    # comment = @talk.comments.build(comment_params)
+    ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: comment_form.comment)
 
     respond_to do |format|
       if comment_form.save
