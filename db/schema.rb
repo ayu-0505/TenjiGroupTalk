@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_20_031303) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_12_000246) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -81,7 +81,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_20_031303) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["talk_id"], name: "index_subscriptions_on_talk_id"
-    t.index ["user_id", "talk_id"], name: "index_subscriptions_on_user_id_and_talk_id", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
