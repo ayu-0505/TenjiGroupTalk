@@ -1,0 +1,5 @@
+- notifications.each do |notification|
+  = link_to notification.link_title,
+    notification_path(notification),
+    data: { turbo_method: :patch },
+    class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
