@@ -2,7 +2,7 @@
   .comment.block.p-4.my-4.border id="#{dom_id comment}"
     p
       strong 投稿者:
-      =< comment.user.nickname
+      = display_user_name(comment.user)
   
     p
       strong 内容:

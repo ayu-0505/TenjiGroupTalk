@@ -23,7 +23,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#soft_delete!' do
-    it 'updates deleted_at, name, email, uid and image (soft delete)' do
+    it 'updates deleted_at, name, email, uid and image (soft-delete)' do
       expect(user.deleted_at).to be_nil
       user.soft_delete!
       expect(user.reload).to have_attributes(
@@ -33,6 +33,13 @@ RSpec.describe User, type: :model do
         image: 'deleted_image'
       )
       expect(user.deleted_at).not_to be_nil
+    end
+  end
+
+  describe 'deleted?' do
+    it 'returns true when the user is soft-deleted' do
+      user.soft_delete!
+      expect(user.reload.deleted?).to be true
     end
   end
 end
