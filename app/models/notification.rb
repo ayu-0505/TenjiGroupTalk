@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
   def link_title
     case notifiable
     when Comment
-      "#{notifiable.talk.title}に#{notifiable.user.name}よりコメントがありました"
+      "#{notifiable.talk.title}に#{notifiable.user.nickname}よりコメントがありました"
     else
       '新しい通知があります'
     end

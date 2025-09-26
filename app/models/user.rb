@@ -12,6 +12,14 @@ class User < ApplicationRecord
     groups.include?(group)
   end
 
+  def soft_delete!
+    update!(deleted_at: Time.current, name: 'deleted_name', email: 'deleted_email', uid: 'deleted_uid', image: 'deleted_image')
+  end
+
+  def deleted?
+    deleted_at.present?
+  end
+
   def self.find_or_initialize_from_auth_hash!(auth_hash)
     user_params = user_params_from_auth_hash(auth_hash)
     find_or_initialize_by(uid: user_params[:uid]) do |user|

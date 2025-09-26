@@ -15,3 +15,7 @@
       .border.w-full.mt-2
         p
           = braille.indented_braille
+    p by
+    = image_tag talk.user.image, class: 'w-8'
+    = display_user_name(talk.user)
+    = l talk.created_at
