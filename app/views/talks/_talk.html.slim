@@ -8,13 +8,13 @@
     - if braille.present?
       .border.w-full.mt-2
         p
-          = braille.original_text
+          = simple_format(braille.original_text)
       .border.w-full.mt-2
         P
-          = braille.raised_braille
+          = simple_format(braille.raised_braille)
       .border.w-full.mt-2
         p
-          = braille.indented_braille
+          = simple_format(braille.indented_braille)
     p by
     = image_tag talk.user.image, class: 'w-8'
     = display_user_name(talk.user)

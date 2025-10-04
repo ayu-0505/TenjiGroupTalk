@@ -24,12 +24,12 @@
           p
             = Braille.human_attribute_name(:raised_braille)
           span data-braille-converter-target="raised"
-            = @comment.braille.raised_braille
+            = simple_format(@comment.braille.raised_braille)
         .border.w-full.mt-2
           p
             = Braille.human_attribute_name(:indented_braille)
           span data-braille-converter-target="indented"
-            = @comment.braille.indented_braille
+            = simple_format(@comment.braille.indented_braille)
     - else
       .hidden data-braille-converter-target="result"
         .border.w-full.mt-2

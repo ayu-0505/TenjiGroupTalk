@@ -11,13 +11,13 @@
     - if comment.braille.present?
       .border.w-full.mt-2
         P
-          = comment.braille.original_text
+          = simple_format(comment.braille.original_text)
       .border.w-full.mt-2
         P
-          = comment.braille.raised_braille
+          = simple_format(comment.braille.raised_braille)
       .border.w-full.mt-2
         p
-          = comment.braille.indented_braille
+          = simple_format(comment.braille.indented_braille)
   
     = link_to 'コメントを編集する', edit_talk_comment_path(talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
     = button_to 'コメントを削除する', talk_comment_path(talk, comment),
