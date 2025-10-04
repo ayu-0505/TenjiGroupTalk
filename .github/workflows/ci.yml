@@ -78,6 +78,9 @@ jobs:
       - name: Run Rubocop
         run: bundle exec rubocop
 
+      - name: Precompile assets
+        run: bin/rails assets:precompile
+
       - name: Set up Database
         run: bin/rails db:prepare
 
