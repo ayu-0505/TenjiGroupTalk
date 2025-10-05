@@ -137,9 +137,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.13.0)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     json (2.13.2)
     jwt (3.1.2)
       base64
@@ -470,7 +467,6 @@ DEPENDENCIES
   debug
   factory_bot_rails
   importmap-rails
-  jbuilder
   kamal
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
