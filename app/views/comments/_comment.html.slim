@@ -9,14 +9,17 @@
       =< simple_format(comment.description)
 
     - if comment.braille.present?
-      .border.w-full.mt-2
-        P
+      div data-controller="braille-display"
+        button type="button" data-action="click->braille-display#toggle" data-braille-display-target="originalBtn" class='original_text_display_btn' 非表示
+        .original_text.border.w-full.mt-2 data-braille-display-target="original"
           = simple_format(comment.braille.original_text)
-      .border.w-full.mt-2
-        P
+
+        button type="button" data-action="click->braille-display#toggle" data-braille-display-target="raisedBtn" class='raised_braille_display_btn' 表示
+        .raised_braille.border.w-full.mt-2.hidden data-braille-display-target="raised"
           = simple_format(comment.braille.raised_braille)
-      .border.w-full.mt-2
-        p
+
+        button type="button" data-action="click->braille-display#toggle" data-braille-display-target="indentedBtn" class='indented_braille_display_btn' 表示
+        .indented_braille.border.w-full.mt-2.hidden data-braille-display-target="indented"
           = simple_format(comment.braille.indented_braille)
   
     = link_to 'コメントを編集する', edit_talk_comment_path(talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
