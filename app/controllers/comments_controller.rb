@@ -9,16 +9,19 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
+    @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
 
     respond_to do |format|
-      if comment_form.save
-        ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: comment_form.comment)
-
+      if @comment_form.save
+        ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: @comment_form.comment)
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
-        format.json { render :show, status: :created, location: @comment }
+        format.turbo_stream {
+          flash.now[:notice] = 'コメントを投稿しました！'
+          render :create, locals: { success: true }
+        }
       else
-        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: comment_form.errors.full_messages } }
+        format.turbo_stream { render :create, locals: { success: false, comment_form: @comment_form }, status: :unprocessable_entity }
+        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: @comment_form.errors.full_messages } }
         format.json { render json: comment_form.errors, status: :unprocessable_entity }
       end
     end
@@ -30,7 +33,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment_form.update
         format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントが更新されました！' }
-        format.json { render :show, status: :ok, location: @comment }
+        format.turbo_stream { flash.now[:notice] = 'コメントが更新されました！' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

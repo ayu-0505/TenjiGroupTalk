@@ -60,7 +60,7 @@ RSpec.describe "Comments", type: :system do
     context 'when clicking the convert button in the new form' do
       it 'converts to raised braille and indented braille' do
         visit group_talk_path(group, talk)
-        within(".new_comment") do
+        within("#new_comment") do
           fill_in 'ひらがな文', with: 'こんにちわ'
           click_button '変換'
 

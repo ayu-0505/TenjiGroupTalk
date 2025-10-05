@@ -11,6 +11,5 @@
       = button_to 'トークを削除する', group_talk_path(@group, @talk),
       { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
       class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
-  
-  .comments
+
     = render 'comments/comments', talk: @talk, comments: @comments, comment_form: @comment_form
