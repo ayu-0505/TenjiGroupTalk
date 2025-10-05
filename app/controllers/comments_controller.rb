@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
     @comment_form = CommentBrailleForm.new(talk: @talk, comment: @comment)
   end
 
-  # POST /comments or /comments.json
   def create
     @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
 
@@ -22,12 +21,10 @@ class CommentsController < ApplicationController
       else
         format.turbo_stream { render :create, locals: { success: false, comment_form: @comment_form }, status: :unprocessable_entity }
         format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: @comment_form.errors.full_messages } }
-        format.json { render json: comment_form.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /comments/1 or /comments/1.json
   def update
     @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, comment: @comment, attributes: comment_braille_params)
     respond_to do |format|
@@ -36,12 +33,10 @@ class CommentsController < ApplicationController
         format.turbo_stream { flash.now[:notice] = 'コメントが更新されました！' }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /comments/1 or /comments/1.json
   def destroy
     @comment.destroy!
 
@@ -55,12 +50,10 @@ class CommentsController < ApplicationController
       @talk = Talk.find(params.expect(:talk_id))
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = current_user.comments.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def comment_braille_params
       params.expect(comment_braille_form: [ :description, :original_text ])
     end
