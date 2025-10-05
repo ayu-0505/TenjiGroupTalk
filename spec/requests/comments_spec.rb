@@ -52,34 +52,35 @@ RSpec.describe '/comments', type: :request do
 
       it 'creates a new comment' do
         expect {
-          post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }
+          post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }, as: :turbo_stream
         }.to change(Comment, :count).by(1)
       end
 
-      it 'redirects to the talk' do
-        post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }
-        expect(response).to redirect_to(group_talk_url(group, talk))
+      it 'returns turbo stream response' do
+        post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }, as: :turbo_stream
+        expect(response).to have_http_status(:ok)
+        expect(response.media_type).to eq('text/vnd.turbo-stream.html')
+        expect(response.body).to include('turbo-stream')
       end
     end
 
     context 'with invalid parameters' do
       before { sign_in(user) }
 
-      it 'does not create a new Talk' do
+      it 'does not create a new Comment' do
         expect {
-          post talk_comments_path(talk), params: { comment_braille_form: invalid_attributes }
-        }.not_to change(Talk, :count)
+          post talk_comments_path(talk), params: { comment_braille_form: invalid_attributes }, as: :turbo_stream
+        }.not_to change(Comment, :count)
       end
 
-      it 'redirects to the talk with error messages' do
-        post talk_comments_path(talk), params: { comment_braille_form: invalid_attributes }
-        expect(response).to redirect_to(group_talk_url(group, talk))
-        expect(flash[:error]).to be_present
+      it 'renders a response with 422 status' do
+        post talk_comments_path(talk), params: { comment_braille_form: invalid_attributes }, as: :turbo_stream
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
     context 'when user is a not group member' do
-      subject { post talk_comments_path(talk), params: { comment_braille_form: valid_attributes } }
+      subject { post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }, as: :turbo_stream }
 
       before do
        non_member_user = create(:user)
@@ -99,10 +100,12 @@ RSpec.describe '/comments', type: :request do
       before { sign_in(user) }
 
       it 'updates the requested comment and redirects to the talk' do
-        patch talk_comment_url(talk, comment), params: { comment_braille_form: new_attributes }
+        patch talk_comment_url(talk, comment), params: { comment_braille_form: new_attributes }, as: :turbo_stream
         comment.reload
         expect(comment.description).to eq 'New Comment'
-        expect(response).to redirect_to(group_talk_path(group, talk))
+        expect(response).to have_http_status(:ok)
+        expect(response.media_type).to eq('text/vnd.turbo-stream.html')
+        expect(response.body).to include('turbo-stream')
       end
     end
 
@@ -110,13 +113,13 @@ RSpec.describe '/comments', type: :request do
       before { sign_in(user) }
 
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        patch talk_comment_url(talk, comment), params: { comment_braille_form: invalid_attributes }
+        patch talk_comment_url(talk, comment), params: { comment_braille_form: invalid_attributes }, as: :turbo_stream
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
     context 'when user is a not owner' do
-      subject { patch talk_comment_url(talk, comment), params: { comment_braille_form: new_attributes } }
+      subject { patch talk_comment_url(talk, comment), params: { comment_braille_form: new_attributes }, as: :turbo_stream }
 
       before { sign_in(non_owner_user) }
 
@@ -128,7 +131,7 @@ RSpec.describe '/comments', type: :request do
     context 'when user is owner' do
       before { sign_in(user) }
 
-      it 'destroys the requested commentand redirects to the talk' do
+      it 'destroys the requested commentand returns turbo stream response' do
         expect {
           delete talk_comment_url(talk, comment), as: :turbo_stream
         }.to change(Comment, :count).by(-1)
