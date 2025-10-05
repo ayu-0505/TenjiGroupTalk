@@ -4,9 +4,7 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
-    # TODO: 開発のしやすさを考慮し、一時的にall取得にしている。最終は下コードにすること
-    @groups = Group.all
-    # @groups = current_user.groups
+    @groups = current_user.groups
   end
 
   # GET /groups/1 or /groups/1.json
