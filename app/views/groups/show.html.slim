@@ -1,8 +1,5 @@
 .flex.flex-col.mx-auto.max-w-screen-md
-  p style="color: green" = notice
-  p style="color: red" = alert
-  
-  == render @group
+  = render @group
 
   - if @group.admin == current_user
     - if (invitation = @group.last_valid_invitation)

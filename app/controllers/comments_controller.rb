@@ -3,8 +3,6 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ edit update destroy ]
   before_action :authorize_group_member
 
-  # TODO: 一部でHotwire使用のため、noticeが意図通り動かない。flashに変更後、turbo_streamを使って同時更新を行うこと
-
   def edit
     @comment_form = CommentBrailleForm.new(talk: @talk, comment: @comment)
   end
@@ -45,7 +43,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { flash.now[:notice] = 'コメントを削除しました' }
     end
   end
 
