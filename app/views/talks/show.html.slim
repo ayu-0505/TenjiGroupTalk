@@ -3,7 +3,7 @@
   #subscription_toggle
     = render 'subscriptions/toggle', talk: @talk
 
-  == render @talk, braille: @talk.braille
+  = render 'talks/talk', talk: @talk, braille: @talk.braille
   
   div
     - if @talk.user == current_user

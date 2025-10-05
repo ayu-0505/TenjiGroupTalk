@@ -1,7 +1,6 @@
 class InvitationsController < ApplicationController
   skip_before_action :authenticate, only: :create
 
-  # POST /invitations or /invitations.json
   def create
     group = current_user.groups.find(params[:group_id])
     invitation = current_user.invitations.build(group:)

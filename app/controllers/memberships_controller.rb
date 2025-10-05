@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class MembershipsController < ApplicationController
   def destroy
     group = current_user.groups.find(params[:group_id])
