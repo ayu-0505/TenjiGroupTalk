@@ -23,16 +23,17 @@
       button type="button" data-action="click->braille-converter#convert" 変換
 
     - if params[:action] == 'edit' && @talk.braille.present?
-      .border.w-full.mt-2
-        p
-          = Braille.human_attribute_name(:raised_braille)
-        span data-braille-converter-target="raised"
-          = @talk.braille.raised_braille
-      .border.w-full.mt-2
-        p
-          = Braille.human_attribute_name(:indented_braille)
-        span data-braille-converter-target="indented"
-          = @talk.braille.indented_braille
+      div data-braille-converter-target="result"
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:raised_braille)
+          span data-braille-converter-target="raised"
+            = simple_format(@talk.braille.raised_braille)
+        .border.w-full.mt-2
+          p
+            = Braille.human_attribute_name(:indented_braille)
+          span data-braille-converter-target="indented"
+            = simple_format(@talk.braille.indented_braille)
     - else
       .hidden data-braille-converter-target="result"
         .border.w-full.mt-2

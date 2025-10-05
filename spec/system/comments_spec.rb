@@ -104,4 +104,26 @@ RSpec.describe "Comments", type: :system do
       end
     end
   end
+
+  describe 'has a braille with toggle visiblity button' do
+    it 'shows a toggle buttonand allows switching visibility', :js do
+      braille = create(:comment_braille, brailleable: comments[0], user:)
+      visit group_talk_path(group, talk)
+
+      within "div#comment_#{comments[0].id}.comment" do
+        expect(page).to have_content ("#{braille.original_text}")
+        expect(page).to have_css('.raised_braille.hidden', visible: :all)
+        expect(page).to have_css('.indented_braille.hidden', visible: :all)
+
+        find('.original_text_display_btn').click
+        expect(page).to have_css('.original_text.hidden', visible: :all)
+
+        find('.raised_braille_display_btn').click
+        expect(page).to have_content ("#{braille.raised_braille}")
+
+        find('.indented_braille_display_btn').click
+        expect(page).to have_content ("#{braille.indented_braille}")
+      end
+    end
+  end
 end

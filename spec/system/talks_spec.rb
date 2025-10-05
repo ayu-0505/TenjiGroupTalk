@@ -35,10 +35,32 @@ RSpec.describe 'Talks', type: :system do
       end
 
       it 'does not display the edit and delete links' do
-         visit group_talk_path(group, talks[0])
-          expect(page).to have_content(talks[0].title)
-         expect(page).to have_no_content('トークを編集する')
-         expect(page).to have_no_content('トークを削除する')
+        visit group_talk_path(group, talks[0])
+        expect(page).to have_content(talks[0].title)
+        expect(page).to have_no_content('トークを編集する')
+        expect(page).to have_no_content('トークを削除する')
+      end
+    end
+
+    context 'when the content contains braille' do
+      it 'shows a toggle buttonand allows switching visibility', :js do
+        braille = create(:talk_braille, brailleable: talks[0], user:)
+        visit group_talk_path(group, talks[0])
+
+        expect(page).to have_content ("#{braille.original_text}")
+        expect(page).to have_css('.raised_braille.hidden', visible: :all)
+        expect(page).to have_css('.indented_braille.hidden', visible: :all)
+
+        within '.talk' do
+          find('.original_text_display_btn').click
+          expect(page).to have_css('.original_text.hidden', visible: :all)
+
+          find('.raised_braille_display_btn').click
+          expect(page).to have_content ("#{braille.raised_braille}")
+
+          find('.indented_braille_display_btn').click
+          expect(page).to have_content ("#{braille.indented_braille}")
+        end
       end
     end
   end
