@@ -5,4 +5,5 @@ header.container.mx-auto.max-w-screen-md.bg-white
       = link_to 'ログアウト', log_out_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
       = link_to 'トップへ戻る', dashboard_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
       = link_to 'プロフィール', user_path(current_user), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+      = render 'layouts/menu'
       = image_tag current_user.image, class: 'w-12 rounded-full'
