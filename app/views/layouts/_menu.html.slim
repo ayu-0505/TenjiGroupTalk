@@ -9,9 +9,10 @@ div(
 )
   button data-action="dropdown#toggle:stop" class="px-2.5 py-1 bg-blue-500 text-white text-sm rounded"
     = image_tag('menu.svg', class: 'icon', class: 'icon w-10 h-10', alt: 'メニューボタンの３本線マーク')
-  div data-dropdown-target="menu" class="hidden absolute top-4 right-0 z-10 mt-5 flex w-screen max-w-max"
+  div data-dropdown-target="menu" class="hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max"
     div class="text-sm bg-white shadow-lg rounded border overflow-hidden w-32"
-      a data-dropdown-target="menuItem" href="#" class='no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100' Account
-      a data-dropdown-target="menuItem" href="#" class='no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100' Billing
+      = link_to 'トップへ戻る', dashboard_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
+      = link_to 'プロフィール', user_path(current_user), class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
+      = link_to '所属グループ一覧', groups_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
       hr class="border-t"
-      a data-dropdown-target="menuItem" href="#" class='no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100' Sign Out
+      = link_to 'ログアウト', log_out_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
