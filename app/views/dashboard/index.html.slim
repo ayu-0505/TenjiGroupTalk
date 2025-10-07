@@ -8,6 +8,12 @@
       - if @unread_notifications.size > Notification::DASHBOARD_LIMIT
         p 残りの未読通知を確認する
         = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+        = button_to '全て既読にする', allmarks_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  - else
+    p
+    | 未読通知はありません
+    | 過去の通知を確認する
+    = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
   - if @groups.size == 0
     | まだ所属グループがありません！<br>
