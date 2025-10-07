@@ -4,10 +4,12 @@ class Notification < ApplicationRecord
 
   scope :unread, -> { where(read: false) }
 
+  DASHBOARD_LIMIT = 3
+
   def link_title
     case notifiable
     when Comment
-      "#{notifiable.talk.title}に#{notifiable.user.nickname}よりコメントがありました"
+      "#{notifiable.talk.title}に#{notifiable.user.nickname}よりコメントがありました（#{I18n.l notifiable.created_at}）"
     else
       '新しい通知があります'
     end
