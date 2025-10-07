@@ -1,0 +1,6 @@
+ustify-center.text-2xl.font-bold.my-8.mx-4 通知一覧
+
+- @notifications.each do |notification|
+  = render 'notification', notification: notification
+
+= link_to 'ダッシュボードへ戻る', dashboard_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

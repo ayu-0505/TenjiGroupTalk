@@ -3,7 +3,11 @@
 
   - if @unread_notifications.size != 0
     .notifications
-      = render 'notifications/notifications', notifications: @unread_notifications
+      - @unread_notifications.first(Notification::DASHBOARD_LIMIT).each do |notification|
+        = render 'notifications/notification', notification: notification
+      - if @unread_notifications.size > Notification::DASHBOARD_LIMIT
+        p 残りの未読通知を確認する
+        = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
   - if @groups.size == 0
     | まだ所属グループがありません！<br>
