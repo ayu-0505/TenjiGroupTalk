@@ -12,6 +12,7 @@ div(
   div data-dropdown-target="menu" class="hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max"
     div class="text-sm bg-white shadow-lg rounded border overflow-hidden w-32"
       = link_to 'トップへ戻る', dashboard_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
+      = link_to '通知一覧', notifications_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
       = link_to 'プロフィール', user_path(current_user), class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
       = link_to '所属グループ一覧', groups_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {dropdown_target: 'menuItem'}
       hr class="border-t"
