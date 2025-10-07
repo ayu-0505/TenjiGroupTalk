@@ -9,7 +9,7 @@ class CommentNotificater
     talk = payload[:talk]
     subscribers = talk.subscribers.where.not(id: user.id)
     subscribers.each do |subscriber|
-      Notification.create(
+      Notification.find_or_create_by!(
         user: subscriber,
         notifiable_type: 'Comment',
         notifiable_id: comment.id

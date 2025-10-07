@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_23_064232) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_064232) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id", "notifiable_id"], name: "index_notifications_on_user_id_and_notifiable_id", unique: true
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
