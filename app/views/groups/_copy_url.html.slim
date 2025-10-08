@@ -1,0 +1,6 @@
+div data-controller="clipboard" data-clipboard-success-content-value="コピーしました！"
+  span data-clipboard-target="source"
+    = welcome_url(invitation_token)
+
+  button type="button" data-action="clipboard#copy" data-clipboard-target="button" class='text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    | URLをコピーする

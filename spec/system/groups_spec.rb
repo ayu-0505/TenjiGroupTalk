@@ -22,7 +22,7 @@ RSpec.describe "Groups", type: :system do
     end
 
     describe 'group page' do
-     context 'when the admin user group leaves group' do
+     context 'when the admin user' do
       before do
         group.admin.groups << group
         log_in_as group.admin
@@ -32,6 +32,12 @@ RSpec.describe "Groups", type: :system do
         visit group_path(group)
         click_button 'グループから抜ける'
         expect(page).to have_content '管理者はグループを抜けられません。グループ削除を行なってください。'
+      end
+
+      it 'creates an invitation URL when the create button is clicked' do
+        visit group_path(group)
+        click_button '招待URLを作成'
+        expect(page).to have_content "http://www.example.com/welcome.#{Invitation.last.token}"
       end
     end
   end

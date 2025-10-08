@@ -3,9 +3,10 @@
 
   - if @group.admin == current_user
     - if (invitation = @group.last_valid_invitation)
-      / TODO: 招待コードをコピーするボタン
-      p 招待コード 
-      = welcome_url(invitation_token: invitation.token)
+      p 招待URL
+      | ※使用期限は1週間です
+      = render 'copy_url', invitation_token: invitation.token
+      = "現在のURLの使用期限は#{l invitation.expires_at}です。"
     - else
       p グループに招待する
       = button_to '招待URLを作成', group_invitations_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
