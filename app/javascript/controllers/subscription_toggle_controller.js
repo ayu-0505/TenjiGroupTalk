@@ -26,6 +26,8 @@ export default class extends Controller {
       const data = await response.json;
       if (response.ok) {
         this.idTarget.setAttribute("id", data.id);
+        const flashContainer = document.getElementById("flash");
+        flashContainer.innerHTML = data.html;
         this.switchTarget.classList.remove("left-[3px]", "bg-sky-300");
         this.switchTarget.classList.add("left-8", "bg-sky-600");
       }
@@ -36,7 +38,10 @@ export default class extends Controller {
         `/api/subscriptions/${this.idTarget.getAttribute("id")}`
       );
       const response = await request.perform();
+      const data = await response.json;
       if (response.ok) {
+        const flashContainer = document.getElementById("flash");
+        flashContainer.innerHTML = data.html;
         this.idTarget.removeAttribute("id");
         this.switchTarget.removeAttribute("checked");
         this.switchTarget.classList.remove("left-8", "bg-sky-600");
