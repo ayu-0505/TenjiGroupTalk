@@ -10,6 +10,7 @@ class TalksController < ApplicationController
   def show
     @comments = @talk.comments
     @comment_form = CommentBrailleForm.new(talk: @talk)
+    @subscription = current_user.subscriptions.find_by(talk: @talk)
   end
 
   def new

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resource :braille_converter, only: :create
+    resources :subscriptions, only: %i[create destroy]
   end
 
   resources :users, only: %i[show edit update destroy]
@@ -24,7 +25,6 @@ Rails.application.routes.draw do
   end
   resources :talks, only: :show do
     resources :comments, only: %i[edit create update destroy]
-    resources :subscriptions, only: %i[create destroy]
   end
   get 'welcome', to: 'home#welcome'
   get 'terms', to: 'home#terms'
