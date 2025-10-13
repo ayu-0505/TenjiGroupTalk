@@ -11,15 +11,3 @@ div data-controller="subscription-toggle" data-subscription-toggle-talk-id-value
       label for="check" class="bg-gray-100 cursor-pointer relative w-16 h-8 rounded-full border border-gray-400"
         input type="checkbox" id="check" class="sr-only" data-action="change->subscription-toggle#toggle" data-subscription-toggle-target="check"
         span class="h-[26px] w-[26px] bg-sky-300 absolute rounded-full top-[2px] left-[3px] transition-all duration-500" data-subscription-toggle-target="switch"
-
-  / - if subscription
-  /   div class="flex items-center justify-center" data-subscription-toggle-target="id" id="#{subscription.id}"
-  /     label for="check" class="bg-gray-100 cursor-pointer relative w-16 h-8 rounded-full border border-gray-400"
-  /       input type="checkbox" id="check" class="sr-only peer" data-action="change->subscription-toggle#toggle" data-subscription-toggle-target="check" checked="true"
-  /       span class="h-[26px] w-[26px] bg-sky-300 absolute rounded-full top-[2px] left-[3px] peer-checked:bg-sky-600 peer-checked:left-8 transition-all duration-500" data-subscription-toggle-target="switch"
-  / - else
-  /   .flex.items-center.justify-center data-subscription-toggle-target="id"
-  /     label for="check" class="bg-gray-100 cursor-pointer relative w-16 h-8 rounded-full border border-gray-400"
-  /       input type="checkbox" id="check" class="sr-only peer" data-action="change->subscription-toggle#toggle" data-subscription-toggle-target="check" checked="false"
-  /       span class="h-[26px] w-[26px] bg-sky-300 absolute rounded-full top-[2px] left-[3px] peer-checked:bg-sky-600 peer-checked:left-8 transition-all duration-500" data-subscription-toggle-target="switch"
-/ 
