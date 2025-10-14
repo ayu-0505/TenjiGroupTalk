@@ -12,7 +12,7 @@ RSpec.describe 'Subscriptions', type: :request do
   describe 'POST /create' do
     it 'creates a subscription' do
       expect {
-        post talk_subscriptions_path(talk)
+        post api_subscriptions_path(talk_id: talk)
     }.to change(Subscription, :count).by(1)
       subscription = Subscription.last
       expect(user.subscriptions.include?(subscription)).to be true
@@ -23,7 +23,7 @@ RSpec.describe 'Subscriptions', type: :request do
     it 'deletes the subscription' do
       subscription = user.subscriptions.create(talk:)
       expect {
-        delete talk_subscription_path(talk, subscription)
+        delete api_subscription_path(subscription)
       }.to change(Subscription, :count).by(-1)
       expect(user.subscriptions.include?(subscription)).to be false
     end

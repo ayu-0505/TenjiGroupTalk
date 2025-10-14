@@ -1,6 +1,6 @@
 class Api::SubscriptionsController < ApplicationController
   def create
-    talk = current_user.talks.find(params[:talk_id])
+    talk = Talk.find(params[:talk_id])
     subscription = current_user.subscriptions.build(talk: talk)
     if subscription.save
       flash.now[:notice] = '通知登録しました'

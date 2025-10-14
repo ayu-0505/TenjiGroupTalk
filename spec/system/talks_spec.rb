@@ -63,6 +63,37 @@ RSpec.describe 'Talks', type: :system do
         end
       end
     end
+
+    context 'when the subscription toggle button is OFF' do
+      it 'turns ON, creates the subscription, and shows a flash message', :js do
+        visit group_talk_path(group, talks[0])
+
+        span = find('span[data-subscription-toggle-target="switch"]')
+        expect(span[:class]).to include('bg-sky-300')
+        find('label[for="check"]').click
+        expect(page).to have_content '通知登録しました'
+        expect(span[:class]).to include('bg-sky-600')
+
+        subscription = Subscription.last
+        expect(subscription.user_id).to eq user.id
+        expect(subscription.talk_id).to eq talks[0].id
+      end
+    end
+
+    context 'when the subscription toggle button is ON' do
+      it 'turns OFF, deletes the subscription, and shows a flash message', :js do
+        subscription_id = Subscription.create(user:, talk: talks[0]).id
+        visit group_talk_path(group, talks[0])
+
+        span = find('span[data-subscription-toggle-target="switch"]')
+        expect(span[:class]).to include('bg-sky-600')
+        find('label[for="check"]').click
+        expect(page).to have_content '通知登録を解除しました'
+
+        expect(Subscription.find_by(id: subscription_id)).to be_nil
+        expect(span[:class]).to include('bg-sky-300')
+      end
+    end
   end
 
   describe 'create a new talk' do
