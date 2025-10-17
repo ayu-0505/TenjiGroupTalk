@@ -21,18 +21,19 @@ class CommentBrailleForm
     return false if invalid?
 
     ActiveRecord::Base.transaction do
-      @comment = Comment.create!(
-        description: description,
-        user: @user,
-        talk: @talk
-      )
-
       if original_text.present?
-        @comment.create_braille!(
+        braille = Braille.create!(
           original_text: original_text,
           user: @user
         )
       end
+
+      @comment = Comment.create!(
+        description: description,
+        user: @user,
+        talk: @talk,
+        braille:
+      )
     true
     end
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
@@ -43,26 +44,23 @@ class CommentBrailleForm
     return false if invalid?
 
     ActiveRecord::Base.transaction do
-      @comment.update!({ description: description })
-
-      # ひらがな（original_text）がない場合は既存の点字（brailleモデル）の有無を確認し、あれば削除
+      existing_braille = @comment.braille
+      # ひらがな（original_text）入力がない場合は既存の点字（brailleモデル）の有無を確認し、あれば削除
       if original_text.blank?
-        @comment.braille.destroy! if @comment.braille.present?
+        existing_braille.destroy! if existing_braille.present?
+        @comment.update!({ description: description })
 
-      # ひらがな（original_text）に入力があり、既存の点字がない場合は点字を新規作成
-      elsif @comment.braille.nil?
-        @comment.create_braille!(
-          original_text: original_text,
-          user: @user
-        )
+      # ひらがな（original_text）入力があり、既存の点字がない場合は点字を新規作成
+      elsif existing_braille.nil?
+        braille = @user.brailles.create!(original_text:)
+        @comment.update!({ description: description, braille: })
 
-      # 入力されたひらがなが、既存の点字内容と違う場合、既存点字を破棄して新規作成
-      elsif !@comment.braille.same_content?(original_text)
-        @comment.braille.destroy!
-        @comment.create_braille!(
-          original_text: original_text,
-          user: @user
+      # 入力されたひらがなが、既存の点字内容と違う場合、既存点字を更新
+      else !existing_braille.same_content?(original_text)
+        existing_braille.update!(
+          original_text:,
         )
+        @comment.update!({ description: description })
       end
       true
     end
