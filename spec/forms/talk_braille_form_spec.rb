@@ -42,7 +42,9 @@ RSpec.describe TalkBrailleForm, type: :model do
     end
 
     shared_context 'with existing braille' do
-      let(:existing_braille) { create(:talk_braille, brailleable: talk, user:) }
+      let(:existing_braille) { create(:braille, user:) }
+      let(:talk) { create(:talk, group:, user:, braille: existing_braille) }
+      # talk.braille = existing_braille
     end
 
     context 'when there are validation errors' do
@@ -81,13 +83,12 @@ RSpec.describe TalkBrailleForm, type: :model do
       include_context 'with original_text'
       include_context 'with existing braille'
 
-      it 'updates the talk and deletes the existing braille, creates a new one, and returns true' do
-        existing_id = existing_braille.id
+      it 'updates the talk and the braille, and returns true' do
         expect(form.update).to be true
         talk = form.talk
         expect(talk.title).to eq 'Valid title'
         expect(talk.description).to eq 'valid description'
-        expect(talk.braille.id).not_to eq existing_id
+        expect(talk.braille.id).to eq existing_braille.id
         expect(talk.braille.original_text).to eq form.attributes['original_text']
       end
     end

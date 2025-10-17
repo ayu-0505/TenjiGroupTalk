@@ -107,7 +107,8 @@ RSpec.describe "Comments", type: :system do
 
   describe 'has a braille with toggle visiblity button' do
     it 'shows a toggle buttonand allows switching visibility', :js do
-      braille = create(:comment_braille, brailleable: comments[0], user:)
+      braille = create(:braille, user:)
+      comments[0].update!(braille:)
       visit group_talk_path(group, talk)
 
       within "div#comment_#{comments[0].id}.comment" do

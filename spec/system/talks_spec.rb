@@ -44,7 +44,8 @@ RSpec.describe 'Talks', type: :system do
 
     context 'when the content contains braille' do
       it 'shows a toggle buttonand allows switching visibility', :js do
-        braille = create(:talk_braille, brailleable: talks[0], user:)
+        braille = create(:braille, user:)
+        talks[0].update!(braille:)
         visit group_talk_path(group, talks[0])
 
         expect(page).to have_content ("#{braille.original_text}")
