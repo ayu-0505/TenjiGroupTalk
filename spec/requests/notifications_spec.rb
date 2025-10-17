@@ -17,9 +17,9 @@ RSpec.describe 'Notifications', type: :request do
   end
 
   describe 'PATCH /update' do
-    it 'updates read column and redirect to notifiable link' do
+    it 'updates read column and redirect to comment link' do
       comment = create(:comment, talk:)
-      notification = create(:comment_notification, user:, notifiable: comment)
+      notification = create(:notification, user:, comment:)
       expect(notification.read).to be false
       patch notification_path(notification)
       notification.reload
