@@ -10,17 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_16_050724) do
   create_table "brailles", force: :cascade do |t|
     t.text "original_text", null: false
     t.text "raised_braille", null: false
     t.text "indented_braille", null: false
     t.integer "user_id", null: false
-    t.string "brailleable_type", null: false
-    t.integer "brailleable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["brailleable_type", "brailleable_id"], name: "index_brailles_on_brailleable"
     t.index ["user_id"], name: "index_brailles_on_user_id"
   end
 
@@ -30,6 +27,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
     t.integer "talk_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "braille_id"
+    t.index ["braille_id"], name: "index_comments_on_braille_id", unique: true
     t.index ["talk_id"], name: "index_comments_on_talk_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -93,6 +92,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
     t.integer "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "braille_id"
+    t.index ["braille_id"], name: "index_talks_on_braille_id", unique: true
     t.index ["group_id"], name: "index_talks_on_group_id"
     t.index ["user_id"], name: "index_talks_on_user_id"
   end
@@ -111,6 +112,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
   end
 
   add_foreign_key "brailles", "users"
+  add_foreign_key "comments", "brailles"
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
   add_foreign_key "groups", "users", column: "admin_id"
@@ -121,6 +123,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_060625) do
   add_foreign_key "notifications", "users"
   add_foreign_key "subscriptions", "talks"
   add_foreign_key "subscriptions", "users"
+  add_foreign_key "talks", "brailles"
   add_foreign_key "talks", "groups"
   add_foreign_key "talks", "users"
 end
