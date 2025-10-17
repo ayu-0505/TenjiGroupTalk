@@ -37,7 +37,7 @@ RSpec.describe "Groups", type: :system do
       it 'creates an invitation URL when the create button is clicked' do
         visit group_path(group)
         click_button '招待URLを作成'
-        expect(page).to have_content "http://www.example.com/welcome.#{Invitation.last.token}"
+        expect(page).to have_content "http://www.example.com/welcome?invitation_token=#{Invitation.last.token}"
       end
     end
   end
