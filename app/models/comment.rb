@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :talk
-  has_one :braille, as: :brailleable
+  belongs_to :braille, optional: true
   has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :description, presence: true

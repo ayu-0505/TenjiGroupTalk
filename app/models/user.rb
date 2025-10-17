@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :talks
   has_many :comments
+  has_many :brailles
   has_many :subscriptions
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
