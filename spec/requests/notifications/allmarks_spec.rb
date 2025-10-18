@@ -7,7 +7,7 @@ RSpec.describe '/notifications/allmarks', type: :request do
 
   before do
     comments.each do |comment|
-      create(:comment_notification, user:, notifiable: comment)
+      create(:notification, user:, comment:)
     end
     user.groups << talk.group
     sign_in(user)

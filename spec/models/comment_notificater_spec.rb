@@ -14,8 +14,8 @@ RSpec.describe CommentNotificater, type: :model do
     expect {
       ActiveSupport::Notifications.instrument('comment.create', user:, talk:, comment:)
     }.to change(Notification, :count).by(2)
-    expect(subscriber1.notifications.last.notifiable).to eq comment
-    expect(subscriber2.notifications.last.notifiable).to eq comment
+    expect(subscriber1.notifications.last.comment).to eq comment
+    expect(subscriber2.notifications.last.comment).to eq comment
   end
 
   it 'dose not create a notification for the creator' do

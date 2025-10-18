@@ -11,8 +11,7 @@ class CommentNotificater
     subscribers.each do |subscriber|
       Notification.find_or_create_by!(
         user: subscriber,
-        notifiable_type: 'Comment',
-        notifiable_id: comment.id
+        comment:
       )
     end
   end

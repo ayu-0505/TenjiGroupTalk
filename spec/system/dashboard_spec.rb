@@ -7,7 +7,7 @@ RSpec.describe 'Dashboard', type: :system do
       talk = create(:talk)
       user.groups << talk.group
       comment = create(:comment, talk:)
-      create(:comment_notification, user:, notifiable: comment)
+      create(:notification, user:, comment:)
       log_in_as user
 
       expect(page).to have_css('.notification')

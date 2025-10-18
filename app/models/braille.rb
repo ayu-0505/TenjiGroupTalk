@@ -1,6 +1,7 @@
 class Braille < ApplicationRecord
   belongs_to :user
-  belongs_to :brailleable, polymorphic: true
+  has_one :talk, dependent: :nullify
+  has_one :comment, dependent: :nullify
 
   before_validation :initialize_raised_braille, on: %i[create update]
   before_save :generate_indented_braille
