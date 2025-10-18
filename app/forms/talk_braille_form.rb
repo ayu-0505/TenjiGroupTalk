@@ -24,16 +24,12 @@ class TalkBrailleForm
 
     ActiveRecord::Base.transaction do
       if original_text.present?
-        braille = Braille.create!(
-          original_text: original_text,
-          user: @user
-        )
+        braille = @user.brailles.create!(original_text: original_text)
       end
 
-      @talk = Talk.create!(
+      @talk = @user.talks.create!(
         title: title,
         description: description,
-        user: @user,
         group: @group,
         braille:
       )

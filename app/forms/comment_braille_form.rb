@@ -22,15 +22,11 @@ class CommentBrailleForm
 
     ActiveRecord::Base.transaction do
       if original_text.present?
-        braille = Braille.create!(
-          original_text: original_text,
-          user: @user
-        )
+        braille = @user.brailles.create!(original_text: original_text)
       end
 
-      @comment = Comment.create!(
+      @comment = @user.comments.create!(
         description: description,
-        user: @user,
         talk: @talk,
         braille:
       )
