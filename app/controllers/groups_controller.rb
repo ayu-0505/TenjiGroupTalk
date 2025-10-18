@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   before_action :authorize_group_member, only: %i[ show edit update destroy ]
 
   def index
-    @groups = current_user.groups
+    @groups = current_user.groups.order(created_at: :desc).page(params[:page])
   end
 
   def show
