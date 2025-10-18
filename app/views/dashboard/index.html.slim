@@ -24,8 +24,11 @@
   
   - elsif @groups.size == 1
     - group = @groups.first
+    .flex.justify-center.text-2xl.font-bold.my-8.mx-4
+      = "#{group.name}の最新トーク"
     = render 'talks/talks', group: group, talks: group.talks
-  
+    = link_to "#{group.name}のトーク一覧へ", group_talks_path(group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+
   - else
     - @groups.each do |group|
       = link_to "#{group.name}", group, class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition'
