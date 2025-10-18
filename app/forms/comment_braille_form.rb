@@ -41,17 +41,17 @@ class CommentBrailleForm
 
     ActiveRecord::Base.transaction do
       existing_braille = @comment.braille
-      # ひらがな（original_text）入力がない場合は既存の点字（brailleモデル）の有無を確認し、あれば削除
+      # NOTE: ひらがな（original_text）入力がない場合は既存の点字（brailleモデル）の有無を確認し、あれば削除
       if original_text.blank?
         existing_braille.destroy! if existing_braille.present?
         @comment.update!({ description: description })
 
-      # ひらがな（original_text）入力があり、既存の点字がない場合は点字を新規作成
+      # NOTE: ひらがな（original_text）入力があり、既存の点字がない場合は点字を新規作成
       elsif existing_braille.nil?
         braille = @user.brailles.create!(original_text:)
         @comment.update!({ description: description, braille: })
 
-      # 入力されたひらがなが、既存の点字内容と違う場合、既存点字を更新
+      # NOTE: 入力されたひらがなが、既存の点字内容と違う場合、既存点字を更新
       else !existing_braille.same_content?(original_text)
         existing_braille.update!(
           original_text:,
