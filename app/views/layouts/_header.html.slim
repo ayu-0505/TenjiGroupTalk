@@ -1,5 +1,5 @@
 header.container.mx-auto.max-w-screen-md.bg-white
-  = link_to image_tag('logo_beta.png', class: 'h-11', alt: '点字グループトークロゴ'), root_path
+  = link_to image_tag('logo_beta.png', class: 'h-11', alt: '点字グループトークロゴ'), root_path, data: {turbo: false}
   - if logged_in?
     .w-full.flex.items-center.justify-between.mx-auto.h-16.max-w-screen-md.border-b.border-blue-400
       = render 'layouts/menu'
