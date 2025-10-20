@@ -15,13 +15,12 @@ html
     link[rel="icon" href="/icon.svg" type="image/svg+xml"]
     link[rel="apple-touch-icon" href="/icon.png"]
 
-    / = stylesheet_link_tag :app, "data-turbo-track": "reload"
     = stylesheet_link_tag 'tailwind', 'inter-font', 'data-turbo-track': 'reload'
     = javascript_importmap_tags
 
-  body.flex.flex-col.items-center.h-screen.bg-lime-50
+  body
     - unless current_page?(root_path) || current_page?(welcome_path)
       = render 'layouts/header'
-    main.container.mx-auto.max-w-screen-md.bg-white
+    main.container.mx-auto.max-w-screen-md.flex.flex-col.h-screen
       = render 'layouts/flash'
       = yield
