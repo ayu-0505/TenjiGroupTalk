@@ -1,8 +1,9 @@
-h1.flex.justify-center.text-2xl.font-bold.my-8.mx-4 ニックネームを変更
+.mx-4.flex.flex-col.items-center
+  .section-title ニックネーム編集
 
-== render "form", user: @user
+  = render 'form', user: @user
 
-br
-
-div
-  = link_to 'プロフィールへ戻る', @user, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  .m-4.self-start
+    = link_to @user, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+      = lucide_icon("chevron-left").html_safe
+      | プロフィールへ戻る

@@ -1,0 +1,16 @@
+.flex.flex-col.items-center.w-full
+  - if user.groups.size == 0
+    .mx-4.text-center.space-y-8
+      .flex.flex-col.items-center
+        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+        p.text-sm.text-gray-500
+         | 所属グループがまだありません<br>
+         | グループを作成し、他のユーザーを招待してみましょう
+      div
+        = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
+  - else
+    .mx-4.px-4.text-center.space-y-4
+      - user.groups.each do |group|
+        .text-xl
+          = link_to group.name, group, class: 'inline-block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+      = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue inline-block'
