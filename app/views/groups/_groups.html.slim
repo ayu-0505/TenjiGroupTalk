@@ -9,8 +9,12 @@
       div
         = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else
-    .mx-4.px-4.text-center.space-y-4
+    .mx-4.text-center.space-y-4.w-4/5
       - user.groups.each do |group|
-        .text-xl
-          = link_to group.name, group, class: 'inline-block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-      = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue inline-block'
+        .flex.gap-2.items-center
+          .w-3/5
+            = link_to group.name, group, class: 'block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+          .w-2/5
+            = link_to 'トーク一覧へ行く', group_talks_path(group), class: 'block text-lg text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+      div
+        = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue block w-48 mt-8 mx-auto'
