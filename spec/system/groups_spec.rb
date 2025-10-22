@@ -39,6 +39,21 @@ RSpec.describe "Groups", type: :system do
         click_button '招待URLを作成'
         expect(page).to have_content "http://www.example.com/welcome?invitation_token=#{Invitation.last.token}"
       end
+
+      it 'deletes the group when the user confirms deletion', :js do
+        visit group_path(group)
+        click_button 'グループを削除する'
+        expect(page.accept_confirm).to eq 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'
+        expect(page).to have_content 'グループを削除しました'
+        expect(Group.all.include?(group)).to be false
+      end
+
+      it 'keeps the group when the user cancels deletion', :js do
+        visit group_path(group)
+        click_button 'グループを削除する'
+        expect(page.dismiss_confirm).to eq 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'
+        expect(Group.all.include?(group)).to be true
+      end
     end
   end
 end
