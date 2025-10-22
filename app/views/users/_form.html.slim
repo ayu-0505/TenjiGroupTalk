@@ -1,14 +1,5 @@
 = form_with(model: user) do |form|
-  - if user.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(user.errors.count, "error")} prohibited this user from being saved:"
-      ul
-        - user.errors.each do |error|
-          li = error.full_message
+  .mx-4
+    = form.text_field :nickname, placeholder: 'ニックネームを入力', class: 'p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-  div
-    = form.label :nickname, style: "display: block"
-    = form.text_field :nickname, class: 'border border-blue-400'
-
-  .text-blue-600.hover:text-blue-800.active:text-blue-900.underline.transition
-    = form.submit
+    = form.submit '更新', class: 'btn btn-blue'

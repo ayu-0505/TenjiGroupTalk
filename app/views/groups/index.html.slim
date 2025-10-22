@@ -1,12 +1,18 @@
-h1.flex.justify-center.text-2xl.font-bold.my-8.mx-4 所属グループ一覧
+.mx-4
+  .section-title 所属グループ
+  = render 'groups', user: current_user
+/ .section-title 所属グループ一覧
 
-#groups
-  - if @groups.size == 0
-    p 所属グループがまだありません
-  - else
-    - @groups.each do |group|
-      div
-        = link_to "#{group.name}", group, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-    = paginate @groups
+/ #groups.text-center.mx-4
+/   - if @groups.size == 0
+/     .flex.flex-col.items-center.my-4
+/       p.text-sm.text-gray-500 所属グループがまだありません
+/       = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+/   - else
+/     .group.mb-8
+/       - @groups.each do |group|
+/         .text-xl
+/           = link_to "#{group.name}", group, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+/       = paginate @groups
 
-= link_to 'グループを新規作成', new_group_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+/   = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue'

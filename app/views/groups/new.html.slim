@@ -1,8 +1,14 @@
-h1 グループを作成する
+.mx-4.flex.flex-col.items-center
+  .section-title グループを作成する
+  .w-full.m-4
+    = render 'form', group: @group
 
-== render 'form', group: @group
+  .m-4.self-start
+    = link_to @group, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+      = lucide_icon("chevron-left").html_safe
+      | グループ一覧へ戻る
+  .m-4.self-start
+    = link_to user_path(current_user), class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+      = lucide_icon("chevron-left").html_safe
+      | プロフィールへ戻る
 
-br
-
-div
-  = link_to 'グループ一覧へ戻る', groups_path

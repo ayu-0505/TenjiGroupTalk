@@ -48,19 +48,19 @@ RSpec.describe 'Talks', type: :system do
         talks[0].update!(braille:)
         visit group_talk_path(group, talks[0])
 
-        expect(page).to have_content ("#{braille.original_text}")
-        expect(page).to have_css('.raised_braille.hidden', visible: :all)
-        expect(page).to have_css('.indented_braille.hidden', visible: :all)
+        expect(page).to have_css('.original_text.hidden', visible: :all)
+        expect(page).to have_content ("#{braille.raised_braille}")
+        expect(page).to have_content ("#{braille.indented_braille}")
 
         within '.talk' do
           find('.original_text_display_btn').click
-          expect(page).to have_css('.original_text.hidden', visible: :all)
+          expect(page).to have_content ("#{braille.original_text}")
 
           find('.raised_braille_display_btn').click
-          expect(page).to have_content ("#{braille.raised_braille}")
+          expect(page).to have_css('.raised_braille.hidden', visible: :all)
 
           find('.indented_braille_display_btn').click
-          expect(page).to have_content ("#{braille.indented_braille}")
+          expect(page).to have_css('.indented_braille.hidden', visible: :all)
         end
       end
     end

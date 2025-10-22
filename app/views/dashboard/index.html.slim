@@ -1,26 +1,36 @@
-.flex.flex-col.mx-auto.max-w-screen-md
-  .flex.justify-center.text-2xl.font-bold.my-8.mx-4 ダッシュボード
+.mx-auto.w-full
+  .section-title ダッシュボード
 
-  - if @unread_notifications.size != 0
-    .notifications
-      - @unread_notifications.first(Notification::DASHBOARD_LIMIT).each do |notification|
-        = render 'notifications/notification', notification: notification
+  .notifications.border.mx-4.p-2
+    .flex.items-center.justify-center.h-10
+      = lucide_icon('bell')
+      p.text-xl.mx-2 通知
+    - if @unread_notifications.size != 0
+      p.text-sm.text-gray-500.text-center 最新の３件のみ表示しています
+      .m-4.text-center
+        - @unread_notifications.first(Notification::DASHBOARD_LIMIT).each do |notification|
+          = render 'notifications/notification', notification: notification
       - if @unread_notifications.size > Notification::DASHBOARD_LIMIT
-        p 残りの未読通知を確認する
+      .text-center
+        p.text-sm.text-gray-500 残りの未読通知を確認する
+        = link_to '通知一覧に行く', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+        = button_to '全て既読にする', allmarks_path, data: { turbo_confirm: '未読通知を全て既読にします。本当によろしいですか？'}, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 transition'
+    - else
+      .m-4.text-center
+        p.text-sm.text-gray-500 未読通知はありません
+        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+        p.text-sm.text-gray-500 過去の通知を確認する
         = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-        = button_to '全て既読にする', allmarks_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-  - else
-    p
-    | 未読通知はありません
-    | 過去の通知を確認する
-    = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
   - if @groups.size == 0
-    | まだ所属グループがありません！<br>
-    | グループを作成し、他のユーザーを招待してみましょう。<br>
-    |
-    |グループに招待されていますか？<br>
-    |招待されたページでグループに参加してください。<br>
+    .mx-4.mt-4.text-center
+      p.mb-2.text-lg
+       | 所属グループがありません！<br>
+       | グループを作成し、他のユーザーを招待してみましょう。<br>
+      = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg'
+      p.mt-8.text-lg
+       |グループに招待されていますか？<br>
+       |送られた招待URLページにアクセスし、グループに参加してください。<br>
   
   - elsif @groups.size == 1
     - group = @groups.first
@@ -32,6 +42,3 @@
   - else
     - @groups.each do |group|
       = link_to "#{group.name}", group, class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition'
-      p
-  
-  = link_to 'グループ一覧', groups_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'

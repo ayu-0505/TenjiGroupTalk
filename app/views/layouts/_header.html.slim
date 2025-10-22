@@ -1,6 +1,9 @@
-header.container.mx-auto.max-w-screen-md.bg-white
-  = link_to image_tag('logo_beta.png', class: 'h-11', alt: '点字グループトークロゴ'), root_path, data: {turbo: false}
-  - if logged_in?
-    .w-full.flex.items-center.justify-between.mx-auto.h-16.max-w-screen-md.border-b.border-blue-400
-      = render 'layouts/menu'
-      = image_tag current_user.image, class: 'w-12 rounded-full'
+header.bg-main-color
+  .container.mx-auto.p-1
+    .flex.items-center.h-16.px-4
+      = link_to image_tag('title_mini.png', class: 'h-14 object-contain block md:hidden', alt: '点字グループトークロゴ'), root_path
+      = link_to image_tag('title_white.png', class: 'h-14 object-contain hidden md:block', alt: '点字グループトークロゴ'), root_path
+      - if logged_in?
+        .flex.items-center.space-x-4.ml-auto
+          = render 'layouts/menu'
+          = image_tag current_user.image, class: 'w-12 h-12 rounded-full object-cover border-1 border bg-gray-300'

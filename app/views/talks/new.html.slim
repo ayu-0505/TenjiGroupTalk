@@ -1,3 +1,7 @@
+= link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
+  = lucide_icon("chevron-left").html_safe
+  | トーク一覧に戻る
+
 .text-lg.font-bold トーク新規作成
 
 = render 'form', talk_form: @talk_form

@@ -1,10 +1,14 @@
-= link_to "トーク一覧に戻る", group_talks_path(@group)
+.mx-auto.w-full
+  .m-4
+    = link_to group_talk_path(@group, @talk), class: "flex items-center text-blue-600 hover:text-blue-800" do
+      = lucide_icon("chevron-left").html_safe
+      | トークページに戻る
 
-.text-lg.font-bold トークを編集する
+  .flex.justify-center.text-2xl.font-bold.my-8.mx-4 トークを編集する
 
-== render 'form',  talk_form: @talk_form
+  = render 'form', talk_form: @talk_form
 
-br
-
-div
-  = link_to 'トークページに戻る', group_talk_path(@group, @talk)
+  .m-4
+    = link_to group_talk_path(@group, @talk), class: "flex items-center text-blue-600 hover:text-blue-800" do
+      = lucide_icon("chevron-left").html_safe
+      | トークページに戻る

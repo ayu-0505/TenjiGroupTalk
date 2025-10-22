@@ -1,13 +1,14 @@
-div id="#{dom_id group}"
-  .flex.justify-center.text-2xl.font-bold.my-8.mx-4
-    = group.name
 
-  .flex.justify-center.text-xl.font-bold
-    p 管理者
-    div
-      = image_tag group.admin.image, class: 'w-8'
-  .flex.flex-col.justify-center.items-center.mt-10
-    .text-xl.font-bold メンバー
+.section-title
+  = group.name
+
+p.text-xl 管理者
+.flex.items-center.m-2
+  = image_tag group.admin.image, class: 'w-8 rounded-full mx-4'
+  = group.admin.nickname
+
+.flex.flex-col.justify-center.items-center.m-4
+  .text-xl メンバー
+  .flex.w-4/5.p-1.gap-2.w-full.flex-wrap
     - group.users.each do |user|
-      div
-        = image_tag user.image, class: 'w-8'
+      = image_tag user.image, class: 'w-8 h-8 rounded-full'
