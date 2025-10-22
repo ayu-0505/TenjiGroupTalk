@@ -6,27 +6,27 @@
       = simple_format(talk.description)
 
     - if braille.present?
-    .braille.border-t data-controller='braille-display'
-      .m-4.mb-6
-        .flex.items-center.justify-center.gap-2
-          p.w-20.font-bold ひらがな
-          button type='button' data-action='click->braille-display#toggle' data-braille-display-target='originalBtn' class='original_text_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 表示する
-        .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
-          = simple_format(braille.original_text)
+      .braille.border-t data-controller='braille-display'
+        .m-4.mb-6
+          .flex.items-center.justify-center.gap-2
+            p.w-20.font-bold ひらがな
+            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='originalBtn' class='original_text_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 表示する
+          .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
+            = simple_format(braille.original_text)
 
-      .mx-4.mb-6
-        .flex.items-center.justify-center.gap-2
-          p.w-20.font-bold 凸面
-          button type='button' data-action='click->braille-display#toggle' data-braille-display-target='raisedBtn' class='raised_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
-        .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
-          = simple_format(braille.raised_braille)
+        .mx-4.mb-6
+          .flex.items-center.justify-center.gap-2
+            p.w-20.font-bold 凸面
+            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='raisedBtn' class='raised_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
+          .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
+            = simple_format(braille.raised_braille)
 
-      .m-4.mb-6
-        .flex.items-center.justify-center.gap-2
-          p.w-20.font-bold 凹面
-          button type='button' data-action='click->braille-display#toggle' data-braille-display-target='indentedBtn' class='indented_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
-        .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
-          = simple_format(braille.indented_braille)
+        .m-4.mb-6
+          .flex.items-center.justify-center.gap-2
+            p.w-20.font-bold 凹面
+            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='indentedBtn' class='indented_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
+          .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
+            = simple_format(braille.indented_braille)
 
     .flex.items-center.justify-center.gap-2
       p by
