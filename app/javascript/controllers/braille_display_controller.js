@@ -21,9 +21,9 @@ export default class extends Controller {
     const btn = event.currentTarget;
 
     if (content.classList.contains("hidden")) {
-      btn.textContent = btn.textContent.replace("非表示", "表示");
+      btn.textContent = btn.textContent.replace("非表示に", "表示");
     } else {
-      btn.textContent = btn.textContent.replace("表示", "非表示");
+      btn.textContent = btn.textContent.replace("表示", "非表示に");
     }
   }
 }
