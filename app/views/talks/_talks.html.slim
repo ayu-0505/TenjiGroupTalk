@@ -1,11 +1,14 @@
-= link_to '新しいトークを作成する', new_group_talk_path(group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-  
-- if talks.size == 0
-  p トークがありません。
-- else
-  - talks.each do |talk|
-    .talk
-      = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition' do
-        .text-lg.font-bold
-          = talk.title
-        = truncate(simple_format(talk.description), length: 150, separator: " ")
+.flex.flex-col.items-center.mx-4.mt-8
+  = link_to '新しいトークを作成する', new_group_talk_path(group), class: 'btn btn-blue'
+
+  - if talks.size == 0
+    p.text-sm.text-gray-500 トークはありません
+    = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+  - else
+    .talks
+      - talks.each do |talk|
+        .talk.my-2.w-full
+          = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition bg-white w-full' do
+            .text-lg.font-bold
+              = talk.title
+            = truncate(simple_format(talk.description), length: 150, separator: " ")
