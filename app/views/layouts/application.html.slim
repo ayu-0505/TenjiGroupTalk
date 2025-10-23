@@ -18,6 +18,8 @@ html
     = stylesheet_link_tag 'tailwind', 'inter-font', 'data-turbo-track': 'reload'
     = javascript_importmap_tags
 
+    = favicon_link_tag 'favicon.ico'
+
   body
     - unless current_page?(root_path) || current_page?(welcome_path)
       = render 'layouts/header'
