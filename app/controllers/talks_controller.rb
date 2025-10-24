@@ -8,7 +8,7 @@ class TalksController < ApplicationController
   end
 
   def show
-    @comments = @talk.comments
+    @comments = @talk.comments.order(:created_at)
     @comment_form = CommentBrailleForm.new(talk: @talk)
     @subscription = current_user.subscriptions.find_by(talk: @talk)
   end

@@ -1,5 +1,5 @@
 = turbo_frame_tag comment do
-  .comment.block.p-4.mx-4.mt-4.border.rounded-lg.bg-white id="#{dom_id comment}"
+  .comment.block.p-4.mx-4.mt-4.border.rounded-lg.bg-white data-comments-pagination-target='comment' id="#{comment.id}" class="#{'hidden' if hidden}"
     p
       strong 投稿者:
       = display_user_name(comment.user)
