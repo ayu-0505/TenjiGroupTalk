@@ -1,14 +1,6 @@
 module CommentsHelper
   INITIAL_DISPLAY_COUNT = 5
 
-  def exceeds_limit?(comments)
-    total(comments) > INITIAL_DISPLAY_COUNT
-  end
-
-  def total(comments)
-    comments.size
-  end
-
   def display_comments(comments)
     comments.last(INITIAL_DISPLAY_COUNT)
   end
@@ -23,5 +15,14 @@ module CommentsHelper
 
   def ids(comments)
     comments.map { |comment| comment.id }
+  end
+
+  private
+  def exceeds_limit?(comments)
+    total(comments) > INITIAL_DISPLAY_COUNT
+  end
+
+  def total(comments)
+    comments.size
   end
 end
