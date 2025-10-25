@@ -53,13 +53,13 @@ RSpec.describe 'Talks', type: :system do
         expect(page).to have_content ("#{braille.indented_braille}")
 
         within '.talk' do
-          find('.original_text_display_btn').click
+          find('label[for="talk_original_text_check"]').click
           expect(page).to have_content ("#{braille.original_text}")
 
-          find('.raised_braille_display_btn').click
+          find('label[for="talk_raised_check"]').click
           expect(page).to have_css('.raised_braille.hidden', visible: :all)
 
-          find('.indented_braille_display_btn').click
+          find('label[for="talk_indented_check"]').click
           expect(page).to have_css('.indented_braille.hidden', visible: :all)
         end
       end
@@ -71,7 +71,7 @@ RSpec.describe 'Talks', type: :system do
 
         span = find('span[data-subscription-toggle-target="switch"]')
         expect(span[:class]).to include('bg-sky-300')
-        find('label[for="check"]').click
+        find('label[for="subscription_check"]').click
         expect(page).to have_content '通知登録しました'
         expect(span[:class]).to include('bg-sky-600')
 
@@ -88,7 +88,7 @@ RSpec.describe 'Talks', type: :system do
 
         span = find('span[data-subscription-toggle-target="switch"]')
         expect(span[:class]).to include('bg-sky-600')
-        find('label[for="check"]').click
+        find('label[for="subscription_check"]').click
         expect(page).to have_content '通知登録を解除しました'
 
         expect(Subscription.find_by(id: subscription_id)).to be_nil

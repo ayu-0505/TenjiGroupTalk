@@ -7,26 +7,50 @@
 
     - if braille.present?
       .braille.border-t data-controller='braille-display'
-        .m-4.mb-6
-          .flex.items-center.justify-center.gap-2
-            p.w-20.font-bold ひらがな
-            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='originalBtn' class='original_text_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 表示する
-          .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
-            = simple_format(braille.original_text)
+        .mx-2.my-2
+          .flex.gap-4.items-center
+            .flex.flex-col.items-center
+              p.font-bold ひらがな
+              .flex.items-center.gap-1
+                = lucide_icon('eye-off', class: "stroke-gray-500", alt: 'トークのひらがな表示オフ')
+                .flex.items-center.justify-center
+                  label for="talk_original_text_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
+                    input type="checkbox" id="talk_original_text_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='originalCheck'
+                    span class="w-2/5 h-4/5 bg-sky-300 absolute rounded-full left-0.5 top-0.5 transition-all duration-300" data-braille-display-target='originalToggle'
+                = lucide_icon('eye', class: "stroke-gray-500", alt: 'トークのひらがな表示オン')
+            p.original_text.border.w-full.mt-2.text-gray-500.text-sm.text-center data-braille-display-target='originalPlaceholder' ここにひらがなが表示されます
+            .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
+              = simple_format(braille.original_text)
 
-        .mx-4.mb-6
-          .flex.items-center.justify-center.gap-2
-            p.w-20.font-bold 凸面
-            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='raisedBtn' class='raised_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
-          .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
-            = simple_format(braille.raised_braille)
+        .mx-2.my-2
+          .flex.gap-4.items-center
+            .flex.flex-col.items-center
+              p.font-bold 凸面
+              .flex.items-center.gap-1
+                = lucide_icon('eye-off', class: "stroke-gray-500", alt: 'トークの凸面表示オフ')
+                .flex.items-center.justify-center
+                  label for="talk_raised_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
+                    input type="checkbox" id="talk_raised_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='raisedCheck'
+                    span class="w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300" data-braille-display-target='raisedToggle'
+                = lucide_icon('eye', class: "stroke-gray-500", alt: 'トークの凸面表示オン')
+            p.raised_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='raisedPlaceholder' ここに凸面点字が表示されます
+            .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
+              = simple_format(braille.raised_braille)
 
-        .m-4.mb-6
-          .flex.items-center.justify-center.gap-2
-            p.w-20.font-bold 凹面
-            button type='button' data-action='click->braille-display#toggle' data-braille-display-target='indentedBtn' class='indented_braille_display_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 w-40 border border-blue-500 hover:border-transparent rounded' 非表示にする
-          .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
-            = simple_format(braille.indented_braille)
+        .mx-2.my-2
+          .flex.gap-4.items-center
+            .flex.flex-col.items-center
+              p.font-bold 凹面
+              .flex.items-center.gap-1
+                = lucide_icon('eye-off', class: "stroke-gray-500", alt: 'トークの凹面表示オフ')
+                .flex.items-center.justify-center
+                  label for="talk_indented_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
+                    input type="checkbox" id="talk_indented_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='indentedCheck'
+                    span class="w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300" data-braille-display-target='indentedToggle'
+                = lucide_icon('eye', class: "stroke-gray-500", alt: 'トークの凹面表示オン')
+            p.indented_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='indentedPlaceholder' ここに凹面点字が表示されます
+            .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
+              = simple_format(braille.indented_braille)
 
     .flex.items-center.justify-center.gap-2
       p by

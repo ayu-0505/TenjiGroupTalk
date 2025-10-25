@@ -118,13 +118,13 @@ RSpec.describe "Comments", type: :system do
         expect(page).to have_content ("#{braille.raised_braille}")
         expect(page).to have_content ("#{braille.indented_braille}")
 
-        find('.original_text_display_btn').click
+        find("label[for='#{comments[0].id}_original_text_check']").click
         expect(page).to have_content ("#{braille.original_text}")
 
-        find('.raised_braille_display_btn').click
+        find("label[for='#{comments[0].id}_raised_check']").click
         expect(page).to have_css('.raised_braille.hidden', visible: :all)
 
-        find('.indented_braille_display_btn').click
+        find("label[for='#{comments[0].id}_indented_check']").click
         expect(page).to have_css('.indented_braille.hidden', visible: :all)
       end
     end

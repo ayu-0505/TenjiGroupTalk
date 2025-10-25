@@ -1,29 +1,40 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="braille-display"
 export default class extends Controller {
   static targets = [
-    "originalBtn",
+    "originalCheck",
+    "originalToggle",
+    "originalPlaceholder",
     "original",
-    "raisedBtn",
+
+    "raisedCheck",
+    "raisedToggle",
+    "raisedPlaceholder",
     "raised",
-    "indentedBtn",
+
+    "indentedCheck",
+    "indentedToggle",
+    "indentedPlaceholder",
     "indented",
   ];
 
   toggle(event) {
     const targetName = event.currentTarget.dataset.brailleDisplayTarget.replace(
-      "Btn",
+      "Check",
       ""
     );
     const content = this[`${targetName}Target`];
     content.classList.toggle("hidden");
-    const btn = event.currentTarget;
+    const placeholder = this[`${targetName}PlaceholderTarget`];
+    placeholder.classList.toggle("hidden");
+    const toggle = this[`${targetName}ToggleTarget`];
 
     if (content.classList.contains("hidden")) {
-      btn.textContent = btn.textContent.replace("非表示に", "表示");
+      toggle.classList.remove("bg-sky-600", "left-5");
+      toggle.classList.add("bg-sky-300", "left-0.5");
     } else {
-      btn.textContent = btn.textContent.replace("表示", "非表示に");
+      toggle.classList.remove("bg-sky-300", "left-0.5");
+      toggle.classList.add("bg-sky-600", "left-5");
     }
   }
 }

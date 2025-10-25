@@ -3,11 +3,11 @@ import { FetchRequest } from "@rails/request.js";
 
 export default class extends Controller {
   static values = { talkId: Number };
-  static targets = ["check", "id", "switch"];
+  static targets = ["subscriptionCheck", "id", "switch"];
 
   async toggle() {
     try {
-      if (this.checkTarget.checked) {
+      if (this.subscriptionCheckTarget.checked) {
         await this.createSubscription();
       } else {
         await this.deleteSubscription();
