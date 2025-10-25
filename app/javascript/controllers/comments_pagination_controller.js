@@ -20,7 +20,7 @@ export default class extends Controller {
       return;
     }
 
-    if (this.remainingCount < incrementSize) {
+    if (this.remainingCount <= incrementSize) {
       this.commentTargets.forEach((comment) => {
         comment.classList.remove("hidden");
       });

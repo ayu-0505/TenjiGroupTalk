@@ -23,12 +23,13 @@ RSpec.describe "Comments", type: :system do
     end
   end
 
-  describe 'create a new comment' do
+  describe 'create a new comment', :js do
     it 'creates a comment with valid input' do
       visit group_talk_path(group, talk)
       fill_in 'コメント内容', with: '面白そう！'
       click_on '新規作成'
       expect(page).to have_content('面白そう！')
+      expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
     end
   end
 
@@ -53,6 +54,7 @@ RSpec.describe "Comments", type: :system do
       end
       expect(page).to have_content(comments[1].description)
       expect(page).to have_no_content(comments[0].description)
+      expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
     end
   end
 
@@ -125,6 +127,42 @@ RSpec.describe "Comments", type: :system do
         find('.indented_braille_display_btn').click
         expect(page).to have_css('.indented_braille.hidden', visible: :all)
       end
+    end
+  end
+
+  describe 'collapse comments', :js do
+    it 'displays initial comments' do
+      additional_comments = create_list(:comment, 10, talk: talk, user: user)
+      visit group_talk_path(group, talk)
+      all_comments = comments + additional_comments
+      initial_comments = all_comments[-CommentsHelper::INITIAL_DISPLAY_COUNT..]
+      hidden_comments = all_comments[0..-(CommentsHelper::INITIAL_DISPLAY_COUNT + 1)]
+
+      expect(page).to have_content "コメント （#{all_comments.size}）"
+      expect(page).to have_content "コメントを読み込む (#{all_comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT})"
+      initial_comments.each do |comment|
+        expect(page).to have_content(comment.description)
+      end
+      hidden_comments.each do |comment|
+        expect(page).to have_no_content(comment.description)
+      end
+    end
+
+    it 'displays a few more comments each time the button is clicked' do
+      additional_comments = create_list(:comment, 10, talk: talk, user: user)
+      visit group_talk_path(group, talk)
+      all_comments = comments + additional_comments
+      hidden_comments = all_comments[0...-CommentsHelper::INITIAL_DISPLAY_COUNT]
+      hidden_count = hidden_comments.size
+
+      hidden_comments.reverse.each_slice(CommentsHelper::INITIAL_DISPLAY_COUNT) do |next_comments|
+        click_on "コメントを読み込む (#{hidden_count})"
+        next_comments.reverse.each do |comment|
+          expect(page).to have_content(comment.description)
+        end
+        hidden_count -= CommentsHelper::INITIAL_DISPLAY_COUNT
+      end
+      expect(page).to have_no_content('コメントを読み込む')
     end
   end
 end
