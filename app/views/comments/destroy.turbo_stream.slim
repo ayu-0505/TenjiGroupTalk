@@ -1,2 +1,5 @@
 = turbo_stream_flash
 = turbo_stream.remove @comment
+= turbo_stream.replace 'comment_count' do
+  = render 'comments/count', comments: @talk.comments
+- puts @talk.comments.size

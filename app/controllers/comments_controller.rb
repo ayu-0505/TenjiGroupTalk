@@ -39,6 +39,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy!
+    @talk.reload
 
     respond_to do |format|
       format.turbo_stream { flash.now[:notice] = 'コメントを削除しました' }
