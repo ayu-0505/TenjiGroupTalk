@@ -1,11 +1,10 @@
-.mx-4.mt-8.px-4.text-xl.font-bold.text-center
-  = "コメント （#{comments.size}）"
+= render 'comments/count', comments:
 
 #comments.my-4 data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
   - if hidden_comments(comments).size != 0
     .flex.justify-center.items-center.text-sm
       button.btn-white.justify-center.w-60 data-comments-pagination-target="moreBtn" data-action="click->comments-pagination#moreComments"
-       | コメントを５件読み込む (
+       | コメントを読み込む (
        span data-comments-pagination-target="remainingCount"
          = comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT
        | )
