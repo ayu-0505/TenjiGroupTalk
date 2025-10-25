@@ -73,7 +73,7 @@ RSpec.describe "Comments", type: :system do
     context 'when clicking the convert button in the first comment' do
       it 'converts to raised braille and indented braillein the first comment' do
         visit group_talk_path(group, talk)
-        within(".comment#comment_#{comments[0].id}") do
+        within("#comment_#{comments[0].id}") do
           click_on 'コメントを編集する'
         end
 
@@ -88,7 +88,7 @@ RSpec.describe "Comments", type: :system do
 
       it "does not convert the text in other comments" do
         visit group_talk_path(group, talk)
-        within(".comment#comment_#{comments[0].id}") do
+        within("#comment_#{comments[0].id}") do
           click_on 'コメントを編集する'
         end
 
@@ -97,7 +97,7 @@ RSpec.describe "Comments", type: :system do
           click_button '変換'
         end
 
-        within(".comment#comment_#{comments[2].id}") do
+        within("#comment_#{comments[2].id}") do
           expect(page).to have_no_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
           expect(page).to have_no_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
         end
@@ -111,7 +111,7 @@ RSpec.describe "Comments", type: :system do
       comments[0].update!(braille:)
       visit group_talk_path(group, talk)
 
-      within "div#comment_#{comments[0].id}.comment" do
+      within "#comment_#{comments[0].id}" do
         expect(page).to have_css('.original_text.hidden', visible: :all)
         expect(page).to have_content ("#{braille.raised_braille}")
         expect(page).to have_content ("#{braille.indented_braille}")
