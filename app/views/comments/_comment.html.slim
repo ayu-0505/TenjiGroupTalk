@@ -1,9 +1,5 @@
 = turbo_frame_tag comment do
   .comment.block.p-4.mx-4.mt-4.border.rounded-lg.bg-white data-comments-pagination-target='comment' id="#{comment.id}" class="#{'hidden' if hidden}"
-    p
-      strong 投稿者:
-      = display_user_name(comment.user)
-
     .p-4.my-2
       = simple_format(comment.description)
 
@@ -54,9 +50,19 @@
             .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target="indented"
               = simple_format(comment.braille.indented_braille)
 
-    .flex.flex-col.items-end
+    .flex.flex-col.md:flex-row.justify-between.md:gap-4.p-2
+      .flex.flex-col.items-center.md:items-start
+        .flex.items-center.justify-center.gap-2
+          p.text-sm
+            strong 投稿者:
+          = image_tag comment.user.image, class: 'w-8 rounded-full'
+          = display_user_name(comment.user)
+        .text-gray-500.text-xs.mt-1
+          = l comment.created_at
+
       - if comment.user == current_user
-        = link_to 'コメントを編集する', edit_talk_comment_path(@talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-        = button_to 'コメントを削除する', talk_comment_path(@talk, comment),
-         { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'},
-         class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
+        .flex.flex-row.items-center.justify-center.md:flex-col.md:items-end.md:mt-0.gap-2.md:gap-1
+          = link_to '編集する', edit_talk_comment_path(@talk, comment), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+          = button_to '削除する', talk_comment_path(@talk, comment),
+           { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'},
+           class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
