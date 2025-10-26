@@ -1,12 +1,14 @@
-= link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
-  = lucide_icon("chevron-left").html_safe
-  | トーク一覧に戻る
+.mx-auto.w-full
+  .m-4
+    = link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
+      = lucide_icon("chevron-left").html_safe
+      | トーク一覧に戻る
 
-.text-lg.font-bold トーク新規作成
+  .section-title トーク新規作成
 
-= render 'form', talk_form: @talk_form
+  = render 'form', talk_form: @talk_form
 
-br
-
-div
-  = link_to 'キャンセル', group_talks_path(@group), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+  .m-4
+    = link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
+      = lucide_icon("chevron-left").html_safe
+      | トーク一覧に戻る
