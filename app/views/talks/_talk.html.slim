@@ -53,7 +53,8 @@
               = simple_format(braille.indented_braille)
 
     .flex.items-center.justify-center.gap-2
-      p by
+      p
+        strong 投稿者:
       = image_tag talk.user.image, class: 'w-8 rounded-full'
       = display_user_name(talk.user)
     .flex.items-center.justify-center

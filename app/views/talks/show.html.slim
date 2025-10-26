@@ -8,7 +8,7 @@
     = render 'subscriptions/toggle', subscription: @subscription, talk: @talk
 
   = render 'talks/talk', talk: @talk, braille: @talk.braille
-  
+
   - if @talk.user == current_user
     .block.px-4.mx-4.flex.flex-col.items-end
       = link_to 'トークを編集する', edit_group_talk_path(@group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
