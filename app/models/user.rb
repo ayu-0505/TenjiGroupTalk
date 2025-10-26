@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :admin_groups, class_name: 'Group', foreign_key: :admin_id
 
+  validates :nickname, format: { without: /\A\s*\z/, message: 'を入力してください' }, allow_nil: true
+
   def member_of?(group)
     groups.include?(group)
   end
