@@ -8,7 +8,7 @@ div(
   class="inline-block relative"
 )
   button data-action="dropdown#toggle:stop" class="menu px-2.5 pt-1 rounded"
-    = image_tag('menu.png', class: 'icon', class: 'icon w-14 h-14 hover:bg-green-400', alt: 'メニューボタンの３本線マーク')
+    = image_tag('menu.png', class: 'icon w-14 h-14 hover:bg-green-400', alt: 'メニューボタンの３本線マーク')
   div data-dropdown-target="menu" class="hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max"
     div class="text-sm bg-white shadow-lg rounded border overflow-hidden w-40"
       = link_to 'トップへ戻る', dashboard_path, class: 'no-underline block pl-4 py-2 text-gray-900 bg-white hover:bg-gray-100 whitespace-nowrap focus:bg-gray-100', data: {turbo: false, dropdown_target: 'menuItem'}
