@@ -14,4 +14,4 @@
                 = talk.title
               span.text-gray-500
                 = "（#{talk.comments.size}）"
-            = truncate(simple_format(talk.description), length: 150, separator: " ")
+            = truncate(strip_tags(simple_format(talk.description)), length: 150, separator: " ")
