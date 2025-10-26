@@ -1,6 +1,6 @@
 = form_with( model: talk_form, **talk_form.form_with_options) do |form|
   - if talk_form.errors.any?
-    div style='color: red'
+    .m-4 style='color: red'
       h2 = "#{t('errors.template.header', model: TalkBrailleForm.model_name.human, count: talk_form.errors.count)}"
       ul
         - talk_form.errors.each do |error|
@@ -14,7 +14,7 @@
   .pb-4
     = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
     .flex.justify-center
-      = form.textarea :description,rows: 10, class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
+      = form.textarea :description, rows: 10, class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
   div data-controller="braille-converter"
     .pb-4

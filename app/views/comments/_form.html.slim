@@ -1,6 +1,6 @@
 = form_with(model: comment_form, **comment_form.form_with_options) do |form|
   - if comment_form.errors.any?
-    div style='color: red'
+    .m-4 style='color: red'
       h2 = "#{t('errors.template.header', model: CommentBrailleForm.model_name.human, count: comment_form.errors.count)}"
       ul
         - comment_form.errors.each do |error|

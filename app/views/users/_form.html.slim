@@ -1,4 +1,11 @@
 = form_with(model: user) do |form|
+  - if user.errors.any?
+    .m-4 style='color: red'
+      h2 = "#{t('errors.template.header', model: User.model_name.human, count: user.errors.count)}"
+      ul
+        - user.errors.each do |error|
+          li = error.full_message
+
   .mx-4
     = form.text_field :nickname, placeholder: 'ニックネームを入力', class: 'p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
