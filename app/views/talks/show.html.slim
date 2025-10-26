@@ -1,4 +1,4 @@
-.mx-auto.w-full
+.talk.mx-auto.w-full
   .m-4
     = link_to group_talks_path(@group), class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
@@ -7,13 +7,24 @@
   #subscription_toggle
     = render 'subscriptions/toggle', subscription: @subscription, talk: @talk
 
-  = render 'talks/talk', talk: @talk, braille: @talk.braille
-  
-  - if @talk.user == current_user
-    .block.px-4.mx-4.flex.flex-col.items-end
-      = link_to 'トークを編集する', edit_group_talk_path(@group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-      = button_to 'トークを削除する', group_talk_path(@group, @talk),
-      { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
-      class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
+  .block.p-4.mx-4.mt-4.border.rounded-lg.bg-white
+    = render 'talks/talk', talk: @talk, braille: @talk.braille
+
+    .flex.flex-col.md:flex-row.justify-between.md:gap-4.p-2
+      .flex.flex-col.items-center.md:items-start
+        .flex.items-center.justify-center.gap-2
+          p.text-sm
+            strong 投稿者:
+          = image_tag @talk.user.image, class: 'w-8 rounded-full'
+          = display_user_name(@talk.user)
+        .text-gray-500.text-xs.mt-1
+          = l @talk.created_at
+
+      - if @talk.user == current_user
+        .flex.flex-row.items-center.justify-center.md:flex-col.md:items-end.md:mt-0.gap-2.md:gap-1
+          = link_to '編集する', edit_group_talk_path(@group, @talk), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+          = button_to '削除する', group_talk_path(@group, @talk),
+          { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
+          class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
 
   = render 'comments/comments', talk: @talk, comments: @comments, comment_form: @comment_form

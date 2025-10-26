@@ -9,9 +9,9 @@
     = link_to '新しいトークを作成する', new_group_talk_path(group), class: 'btn btn-blue'
   - else
     - dashboard_talks(group).each do |talk|
-      .p-4.m-4.border.rounded-lg.hover:bg-gray-100.transition.bg-white.w-5/6
-        .flex.justify-between.items-center
-          = link_to talk.title, group_talk_path(group, talk)
+      = link_to group_talk_path(group, talk), class: 'p-4 m-4 border rounded-lg hover:bg-gray-100 transition bg-white w-5/6' do
+        .flex
+          = talk.title
           .span.text-gray-500
             = "（#{talk.comments.size}）"
 

@@ -1,4 +1,11 @@
 = form_with(model: group) do |form|
+  - if group.errors.any?
+    .m-4 style='color: red'
+      h2 = "#{t('errors.template.header', model: Group.model_name.human, count: group.errors.count)}"
+      ul
+        - group.errors.each do |error|
+          li = error.full_message
+
   .flex.flex-col.ml-4
     = form.label :name, style: "display: block", class: 'text-lg'
     .flex
