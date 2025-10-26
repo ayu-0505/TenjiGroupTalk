@@ -36,9 +36,11 @@ RSpec.describe "Comments", type: :system do
   describe 'update the comment' do
     it 'updates the comment with valid input' do
       visit group_talk_path(group, talk)
-      click_on 'コメントを編集する', match: :first
-      fill_in 'コメント内容', with: '新規コメント', match: :first
-      click_on '更新', match: :first
+      within("#comment_#{comments[0].id}") do
+        click_on '編集する', match: :first
+        fill_in 'コメント内容', with: '新規コメント', match: :first
+        click_on '更新', match: :first
+      end
       expect(page).to have_content('新規コメント')
       expect(page).to have_no_content(comments[0].description)
     end
@@ -48,12 +50,14 @@ RSpec.describe "Comments", type: :system do
     it 'deletes the comment' do
       visit group_talk_path(group, talk)
       expect(page).to have_text(comments[1].description)
-      expect(page).to have_text('コメントを削除する')
-      page.accept_confirm 'コメントを削除します。よろしいですか？' do
-        click_on 'コメントを削除する', match: :first
+      within("#comment_#{comments[1].id}") do
+        expect(page).to have_text('削除する')
+        page.accept_confirm 'コメントを削除します。よろしいですか？' do
+          click_on '削除する', match: :first
+        end
       end
-      expect(page).to have_content(comments[1].description)
-      expect(page).to have_no_content(comments[0].description)
+      expect(page).to have_content(comments[0].description)
+      expect(page).to have_no_content(comments[1].description)
       expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
     end
   end
@@ -76,7 +80,7 @@ RSpec.describe "Comments", type: :system do
       it 'converts to raised braille and indented braillein the first comment' do
         visit group_talk_path(group, talk)
         within("#comment_#{comments[0].id}") do
-          click_on 'コメントを編集する'
+          click_on '編集する'
         end
 
         within(".edit_comment") do
@@ -91,7 +95,7 @@ RSpec.describe "Comments", type: :system do
       it "does not convert the text in other comments" do
         visit group_talk_path(group, talk)
         within("#comment_#{comments[0].id}") do
-          click_on 'コメントを編集する'
+          click_on '編集する'
         end
 
         within(".edit_comment") do

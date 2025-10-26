@@ -37,8 +37,10 @@ RSpec.describe 'Talks', type: :system do
       it 'does not display the edit and delete links' do
         visit group_talk_path(group, talks[0])
         expect(page).to have_content(talks[0].title)
-        expect(page).to have_no_content('トークを編集する')
-        expect(page).to have_no_content('トークを削除する')
+        within('.talk') do
+          expect(page).to have_no_content('編集する')
+          expect(page).to have_no_content('削除する')
+        end
       end
     end
 
@@ -113,7 +115,9 @@ RSpec.describe 'Talks', type: :system do
   describe 'update the talk' do
     it 'updates the talk with valid input' do
       visit group_talk_path(group, talks[0])
-      click_on 'トークを編集する'
+      within('.talk') do
+        click_on '編集する'
+      end
       fill_in 'タイトル', with: '新規トーク'
       fill_in '内容', with: 'これは新しいトークです！'
       click_on 'トークを更新'
@@ -129,9 +133,11 @@ RSpec.describe 'Talks', type: :system do
     it 'deletes the talk' do
       visit group_talk_path(group, talks[0])
       expect(page).to have_text(talks[0].title)
-      expect(page).to have_text('トークを削除する')
-      page.accept_confirm 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？' do
-        click_on 'トークを削除する'
+      within('.talk') do
+        expect(page).to have_text('削除する')
+        page.accept_confirm 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？' do
+          click_on '削除する'
+        end
       end
       expect(page).to have_content('トークは削除されました')
       expect(page).to have_no_content(talks[0].title)
