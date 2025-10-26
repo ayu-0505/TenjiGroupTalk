@@ -8,7 +8,8 @@
 
   .pb-4.mx-4
     = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
-    = form.textarea :description, class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
+    = form.textarea :description, required: true,
+      class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
   div data-controller="braille-converter"
     .pb-4.mx-4
