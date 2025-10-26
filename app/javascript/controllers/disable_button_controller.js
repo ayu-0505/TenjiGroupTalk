@@ -1,13 +1,19 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["button"];
+  static targets = ["input", "button"];
 
-  toggle(event) {
-    const value = event.target.value.trim();
+  connect() {
+    this.toggle();
+  }
+
+  toggle() {
+    const isAllFilled = this.inputTargets.every(
+      (input) => input.value.trim().length > 0
+    );
     const button = this.buttonTarget;
 
-    if (value.length === 0) {
+    if (!isAllFilled) {
       button.disabled = true;
       button.classList.remove("bg-blue-500");
       button.classList.add("bg-blue-300", "cursor-not-allowed");
