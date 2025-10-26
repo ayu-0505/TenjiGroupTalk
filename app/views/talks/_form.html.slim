@@ -6,60 +6,63 @@
         - talk_form.errors.each do |error|
           li = error.full_message
 
-  .pb-4
-    = form.label :title, style: 'display: block', class: 'mx-4 text-lg'
-    .flex.justify-center
-      = form.text_field :title, required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder:'タイトルを入力',
-        class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-
-  .pb-4
-    = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
-    .flex.justify-center
-      = form.textarea :description, rows: 10, required: true, placeholder:'トーク内容を入力',
-        class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
-
-  div data-controller="braille-converter"
+  div data-controller='disable-button'
     .pb-4
-      = form.label :original_text, style: 'display: block', class: 'mx-4 text-lg'
+      = form.label :title, style: 'display: block', class: 'mx-4 text-lg'
       .flex.justify-center
-        = form.textarea :original_text, placeholder:'点字に変換したい内容をひらがなで入力',
-          class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y', data: { braille_converter_target: "input"}
+        = form.text_field :title, required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder:'タイトルを入力',
+          data: { action: 'input->disable-button#toggle', disable_button_target: 'input' },
+          class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-    .flex.items-center.mx-4.gap-1
-      button type="button" data-action="click->braille-converter#convert" class="mr-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 点字変換
-      = lucide_icon('circle-question-mark', class: "stroke-gray-500")
-      p.text-sm.text-gray-500 投稿前に点字を確認できます
+    .pb-4
+      = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
+      .flex.justify-center
+        = form.textarea :description, rows: 10, required: true, placeholder:'トーク内容を入力',
+          data: { action: 'input->disable-button#toggle', disable_button_target: 'input' },
+          class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
-    - if params[:action] == 'edit' && @talk.braille.present?
-      div data-braille-converter-target="result"
-        .mx-4.my-2
-          p.text-lg
-            = Braille.human_attribute_name(:raised_braille)
-          .p-2.border.bg-white
-            span data-braille-converter-target="raised" class="text-2xl"
-              = @talk.braille.raised_braille
-        .mx-4.my-2
-          p.text-lg
-            = Braille.human_attribute_name(:indented_braille)
-          .p-2.border.bg-white
-            span data-braille-converter-target="indented" class="text-2xl"
-              = @talk.braille.indented_braille
-    - else
-      .hidden data-braille-converter-target="result"
-        .mx-4.my-2
-          p.text-lg
-            = Braille.human_attribute_name(:raised_braille)
-          .p-2.border.bg-white
-            span data-braille-converter-target="raised"
+    div data-controller='braille-converter'
+      .pb-4
+        = form.label :original_text, style: 'display: block', class: 'mx-4 text-lg'
+        .flex.justify-center
+          = form.textarea :original_text, placeholder:'点字に変換したい内容をひらがなで入力',
+            class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y', data: { braille_converter_target: "input"}
 
-        .mx-4.my-2
-          p.text-lg
-            = Braille.human_attribute_name(:indented_braille)
-          .p-2.border.bg-white
-            span data-braille-converter-target="indented"
+      .flex.items-center.mx-4.gap-1
+        button type="button" data-action="click->braille-converter#convert" class="mr-2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 点字変換
+        = lucide_icon('circle-question-mark', class: "stroke-gray-500")
+        p.text-sm.text-gray-500 投稿前に点字を確認できます
 
-  .m-4.mt-8
-    - if params[:action] == 'edit'
-      = form.submit 'トークを更新する', class: 'btn btn-blue'
-    - else
-      = form.submit 'トークを作成する', class: 'btn btn-blue'
+      - if params[:action] == 'edit' && @talk.braille.present?
+        div data-braille-converter-target="result"
+          .mx-4.my-2
+            p.text-lg
+              = Braille.human_attribute_name(:raised_braille)
+            .p-2.border.bg-white
+              span data-braille-converter-target="raised" class="text-2xl"
+                = @talk.braille.raised_braille
+          .mx-4.my-2
+            p.text-lg
+              = Braille.human_attribute_name(:indented_braille)
+            .p-2.border.bg-white
+              span data-braille-converter-target="indented" class="text-2xl"
+                = @talk.braille.indented_braille
+      - else
+        .hidden data-braille-converter-target="result"
+          .mx-4.my-2
+            p.text-lg
+              = Braille.human_attribute_name(:raised_braille)
+            .p-2.border.bg-white
+              span data-braille-converter-target="raised"
+
+          .mx-4.my-2
+            p.text-lg
+              = Braille.human_attribute_name(:indented_braille)
+            .p-2.border.bg-white
+              span data-braille-converter-target="indented"
+
+    .m-4.mt-8
+      - if params[:action] == 'edit'
+        = form.submit 'トークを更新する', data: { disable_button_target: 'button'}, disabled: true, class: 'btn btn-blue'
+      - else
+        = form.submit 'トークを作成する', data: { disable_button_target: 'button'}, disabled: true, class: 'btn btn-blue'
