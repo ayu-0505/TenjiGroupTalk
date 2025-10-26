@@ -1,0 +1,19 @@
+footer.h-32.w-full.flex.flex-col.justify-center
+  .mx-4
+    nav.footer_nav
+      ul.footer_nav_items.flex.flex-col.sm:flex-row.justify-center.items-center.text-gray-500.text-sm.gap-2.sm:gap-4
+        li.footer_nav_item
+          = link_to 'トップページ', root_path, class: 'hover:underline'
+        li.footer_nav_item
+          = link_to '利用規約', terms_path, class: 'hover:underline'
+        li.footer_nav_item
+          = link_to 'プライバシーポリシー', privacy_path, class: 'hover:underline'
+        li.footer_nav_item
+          = link_to 'https://github.com/ayu-0505/TenjiGroupTalk', target: '_blank', rel: 'noopener' do
+            = image_tag 'github-mark.svg', class: "w-4 h-4"
+
+
+    .flex.gap-2.justify-center
+      p © 2025
+      = link_to 'ayu-0505', 'https://x.com/ayu_0505_', target: '_blank',
+        rel: 'noopener', class: 'hover:underline hover:text-stone-400'
