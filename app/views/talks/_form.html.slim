@@ -34,13 +34,13 @@
             = Braille.human_attribute_name(:raised_braille)
           .p-2.border.bg-white
             span data-braille-converter-target="raised" class="text-2xl"
-              = simple_format(@talk.braille.raised_braille)
+              = @talk.braille.raised_braille
         .mx-4.my-2
           p.text-lg
             = Braille.human_attribute_name(:indented_braille)
           .p-2.border.bg-white
             span data-braille-converter-target="indented" class="text-2xl"
-              = simple_format(@talk.braille.indented_braille)
+              = @talk.braille.indented_braille
     - else
       .hidden data-braille-converter-target="result"
         .mx-4.my-2

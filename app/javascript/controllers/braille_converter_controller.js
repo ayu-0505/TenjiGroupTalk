@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import { FetchRequest } from "@rails/request.js";
 
-// Connects to data-controller="braille-convert"
 export default class extends Controller {
   static targets = ["input", "result", "raised", "indented"];
 
@@ -14,7 +13,7 @@ export default class extends Controller {
     const data = await response.json;
 
     this.resultTarget.classList.remove("hidden");
-    this.raisedTarget.textContent = data.raised;
-    this.indentedTarget.textContent = data.indented;
+    this.raisedTarget.innerText = data.raised;
+    this.indentedTarget.innerText = data.indented;
   }
 }
