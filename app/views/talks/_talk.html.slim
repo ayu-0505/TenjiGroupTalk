@@ -50,11 +50,3 @@
           p.indented_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='indentedPlaceholder' ここに凹面点字が表示されます
           .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
             = simple_format(braille.indented_braille)
-
-  / .flex.items-center.justify-center.gap-2
-  /   p
-  /     strong 投稿者:
-  /   = image_tag talk.user.image, class: 'w-8 rounded-full'
-  /   = display_user_name(talk.user)
-  / .flex.items-center.justify-center
-  /   = l talk.created_at
