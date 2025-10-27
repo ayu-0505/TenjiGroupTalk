@@ -14,4 +14,28 @@ module ApplicationHelper
     css_classes << 'border-r-0' unless is_last_page
     css_classes.join(' ')
   end
+
+  def default_meta_tags
+    {
+      site: '点字グループトーク',
+      title: '点字グループトーク',
+      reverse: true,
+      charset: 'utf-8',
+      description: '点字グループトークは、点字でコミュニケーションできる招待制のグループ掲示板サービスです。',
+      keywords: '点字グループトーク, tenji group talk, 点字, Braille, invitation only, 招待制',
+      og: {
+        title: :title,
+        type: 'website',
+        site_name: '点字グループトーク',
+        description: :description,
+        image: image_url('ogp.png'),
+        url: request.original_url,
+        local: 'ja-JP'
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: '@ayu_0505_'
+      }
+    }
+  end
 end
