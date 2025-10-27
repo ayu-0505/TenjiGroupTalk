@@ -1,13 +1,12 @@
 .flex.flex-col.items-center.w-full
   - if user.groups.size == 0
-    .mx-4.text-center.space-y-8
-      .flex.flex-col.items-center
-        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
-        p.text-sm.text-gray-500
-         | 所属グループがまだありません<br>
-         | グループを作成し、他のユーザーを招待してみましょう
-      div
-        = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
+    .flex.flex-col.items-center.my-4.text-center
+      p.text-sm.text-gray-500
+       | 所属グループがまだありません<br>
+       | グループを作成し、他のユーザーを招待してみましょう
+      = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+    div
+      = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else
     .mx-4.text-center.space-y-4.w-4/5
       - user.groups.each do |group|
