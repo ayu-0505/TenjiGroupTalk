@@ -51,7 +51,6 @@ class TalkBrailleForm
         @talk.update!({
           title: title,
           description: description
-
         })
 
       # NOTE: ひらがな（original_text）入力があり、既存の点字がない場合は点字を新規作成
