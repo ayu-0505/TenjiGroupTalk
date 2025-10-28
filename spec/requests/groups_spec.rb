@@ -104,7 +104,7 @@ RSpec.describe "/groups", type: :request do
     end
 
     context "with invalid parameters" do
-        let(:invalid_attributes) { attributes_for(:group, name: "#{'a' * 50} Long Name group") }
+      let(:invalid_attributes) { attributes_for(:group, name: "#{'a' * 50} Long Name group") }
 
       it "does not create a new Group" do
         expect {
@@ -158,13 +158,13 @@ RSpec.describe "/groups", type: :request do
         sign_in(user)
       end
 
-       it 'deletes the group' do
-         expect do
-           delete group_url(group)
-         end.to change(Group, :count).by(-1)
+      it 'deletes the group' do
+        expect do
+          delete group_url(group)
+        end.to change(Group, :count).by(-1)
 
         expect(response).to redirect_to(groups_path)
-       end
+      end
     end
 
     context 'when a non-member user accesses' do

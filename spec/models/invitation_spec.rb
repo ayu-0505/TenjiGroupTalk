@@ -7,7 +7,7 @@ RSpec.describe Invitation, type: :model do
       expect(invitation.expired?).to be false
     end
 
-    it "returns true after that" do
+    it 'returns true after that' do
       invitation = create(:invitation, expires_at: Time.current.yesterday)
       expect(invitation.expired?).to be true
     end

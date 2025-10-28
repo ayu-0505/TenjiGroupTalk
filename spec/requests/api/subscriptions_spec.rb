@@ -13,7 +13,7 @@ RSpec.describe 'Subscriptions', type: :request do
     it 'creates a subscription' do
       expect {
         post api_subscriptions_path(talk_id: talk)
-    }.to change(Subscription, :count).by(1)
+      }.to change(Subscription, :count).by(1)
       subscription = Subscription.last
       expect(user.subscriptions.include?(subscription)).to be true
     end

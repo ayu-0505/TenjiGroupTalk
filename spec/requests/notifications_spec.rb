@@ -24,8 +24,7 @@ RSpec.describe 'Notifications', type: :request do
       patch notification_path(notification)
       notification.reload
       expect(notification.read).to be true
-
-       expect(response).to redirect_to(notification.link_path)
+      expect(response).to redirect_to(notification.link_path)
     end
   end
 end
