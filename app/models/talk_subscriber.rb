@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TalkSubscriber
   def call(_name, _started, _finished, _unique_id, payload)
     user = payload[:user]

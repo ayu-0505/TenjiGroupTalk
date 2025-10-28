@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CommentNotificater
   def call(_name, _started, _finished, _unique_id, payload)
     comment = payload[:comment]
