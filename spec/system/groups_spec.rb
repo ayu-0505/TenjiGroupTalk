@@ -3,26 +3,26 @@ require 'rails_helper'
 RSpec.describe "Groups", type: :system do
   let(:group) { create(:group) }
 
-    describe 'Actions available only to group members' do
-      let(:user) { create(:user) }
+  describe 'Actions available only to group members' do
+    let(:user) { create(:user) }
 
-      before do
-        log_in_as user
-      end
-
-      context 'when a non-member user accesses' do
-        it 'is prevented' do
-          visit group_path(group)
-          expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
-
-          visit edit_group_path(group)
-          expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
-        end
-      end
+    before do
+      log_in_as user
     end
 
-    describe 'group page' do
-     context 'when the admin user' do
+    context 'when a non-member user accesses' do
+      it 'is prevented' do
+        visit group_path(group)
+        expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+
+        visit edit_group_path(group)
+        expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+      end
+    end
+  end
+
+  describe 'group page' do
+    context 'when the admin user' do
       before do
         group.admin.groups << group
         log_in_as group.admin

@@ -83,7 +83,7 @@ RSpec.describe 'Sessions', type: :request do
     context 'when logging in as an existing user' do
       let(:existing_user) { create(:user) }
 
-       before do
+      before do
         Rails.application.env_config['omniauth.auth'] = google_mock(existing_user)
       end
 

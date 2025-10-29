@@ -83,8 +83,8 @@ RSpec.describe '/comments', type: :request do
       subject { post talk_comments_path(talk), params: { comment_braille_form: valid_attributes }, as: :turbo_stream }
 
       before do
-       non_member_user = create(:user)
-       sign_in(non_member_user)
+        non_member_user = create(:user)
+        sign_in(non_member_user)
       end
 
       it_behaves_like 'returns 404 not found'

@@ -69,10 +69,10 @@ RSpec.describe "Comments", type: :system do
         within("#new_comment") do
           fill_in 'ひらがな文', with: 'こんにちわ'
           click_button '変換'
-
-          expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
-          expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
         end
+
+        expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
+        expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
       end
     end
 

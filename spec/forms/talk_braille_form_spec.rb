@@ -15,7 +15,7 @@ RSpec.describe TalkBrailleForm, type: :model do
 
     context 'when original_text is present' do
       it 'creates talk and braille and returns true' do
-        form = described_class.new(user:, group:, attributes: { title: 'test', description: 'test description', attributes: { original_text: 'こんにちは' } })
+        form = described_class.new(user:, group:, attributes: { title: 'test', description: 'test description', attributes: { original_text: 'てんじ' } })
         expect(form.save).to be true
         expect(form.talk).to be_valid
         expect(form.talk.braille).to be_valid
@@ -34,7 +34,7 @@ RSpec.describe TalkBrailleForm, type: :model do
 
   describe '#update' do
     shared_context 'with original_text' do
-       let(:form) { described_class.new(user:, group:, talk:, attributes: { title: 'Valid title', description: 'valid description', original_text: 'こんにちは' }) }
+       let(:form) { described_class.new(user:, group:, talk:, attributes: { title: 'Valid title', description: 'valid description', original_text: 'てんじ' }) }
     end
 
     shared_context 'without original_text' do
@@ -44,7 +44,6 @@ RSpec.describe TalkBrailleForm, type: :model do
     shared_context 'with existing braille' do
       let(:existing_braille) { create(:braille, user:) }
       let(:talk) { create(:talk, group:, user:, braille: existing_braille) }
-      # talk.braille = existing_braille
     end
 
     context 'when there are validation errors' do
