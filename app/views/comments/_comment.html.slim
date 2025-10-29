@@ -56,7 +56,7 @@
           p.text-sm
             strong 投稿者:
           = image_tag comment.user.image, class: 'w-8 rounded-full'
-          = display_user_name(comment.user)
+          = user_name_tag(comment.user)
         .text-gray-500.text-xs.mt-1
           = l comment.created_at
 

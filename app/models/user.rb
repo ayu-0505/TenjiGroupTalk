@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   validates :nickname, format: { without: /\A\s*\z/, message: 'を入力してください' }, allow_nil: true
 
+  def display_name
+    nickname.presence || name
+  end
+
   def member_of?(group)
     groups.include?(group)
   end
