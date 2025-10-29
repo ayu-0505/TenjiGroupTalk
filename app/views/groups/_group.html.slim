@@ -4,10 +4,12 @@
 p.text-xl 管理者
 .flex.items-center.m-2
   = image_tag group.admin.image, class: 'w-8 rounded-full mx-4'
-  = group.admin.nickname
-
+  = group.admin.display_name
 .flex.flex-col.justify-center.items-center.m-4
   .text-xl メンバー
-  .flex.w-4/5.p-1.gap-2.w-full.flex-wrap
+  .grid.grid-cols-2.sm:grid-cols-3.md:grid-cols-4.gap-2.w-full.p-1
     - group.users.each do |user|
-      = image_tag user.image, class: 'w-8 h-8 rounded-full'
+      .flex.items-center.sm:gap-2
+        = image_tag user.image, class: 'w-8 h-8 rounded-full'
+        .span.text-sm.break-words.max-w-[100px]
+          = user_name_tag(user)
