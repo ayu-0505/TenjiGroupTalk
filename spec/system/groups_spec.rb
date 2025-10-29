@@ -2,10 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Groups", type: :system do
   let(:group) { create(:group) }
+  let(:user) { create(:user) }
 
   describe 'Actions available only to group members' do
-    let(:user) { create(:user) }
-
     before do
       log_in_as user
     end
@@ -22,6 +21,19 @@ RSpec.describe "Groups", type: :system do
   end
 
   describe 'group page' do
+    it 'shows the list of members' do
+      members = create_list(:user, 5)
+       members.each { |member| member.groups << group }
+      user.groups << group
+
+      log_in_as user
+      visit group_path(group)
+      expect(page).to have_content(user.display_name)
+      members.each do |member|
+        expect(page).to have_content(member.display_name)
+      end
+    end
+
     context 'when the admin user' do
       before do
         group.admin.groups << group
