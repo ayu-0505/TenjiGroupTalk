@@ -3,6 +3,10 @@
 
 .mx-4
   .section-title 所属グループ
+  = render 'groups', groups: @groups
+  .my-4
+    = paginate @groups
+
   .self-start
     = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe

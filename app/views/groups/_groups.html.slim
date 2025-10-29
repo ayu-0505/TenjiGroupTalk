@@ -1,5 +1,5 @@
 .flex.flex-col.items-center.w-full
-  - if user.groups.size == 0
+  - if groups == 0
     .flex.flex-col.items-center.my-4.text-center
       p.text-sm.text-gray-500
        | 所属グループがまだありません<br>
@@ -9,7 +9,7 @@
       = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else
     .mx-4.text-center.space-y-4.w-4/5
-      - user.groups.each do |group|
+      - groups.each do |group|
         .flex.gap-2.items-center
           .w-3/5
             = link_to group.name, group, class: 'block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
