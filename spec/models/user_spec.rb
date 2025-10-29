@@ -4,6 +4,15 @@ RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:group) { create(:group) }
 
+  describe '#display_name' do
+    it 'returns the nickname if it is present' do
+      user.nickname = 'あだ名'
+      expect(user.display_name).to eq user.nickname
+      user.nickname = nil
+      expect(user.display_name).to eq user.name
+    end
+  end
+
   describe '#member_of?' do
     context 'when user is not member of the group' do
       it 'returns false' do
