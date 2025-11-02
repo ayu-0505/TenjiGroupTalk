@@ -20,7 +20,13 @@ class User < ApplicationRecord
   end
 
   def soft_delete!
-    update!(deleted_at: Time.current, name: 'deleted_name', email: 'deleted_email', uid: 'deleted_uid', image: 'deleted_image')
+    update!(
+      deleted_at: Time.current,
+      name: 'deleted_name',
+      email: 'deleted_email',
+      uid: 'deleted_uid',
+      image: ActionController::Base.helpers.asset_path('test_user_icon.png')
+    )
   end
 
   def deleted?
