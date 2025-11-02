@@ -6,11 +6,11 @@
   .w-full.m-4
     = render 'form', group: @group
 
-  .m-4.self-start
+  .self-start.my-2
     = link_to @group, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | グループ一覧へ戻る
-  .m-4.self-start
+  .self-start.my-2
     = link_to user_path(current_user), class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | プロフィールへ戻る

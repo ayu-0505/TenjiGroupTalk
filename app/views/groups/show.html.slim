@@ -24,10 +24,16 @@
   = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
 
   = link_to 'グループ名を編集する', edit_group_path(@group), class: 'text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
+
   .self-start.my-2
     = link_to groups_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | グループ一覧へ戻る
+  .self-start.my-2
+    = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+      = lucide_icon("chevron-left").html_safe
+      | ダッシュボードへ戻る
+
 
   - if @membership.present?
     .flex.self-end.my-2
