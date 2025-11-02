@@ -38,9 +38,9 @@ RSpec.describe User, type: :model do
       expect(user.reload).to have_attributes(
         name: 'deleted_name',
         email: 'deleted_email',
-        uid: 'deleted_uid',
         image: ActionController::Base.helpers.asset_path('test_user_icon.png')
       )
+      expect(user.uid).to start_with('dummy_uid_')
       expect(user.deleted_at).not_to be_nil
     end
   end

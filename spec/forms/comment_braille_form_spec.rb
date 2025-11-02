@@ -135,7 +135,7 @@ RSpec.describe CommentBrailleForm, type: :model do
     context 'when the comment does not exist' do
       it 'returns the create URL with the post method' do
         form = described_class.new(user:, talk:)
-        expect(form.form_with_options).to eq ({ url: "/talks/#{group.id}/comments", method: :post })
+        expect(form.form_with_options).to eq ({ url: "/talks/#{talk.id}/comments", method: :post })
       end
     end
   end
