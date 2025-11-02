@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authenticate, only: :create
+  skip_before_action :authenticate, only: %i[create dev_login]
 
   def create
     user = User.find_or_initialize_from_auth_hash!(request.env['omniauth.auth'])
@@ -37,5 +37,19 @@ class SessionsController < ApplicationController
   def auth_failure
     reset_session
     redirect_to root_url, alert: 'Googleログインがキャンセルされました', status: :see_other
+  end
+
+  def dev_login
+    return if params[:uid] == 'deleted_user'
+
+    user = User.find_by(uid: params[:uid])
+    if user
+      reset_session
+      session[:user_id] = user.id
+      redirect_to root_path, notice: "#{user.name} としてログインしました"
+    else
+      reset_session
+      redirect_to root_path, alert: "uid=#{params[:uid]} のユーザーが見つかりません"
+    end
   end
 end
