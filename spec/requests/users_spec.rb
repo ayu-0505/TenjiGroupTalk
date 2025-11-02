@@ -21,7 +21,7 @@ RSpec.describe '/users', type: :request do
         name: 'deleted_name',
         email: 'deleted_email',
         uid: 'deleted_uid',
-        image: 'deleted_image'
+        image: ActionController::Base.helpers.asset_path('test_user_icon.png')
       )
     end
 

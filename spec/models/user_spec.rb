@@ -39,7 +39,7 @@ RSpec.describe User, type: :model do
         name: 'deleted_name',
         email: 'deleted_email',
         uid: 'deleted_uid',
-        image: 'deleted_image'
+        image: ActionController::Base.helpers.asset_path('test_user_icon.png')
       )
       expect(user.deleted_at).not_to be_nil
     end
