@@ -4,7 +4,7 @@ class TalksController < ApplicationController
   before_action :authorize_owner, only: %i[ edit update destroy ]
 
   def index
-    @talks = @group.talks.order(updated_at: :desc).page(params[:page]).per(10)
+    @talks = @group.talks.sort_by_latest_comments.page(params[:page]).per(10)
   end
 
   def show

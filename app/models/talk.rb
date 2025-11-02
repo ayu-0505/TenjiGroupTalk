@@ -10,10 +10,11 @@ class Talk < ApplicationRecord
   validates :description, presence: true
 
   scope :sort_by_latest_comments, -> {
-    left_joins(:comments)
-    .group('talks.id')
-    .select('talks.*, MAX(COALESCE(comments.updated_at, talks.updated_at)) AS comments_updated_at')
-    .reorder(Arel.sql('comments_updated_at DESC'))
+    subquery = Comment.group('talk_id')
+                      .select('talk_id, MAX(updated_at) AS latest_comment_time')
+
+    joins("LEFT JOIN (#{subquery.to_sql}) AS latest_comments ON latest_comments.talk_id = talks.id")
+    .select('talks.*, COALESCE(latest_comments.latest_comment_time, talks.updated_at) AS comments_updated_at')
     .order('comments_updated_at DESC')
   }
 end
