@@ -1,6 +1,6 @@
 .border.border-4.border-main-color.m-4.flex.flex-col.items-center
   p.section-title.text-xl
-    = group.name
+    = link_to group.name, group
   - talks = dashboard_talks(group)
 
   - if talks.size == 0
