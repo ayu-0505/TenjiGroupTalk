@@ -19,10 +19,10 @@ RSpec.describe '/users', type: :request do
       delete user_path(user)
       expect(user.reload).to have_attributes(
         name: 'deleted_name',
-        email: 'deleted_email',
-        uid: 'deleted_uid',
-        image: 'deleted_image'
+        image: ActionController::Base.helpers.asset_path('test_user_icon.png')
       )
+      expect(user.email).to start_with('dummy_email_')
+      expect(user.uid).to start_with('dummy_uid_')
     end
 
     it 'redirects to the root' do

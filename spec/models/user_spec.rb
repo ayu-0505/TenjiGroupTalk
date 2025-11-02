@@ -37,10 +37,10 @@ RSpec.describe User, type: :model do
       user.soft_delete!
       expect(user.reload).to have_attributes(
         name: 'deleted_name',
-        email: 'deleted_email',
-        uid: 'deleted_uid',
-        image: 'deleted_image'
+        image: ActionController::Base.helpers.asset_path('test_user_icon.png')
       )
+      expect(user.email).to start_with('dummy_email_')
+      expect(user.uid).to start_with('dummy_uid_')
       expect(user.deleted_at).not_to be_nil
     end
   end
