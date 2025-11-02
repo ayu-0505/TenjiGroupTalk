@@ -16,7 +16,7 @@
 
   .border.w-full.mx-4.pb-4
     .text-xl.font-bold.text-center.my-4 所属グループ
-    = render 'groups/groups', user: @user
+    = render 'groups/groups', groups: @user.groups
 
   .flex.self-end.my-2
     = lucide_icon('triangle-alert', class: "stroke-red-500")
