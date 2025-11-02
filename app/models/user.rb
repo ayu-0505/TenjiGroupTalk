@@ -23,7 +23,7 @@ class User < ApplicationRecord
     update!(
       deleted_at: Time.current,
       name: 'deleted_name',
-      email: 'deleted_email',
+      email: "dummy_email_#{SecureRandom.uuid}",
       uid: "dummy_uid_#{SecureRandom.uuid}",
       image: ActionController::Base.helpers.asset_path('test_user_icon.png')
     )

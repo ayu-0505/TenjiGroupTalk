@@ -29,8 +29,8 @@ end
 User.find_or_create_by!(uid: 'deleted_user') do |user|
   user.nickname = 'サービスやめお'
   user.name = 'deleted_name'
-  user.email = 'deleted_email'
-  user.uid = 'deleted_uid'
+  user.email = 'dummy_email_0000',
+  user.uid = 'dummy_uid_0000'
   user.deleted_at = Time.current
 end
 
