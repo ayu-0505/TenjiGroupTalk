@@ -63,6 +63,7 @@ group :development, :test do
 	gem 'rubocop-performance', require:false
   gem 'rspec-rails', require:false
   gem 'factory_bot_rails'
+  gem 'bullet'
 end
 
 group :development do
