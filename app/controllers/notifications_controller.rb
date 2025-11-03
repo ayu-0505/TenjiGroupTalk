@@ -1,6 +1,6 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = current_user.notifications.all.order(created_at: :desc).page(params[:page])
+    @notifications = current_user.notifications.preload(comment: [ :talk, :user ]).order(created_at: :desc).page(params[:page])
   end
 
   def update
