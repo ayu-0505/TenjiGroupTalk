@@ -9,5 +9,10 @@ RSpec.describe "Dashboards", type: :request do
 
       expect(page).to have_text('ダッシュボード')
     end
+
+    it 'redirects to the root when user is not logged in' do
+      get dashboard_path
+      expect(response).to redirect_to(root_path)
+    end
   end
 end
