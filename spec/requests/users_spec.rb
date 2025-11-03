@@ -2,16 +2,34 @@ require 'rails_helper'
 
 RSpec.describe '/users', type: :request do
   let(:user) { create(:user) }
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
 
   before do
     sign_in(user)
+  end
+
+  describe 'GET /show' do
+    it 'renders a successful response' do
+      get user_path(user)
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET /edit' do
+   it 'renders a successful response' do
+      get edit_user_path(user)
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'PATCH /update' do
+    let(:new_attributes) { attributes_for(:user, nickname: 'New Nickname') }
+
+    it 'updates the group with valid parameters' do
+      patch user_path(user), params: { user: new_attributes }
+
+      expect(user.reload.nickname).to eq 'New Nickname'
+      expect(response).to redirect_to(user_path(user))
+    end
   end
 
   describe 'DELETE /destroy' do
