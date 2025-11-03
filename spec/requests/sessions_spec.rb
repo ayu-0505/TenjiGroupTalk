@@ -158,6 +158,15 @@ RSpec.describe 'Sessions', type: :request do
         end
       end
     end
+
+    context 'when user info is invalid' do
+      it 'redirects to root path' do
+        Rails.application.env_config['omniauth.auth'] = false
+        get '/auth/:provider/callback'
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(root_path)
+      end
+    end
   end
 
   describe 'DELETE /destroy' do
