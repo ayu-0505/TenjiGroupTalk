@@ -1,20 +1,25 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: '点字でコミュニケーションできる招待制のグループ掲示板サービスです。'
 
-.mx-auto.my-8.p-4.text-center
+.my-8.px-4.text-center
   .flex.flex-col.items-center
-    = image_tag 'title.png', alt: '点字グループトークタイトル', class: 'mx-auto mb-2'
-    = image_tag 'logo.png', alt: '点字グループトークロゴ', class: 'mx-auto mb-4'
-    p.p-2.text-lg.w-5/6
-     | ひらがなからすぐ点字に変換できるグループ掲示板！<br>
-     | 点字はボタンひとつで凸面、凹面、ひらがなをそれぞれ表示できます。<br>
-     | 招待制なので、プライベートな空間でやり取りできます。
-    .my-4.flex
-      = image_tag 'hiragana_kara_tenji.png', alt: 'ひらがなから簡単に点字に変換できる', class: 'w-1/3 object-fill'
-      = image_tag 'click_braille_display.png', alt: 'ひらがなと凸面点字、凹面点字はボタン一つで表示切り替えできる', class: 'w-1/3 object-fill'
-      = image_tag 'groups.png', alt: '招待制の掲示板なのでプライベート空間です', class: 'w-1/3 object-fill'
+    = image_tag 'title.png', alt: '点字グループトークタイトル', class: 'mx-auto'
+    = image_tag 'logo.png', alt: '点字グループトークロゴ', class: 'mx-auto'
 
-  p.my-4.text-lg 点字をたくさん使ってコミュニケーションしてみよう！
+    .my-2.space-y-2.text-center
+      p.text-lg.text-left ひらがなからボタンひとつで点字に変換できる、グループ掲示板！
+      p.text-lg.text-left 点字は「ひらがな、凸面、凹面」を個別に表示・非表示にできます。
+      p.text-lg.text-left グループは招待制なので、プライベートな掲示板でやり取りできます。
+
+    .my-2.flex
+      = image_tag 'hiragana_kara_tenji.png', alt: 'ひらがなから簡単に点字に変換できる', class: 'w-1/3 object-contain'
+      = image_tag 'braille_switchs.png', alt: 'ひらがなと凸面点字、凹面点字はボタン一つで表示切り替えできる', class: 'w-1/3 object-contain'
+      = image_tag 'groups.png', alt: '招待制の掲示板なのでプライベート空間です', class: 'w-1/3 object-contain'
+
+    p.my-2.text-lg
+     | たくさん使って、点字を覚えよう！<br>
+     | 街中の点字が読めるようになるかも？！
+
   .my-6
     = button_to 'Googleでログイン', '/auth/google_oauth2', method: :post, data: { turbo: false },
       class: 'inline-block px-4 py-3 w-4/5 md:w-60 rounded-full bg-teal-500 text-white text-lg hover:bg-teal-600'
@@ -24,11 +29,11 @@
       = link_to 'プライバシーポリシー', privacy_path, class: 'text-teal-700 hover:underline'
       | に同意した上でログインしてください。
 
-  .border.m-4.mt-8.p-4
+  .m-4.mt-8.p-4.border
     p.font-bold.text-2xl 利用方法
-    .mx-auto.text-left.w-4/5
+    .mx-4.mt-4.text-left
       ul.space-y-2.list-disc.text-wrap
         li 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナも可）
         li 投稿された点字は凸面と凹面で表示されます。
-        li それぞれの表示・非表示ボタンで表示を切り替えることができます。
+        li 表示・非表示スイッチで表示するかを切り替えることができます。
         li 他の人の投稿した点字も自由に表示を切り替えて確認することができます。

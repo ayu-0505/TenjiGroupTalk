@@ -1,7 +1,7 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: '点字グループトークのダッシュボードページです。コメント通知の有無や所属グループのトーク状況が一覧で確認できます。'
 
-.mx-auto.w-full
+.px-2.text-center
   .section-title ダッシュボード
 
   .notifications.border.mx-4.p-2
@@ -29,8 +29,11 @@
     .mx-4.mt-4.text-center
       p.mb-2.text-lg
        | 所属グループがありません！<br>
-       | グループを作成し、他のユーザーを招待してみましょう。<br>
-      = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg'
+       | このサービスはグループ毎に掲示板を作成します。<br>
+       | まずはグループを作成し、他のユーザーを招待してみましょう。<br>
+      .flex.flex-col.items-center
+        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+        = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg'
       p.mt-8.text-lg
        |グループに招待されていますか？<br>
        |送られた招待URLページにアクセスし、グループに参加してください。<br>

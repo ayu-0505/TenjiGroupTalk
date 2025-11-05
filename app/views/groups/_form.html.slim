@@ -6,13 +6,12 @@
         - group.errors.each do |error|
           li = error.full_message
 
-  .flex.flex-col.ml-4
+  .text-center.space-y-2
     = form.label :name, style: "display: block", class: 'text-lg'
-    .flex
-      = form.text_field :name ,required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '新しいグループ名',
-        class: 'w-3/4 md:w-1/2 p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+    = form.text_field :name ,required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '新しいグループ名',
+      class: 'w-3/4 md:w-1/2 p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-      - if params[:action] == 'edit'
-        = form.submit '更新', class: 'btn btn-blue'
-      - else
-        = form.submit '作成', class: 'btn btn-blue'
+    - if params[:action] == 'edit'
+      = form.submit '更新', class: 'btn btn-blue'
+    - else
+      = form.submit '作成', class: 'btn btn-blue'
