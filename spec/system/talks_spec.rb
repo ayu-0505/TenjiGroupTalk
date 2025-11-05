@@ -100,19 +100,20 @@ RSpec.describe 'Talks', type: :system do
   end
 
   describe 'create a new talk' do
-    it 'creates a talk with valid input' do
+    it 'creates a talk with valid input', :js do
       visit group_talks_path(group)
       click_on '新しいトークを作成する'
       fill_in 'タイトル', with: '点字しりとり！'
       fill_in '内容', with: '点字を使ってしりとりしましょう'
-      click_on 'トークを作成'
+      expect(page).to have_button('トークを作成する', disabled: false)
+      click_on 'トークを作成する'
       expect(page).to have_content('トークが作成されました！')
       expect(page).to have_content('点字しりとり！')
       expect(page).to have_content('点字を使ってしりとりしましょう')
     end
   end
 
-  describe 'update the talk' do
+  describe 'update the talk', :js do
     it 'updates the talk with valid input' do
       visit group_talk_path(group, talks[0])
       within('.talk') do
@@ -120,7 +121,8 @@ RSpec.describe 'Talks', type: :system do
       end
       fill_in 'タイトル', with: '新規トーク'
       fill_in '内容', with: 'これは新しいトークです！'
-      click_on 'トークを更新'
+      expect(page).to have_button('トークを更新する', disabled: false)
+      click_on 'トークを更新する'
       expect(page).to have_content('トークを更新しました！')
       expect(page).to have_no_content(talks[0].title)
       expect(page).to have_no_content(talks[0].description)

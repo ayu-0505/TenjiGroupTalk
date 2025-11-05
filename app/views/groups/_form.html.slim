@@ -6,12 +6,13 @@
         - group.errors.each do |error|
           li = error.full_message
 
-  .text-center.space-y-2
+  .text-center.space-y-2 data-controller='disable-button'
     = form.label :name, style: "display: block", class: 'text-lg'
     = form.text_field :name ,required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '新しいグループ名',
+        data: { action: "input->disable-button#toggle", disable_button_target: 'input' },
       class: 'w-3/4 md:w-1/2 p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
     - if params[:action] == 'edit'
-      = form.submit '更新', class: 'btn btn-blue'
+      = form.submit '更新', data: { disable_button_target: 'button'}, disable: true, class: 'btn btn-blue'
     - else
-      = form.submit '作成', class: 'btn btn-blue'
+      = form.submit '作成', data: { disable_button_target: 'button'}, disable: true, class: 'btn btn-blue'
