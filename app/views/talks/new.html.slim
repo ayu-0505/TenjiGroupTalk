@@ -1,17 +1,12 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: 'トークを新規作成するページです。点字用ひらがな入力フォームから点字を変換できます。'
 
-.px-2.text-center
-  .self-start.my-2
-    = link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
-      = lucide_icon("chevron-left").html_safe
-      | トーク一覧に戻る
-
+.px-2
   .section-title トーク新規作成
 
   = render 'form', talk_form: @talk_form
 
   .my-2
-    = link_to group_talks_path(@group), class: "flex items-center gap-1 text-blue-600 hover:text-blue-800" do
+    = link_to group_talks_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | トーク一覧に戻る
