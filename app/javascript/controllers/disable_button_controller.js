@@ -16,10 +16,18 @@ export default class extends Controller {
     if (!isAllFilled) {
       button.disabled = true;
       button.classList.remove("text-white");
-      button.classList.add("text-blue-200", "cursor-not-allowed");
+      button.classList.add(
+        "text-blue-200",
+        "hover:bg-blue-500",
+        "cursor-not-allowed"
+      );
     } else {
       button.disabled = false;
-      button.classList.remove("text-blue-200", "cursor-not-allowed");
+      button.classList.remove(
+        "text-blue-200",
+        "hover:bg-blue-500",
+        "cursor-not-allowed"
+      );
       button.classList.add("btext-white");
     }
   }
