@@ -21,14 +21,15 @@
          | 招待URLを作成できるのは管理者のみです。<br>
          | 使用期限は1週間です。使用期限を過ぎたら再作成してください。
 
-  = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'block text-center text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
+  .text-center
+    = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'inline-flex text-center text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
 
   .my-2
-    = link_to groups_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+    = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | グループ一覧へ戻る
   .my-2
-    = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+    = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | ダッシュボードへ戻る
 

@@ -2,16 +2,11 @@
 - set_meta_tags description: 'トークを編集するページです。'
 
 .px-2
-  .my-2
-    = link_to group_talk_path(@group, @talk), class: "flex items-center text-blue-600 hover:text-blue-800" do
-      = lucide_icon("chevron-left").html_safe
-      | トークページに戻る
-
   .section-title トークを編集する
 
   = render 'form', talk_form: @talk_form
 
   .my-2
-    = link_to group_talk_path(@group, @talk), class: "flex items-center text-blue-600 hover:text-blue-800" do
+    = link_to group_talk_path(@group, @talk), class: "inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition" do
       = lucide_icon("chevron-left").html_safe
       | トークページに戻る
