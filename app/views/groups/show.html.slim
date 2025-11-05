@@ -1,7 +1,7 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: 'グループ詳細ページです。メンバーや管理者の確認ができます。管理者は招待URLを作成できます。'
 
-.mx-4.flex.flex-col.items-center
+.px-2
   = render @group
 
   - if @group.admin == current_user
@@ -21,29 +21,27 @@
          | 招待URLを作成できるのは管理者のみです。<br>
          | 使用期限は1週間です。使用期限を過ぎたら再作成してください。
 
-  = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
+  = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'block text-center text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
 
-  = link_to 'グループ名を編集する', edit_group_path(@group), class: 'text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
-
-  .self-start.my-2
+  .my-2
     = link_to groups_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | グループ一覧へ戻る
-  .self-start.my-2
+  .my-2
     = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | ダッシュボードへ戻る
 
 
   - if @membership.present?
-    .flex.self-end.my-2
+    .flex.justify-end.my-2
       = lucide_icon('triangle-alert', class: "stroke-red-500")
       = button_to 'グループから抜ける', group_membership_path(@group, @membership),
                 { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
                 class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
 
   - if current_user == @group.admin
-    .flex.self-end.my-2
+    .flex.justify-end.my-2
       = lucide_icon('triangle-alert', class: "stroke-red-500")
       = button_to 'グループを削除する', @group,
         { method: :delete, data: { turbo_confirm: 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'},

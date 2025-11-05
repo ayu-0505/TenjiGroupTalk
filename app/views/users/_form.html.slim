@@ -6,7 +6,8 @@
         - user.errors.each do |error|
           li = error.full_message
 
-  .mx-4
+  .text-center.space-y-2
+    = form.label :nickname, style: 'display: block', class: 'text-lg'
     = form.text_field :nickname, placeholder: 'ニックネームを入力', required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません',
       class: 'p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 

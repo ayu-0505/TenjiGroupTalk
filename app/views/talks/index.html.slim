@@ -1,17 +1,17 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: 'グループに所属しているトークの一覧が表示されます。'
 
-.mx-auto.w-full
+.px-2
   .section-title
     = "#{@group.name}のトーク一覧"
   = render 'talks', group: @group, talks: @talks
   = paginate @talks
 
-  .self-start.my-2
+  .my-2
     = link_to group_path(@group), class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | グループページへ戻る
-  .self-start.my-2
+  .my-2
     = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
       = lucide_icon("chevron-left").html_safe
       | ダッシュボードへ戻る

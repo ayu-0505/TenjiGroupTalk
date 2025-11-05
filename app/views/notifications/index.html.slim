@@ -1,22 +1,23 @@
 - set_meta_tags title: '点字グループトーク'
 - set_meta_tags description: 'コメント通知が一覧で表示されます。'
 
-.section-title 通知一覧
+.px-2
+  .section-title 通知一覧
 
-- if @notifications.size == 0
-  .flex.flex-col.items-center.my-4
-    p.text-sm.text-gray-500 通知はありません
-    = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
-- else
-  .m-4.text-center.space-y-2
-    - @notifications.each do |notification|
-      = render 'notification', notification: notification
-    = paginate @notifications
+  - if @notifications.size == 0
+    .flex.flex-col.items-center.my-4
+      p.text-sm.text-gray-500 通知はありません
+      = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+  - else
+    .m-4.text-center.space-y-2
+      - @notifications.each do |notification|
+        = render 'notification', notification: notification
+      = paginate @notifications
+  
+    - if @notifications.any?(read: false)
+      = button_to '全て既読にする', allmarks_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
-  - if @notifications.any?(read: false)
-    = button_to '全て既読にする', allmarks_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-
-.m-4
-  = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-    = lucide_icon("chevron-left").html_safe
-    | ダッシュボードへ戻る
+  .my-2
+    = link_to dashboard_path, class: 'flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+      = lucide_icon("chevron-left").html_safe
+      | ダッシュボードへ戻る
