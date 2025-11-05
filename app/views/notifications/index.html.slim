@@ -13,10 +13,12 @@
       - @notifications.each do |notification|
         = render 'notification', notification: notification
 
-    = paginate @notifications
-  
-    - if @notifications.any?(read: false)
-      = button_to '全て既読にする', allmarks_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    - if @notifications.any? { |n| n.read == false }
+      .text-center
+        = button_to '全て既読にする', allmarks_path, class: 'btn-white'
+
+    .my-4
+      = paginate @notifications
 
   .my-2
     = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
