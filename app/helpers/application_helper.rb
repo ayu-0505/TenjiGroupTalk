@@ -34,7 +34,10 @@ module ApplicationHelper
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@ayu_0505_'
+        site: '@ayu_0505_',
+        title: :title,
+        description: :description,
+        image: image_url('ogp.png')
       }
     }
   end
