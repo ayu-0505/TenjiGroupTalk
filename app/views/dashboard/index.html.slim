@@ -2,26 +2,26 @@
 - set_meta_tags description: '点字グループトークのダッシュボードページです。コメント通知の有無や所属グループのトーク状況が一覧で確認できます。'
 
 .px-2.text-center
-  .section-title ダッシュボード
+  h1.section-title ダッシュボード
 
   .notifications.border.mx-4.p-2
     .flex.items-center.justify-center.h-10
-      = lucide_icon('bell')
-      p.text-xl.mx-2 通知
+      = lucide_icon('bell', alt: '通知マーク')
+      h2.text-xl.mx-2 通知
     - if @unread_notifications.size != 0
       p.text-sm.text-gray-500.text-center 最新の３件のみ表示しています
       .m-4.text-center
         - @unread_notifications.first(Notification::DASHBOARD_LIMIT).each do |notification|
           = render 'notifications/notification', notification: notification
       - if @unread_notifications.size > Notification::DASHBOARD_LIMIT
-      .text-center.space-y-4
-        p.text-sm.text-gray-500 残りの未読通知を確認する
-        = link_to '通知一覧に行く', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-        = button_to '全て既読にする', allmarks_path, data: { turbo_confirm: '未読通知を全て既読にします。本当によろしいですか？'}, class: 'btn-white'
+        .text-center.space-y-4
+          p.text-sm.text-gray-500 残りの未読通知を確認する
+          = link_to '通知一覧に行く', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+          = button_to '全て既読にする', allmarks_path, data: { turbo_confirm: '未読通知を全て既読にします。本当によろしいですか？'}, class: 'btn-white'
     - else
       .m-4.text-center
         p.text-sm.text-gray-500 未読通知はありません
-        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+        = lucide_icon('package-open', alt: '未読通知がないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
         p.text-sm.text-gray-500 過去の通知を確認する
         = link_to '通知一覧', notifications_path, class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
@@ -32,7 +32,7 @@
        | このサービスはグループ毎に掲示板を作成します。<br>
        | まずはグループを作成し、他のユーザーを招待してみましょう。<br>
       .flex.flex-col.items-center
-        = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+        = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
         = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg'
       p.mt-8.text-lg
        |グループに招待されていますか？<br>

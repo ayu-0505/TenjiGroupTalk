@@ -4,7 +4,7 @@
   - if talks.size == 0
     .flex.flex-col.items-center.my-4.text-center
       p.text-sm.text-gray-500 トークはありません
-      = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+      = lucide_icon('package-open', alt: 'トークがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
   - else
     .talks.m-4.w-full
       - talks.each do |talk|

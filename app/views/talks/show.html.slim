@@ -13,7 +13,7 @@
         .flex.items-center.justify-center.gap-2
           p.text-sm
             strong 投稿者:
-          = image_tag @talk.user.image, class: 'w-8 rounded-full'
+          = image_tag @talk.user.image, alt: 'ユーザーアイコン', class: 'w-8 rounded-full'
           = user_name_tag(@talk.user)
         .text-gray-500.text-xs.mt-1
           = l @talk.created_at

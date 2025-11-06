@@ -6,4 +6,4 @@ header.bg-main-color
       - if logged_in?
         .flex.items-center.space-x-4.ml-auto
           = render 'layouts/menu'
-          = image_tag current_user.image, class: 'w-12 h-12 rounded-full object-cover border-1 border bg-gray-300'
+          = image_tag current_user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full object-cover border-1 border bg-gray-300'

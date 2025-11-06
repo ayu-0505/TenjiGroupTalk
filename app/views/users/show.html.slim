@@ -2,12 +2,12 @@
 - set_meta_tags description: 'ユーザー詳細ページです。現在の所属グループの一覧が表示されます。'
 
 .px-2
-  .section-title プロフィール
+  h1.section-title プロフィール
 
   .flex.flex-col.items-center.mx-4
     .flex.items-center.h-14.w-full.md:w-1/2
       p.w-2/6.text-sm アイコン：
-      = image_tag current_user.image, class: 'w-12 h-12 rounded-full'
+      = image_tag current_user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full'
     .flex.items-center.h-14.w-full.md:w-1/2
       p.w-2/6.text-sm ニックネーム：
       .w-3/6.text-lg
@@ -20,7 +20,7 @@
       = render 'groups/groups', groups: @user.groups
 
     .my-2.flex.gap-1
-      = lucide_icon('triangle-alert', class: "stroke-red-500")
+      = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: "stroke-red-500")
       = button_to 'アカウント削除', @user,
         { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
         class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
