@@ -16,7 +16,7 @@
         = button_to '招待URLを作成', group_invitations_path(@group), class: 'btn-white inline-block my-4'
 
       .flex.items-center.gap-2
-        = lucide_icon('circle-question-mark', class: "stroke-gray-500")
+        = lucide_icon('circle-question-mark', alt: 'ヒント', class: "stroke-gray-500")
         p.text-sm.text-gray-500.p-2
          | 招待URLを作成できるのは管理者のみです。<br>
          | 使用期限は1週間です。使用期限を過ぎたら再作成してください。
@@ -36,14 +36,14 @@
 
   - if @membership.present?
     .flex.justify-end.my-2
-      = lucide_icon('triangle-alert', class: "stroke-red-500")
+      = lucide_icon('triangle-alert', alt: '危険なリンク。グループ脱退は元に戻せません', class: "stroke-red-500")
       = button_to 'グループから抜ける', group_membership_path(@group, @membership),
                 { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
                 class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
 
   - if current_user == @group.admin
     .flex.justify-end.my-2
-      = lucide_icon('triangle-alert', class: "stroke-red-500")
+      = lucide_icon('triangle-alert', alt: '危険なリンク。グループ削除は元に戻せません', class: "stroke-red-500")
       = button_to 'グループを削除する', @group,
         { method: :delete, data: { turbo_confirm: 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'},
         class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }

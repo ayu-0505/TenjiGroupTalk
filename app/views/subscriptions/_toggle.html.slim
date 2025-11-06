@@ -2,7 +2,7 @@
   .flex.flex-col.gap-4.items-center.border.p-2
     .flex.items-center.p-2
       .mr-4.flex
-        = lucide_icon('bell')
+        = lucide_icon('bell', alt: '通知マーク')
         p 通知設定
 
       .flex.mx-4.items-center
@@ -21,5 +21,5 @@
         p ON
 
     .flex.items-center.pb-2.gap-2
-      = lucide_icon('circle-question-mark', class: "stroke-gray-500")
+      = lucide_icon('circle-question-mark', alt: 'ヒント', class: "stroke-gray-500")
       p.text-sm.text-gray-500 通知をONにするとダッシュボードに他の人が投稿した新規コメントが通知されます

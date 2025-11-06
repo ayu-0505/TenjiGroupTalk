@@ -7,7 +7,7 @@
   - if @notifications.size == 0
     .flex.flex-col.items-center.my-4
       p.text-sm.text-gray-500 通知はありません
-      = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+      = lucide_icon('package-open', alt: '通知がないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
   - else
     .m-4.text-center.space-y-2
       - @notifications.each do |notification|

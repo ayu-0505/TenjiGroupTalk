@@ -55,7 +55,7 @@
         .flex.items-center.justify-center.gap-2
           p.text-sm
             strong 投稿者:
-          = image_tag comment.user.image, class: 'w-8 rounded-full'
+          = image_tag comment.user.image, alt: 'ユーザーアイコン', class: 'w-8 rounded-full'
           = user_name_tag(comment.user)
         .text-gray-500.text-xs.mt-1
           = l comment.created_at

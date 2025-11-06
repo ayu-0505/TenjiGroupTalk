@@ -4,7 +4,7 @@
       p.text-sm.text-gray-500
        | 所属グループがまだありません<br>
        | グループを作成し、他のユーザーを招待してみましょう
-      = lucide_icon('package-open', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+      = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
     div
       = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else

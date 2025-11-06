@@ -3,14 +3,14 @@ h1.section-title.mb-0
 
 p.mt-4.text-center.text-xl 管理者
 .flex.items-center.justify-center
-  = image_tag group.admin.image, class: 'w-8 rounded-full mx-4'
+  = image_tag group.admin.image, alt: '管理者ユーザーアイコン', class: 'w-8 rounded-full mx-4'
   = group.admin.display_name
 .flex.flex-col.justify-center.items-center.m-4
   .text-xl メンバー
   .grid.grid-cols-2.gap-4
     - group.users.each do |user|
       .flex.items-center.gap-1.w-100
-        = image_tag user.image, class: 'w-8 h-8 rounded-full flex-shrink-0'
+        = image_tag user.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
         span.text-sm.break-words
           = user_name_tag(user)
 
