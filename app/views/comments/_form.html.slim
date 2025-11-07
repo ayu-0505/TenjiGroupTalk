@@ -21,10 +21,13 @@
             = lucide_icon('circle-question-mark', alt: 'ヒント', class: "stroke-gray-500")
             p.text-sm.text-gray-500 点字なしでも投稿できます
         = form.textarea :original_text, placeholder:'例）かんじ',
-          class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y', data: { braille_converter_target: "input"}
+          class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y',
+          data: { action: 'input->disable-button#whiteBtnToggle',
+            disable_button_target: 'whiteInput',
+            braille_converter_target: "input" }
 
       .sm:flex.items-center.mx-4.gap-2
-        button type="button" data-action="click->braille-converter#convert" class="btn-white w-auto" 点字変換
+        button type="button" data-action="click->braille-converter#convert" data-disable-button-target="whiteBtn" class="btn-white w-auto" 点字変換
         .flex.items-center.gap-1.mt-2
           = lucide_icon('circle-question-mark', alt: 'ヒント', class: "stroke-gray-500")
           p.text-sm.text-gray-500 投稿前に点字を確認できます
