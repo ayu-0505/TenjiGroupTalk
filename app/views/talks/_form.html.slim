@@ -11,14 +11,14 @@
       = form.label :title, style: 'display: block', class: 'mx-4 text-lg'
       .flex.justify-center
         = form.text_field :title, required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '例）点字でしりとりをしましょう！',
-          data: { action: 'input->disable-button#toggle', disable_button_target: 'input' },
+          data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'input' },
           class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
     .pb-4
       = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
       .flex.justify-center
         = form.textarea :description, rows: 10, required: true, placeholder:'例）しりとりをしましょう。点字を読んでみてください。',
-          data: { action: 'input->disable-button#toggle', disable_button_target: 'input' },
+          data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'input' },
           class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
     div data-controller='braille-converter'

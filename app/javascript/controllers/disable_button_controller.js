@@ -4,10 +4,10 @@ export default class extends Controller {
   static targets = ["input", "button"];
 
   connect() {
-    this.toggle();
+    this.blueBtnToggle();
   }
 
-  toggle() {
+  blueBtnToggle() {
     const isAllFilled = this.inputTargets.every(
       (input) => input.value.trim().length > 0
     );
