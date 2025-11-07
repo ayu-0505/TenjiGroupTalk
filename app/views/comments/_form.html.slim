@@ -6,16 +6,16 @@
         - comment_form.errors.each do |error|
           li = error.full_message
 
-  div data-controller='disable-button'
+  .my-4 data-controller='disable-button'
     .pb-4.mx-4
-      = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
+      = form.label :description, style: 'display: block', class: 'text-lg'
       = form.textarea :description, required: true, placeholder:'コメント内容を入力',
         data: { action: "input->disable-button#toggle", disable_button_target: 'input' },
         class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
     div data-controller="braille-converter"
       .pb-4.mx-4
-        = form.label :original_text, style: 'display: block', class: 'mx-4 text-lg'
+        = form.label :original_text, style: 'display: block', class: 'text-lg'
         = form.textarea :original_text,  placeholder:'点字に変換したい内容をひらがなで入力',
           class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y', data: { braille_converter_target: "input"}
 
