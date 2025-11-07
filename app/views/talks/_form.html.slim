@@ -23,7 +23,11 @@
 
     div data-controller='braille-converter'
       .pb-4
+        .flex
           = form.label :original_text, '点字に変換するひらがな', style: 'display: block', class: 'mx-4 text-lg'
+          .flex.items-center.gap-1
+            = lucide_icon('circle-question-mark', alt: 'ヒント', class: "stroke-gray-500")
+            p.text-sm.text-gray-500 点字なしでも投稿できます
         .flex.justify-center
           = form.textarea :original_text, placeholder:'例）いるか',
             class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y', data: { braille_converter_target: "input"}
