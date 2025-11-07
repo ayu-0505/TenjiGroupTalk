@@ -9,7 +9,7 @@
   .text-center.space-y-2 data-controller='disable-button'
     = form.label :nickname, style: 'display: block', class: 'text-lg'
     = form.text_field :nickname, placeholder: '例）点字太郎', required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません',
-      data: { action: "input->disable-button#blueBtnToggle", disable_button_target: 'input' },
+      data: { action: "input->disable-button#blueBtnToggle", disable_button_target: 'blueInput' },
       class: 'p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-    = form.submit '更新', data: { disable_button_target: 'button'}, disabled: true, class: 'btn btn-blue'
+    = form.submit '更新', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue'

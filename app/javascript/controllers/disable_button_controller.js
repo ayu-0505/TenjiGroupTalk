@@ -1,17 +1,17 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input", "button"];
+  static targets = ["blueInput", "buleBtn"];
 
   connect() {
     this.blueBtnToggle();
   }
 
   blueBtnToggle() {
-    const isAllFilled = this.inputTargets.every(
+    const isAllFilled = this.blueInputTargets.every(
       (input) => input.value.trim().length > 0
     );
-    const button = this.buttonTarget;
+    const button = this.buleBtnTarget;
 
     if (!isAllFilled) {
       button.disabled = true;
