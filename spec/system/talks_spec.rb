@@ -150,7 +150,7 @@ RSpec.describe 'Talks', type: :system do
     context 'when clicking the convert button in the new form' do
       it 'converts to raised braille and indented braille' do
         visit new_group_talk_path(group)
-        fill_in 'ひらがな文', with: 'こんにちわ'
+        fill_in '点字に変換するひらがな', with: 'こんにちわ'
         click_button '変換'
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
@@ -161,7 +161,7 @@ RSpec.describe 'Talks', type: :system do
     context 'when clicking the convert button in the edit form' do
       it 'converts to raised braille and indented braille' do
         visit edit_group_talk_path(group, talks[0])
-        fill_in 'ひらがな文', with: 'こんにちわ'
+        fill_in '点字に変換するひらがな', with: 'こんにちわ'
         click_button '変換'
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')

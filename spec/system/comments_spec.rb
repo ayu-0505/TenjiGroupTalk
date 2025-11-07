@@ -67,7 +67,7 @@ RSpec.describe "Comments", type: :system do
       it 'converts to raised braille and indented braille' do
         visit group_talk_path(group, talk)
         within("#new_comment") do
-          fill_in 'ひらがな文', with: 'こんにちわ'
+          fill_in '点字に変換するひらがな', with: 'こんにちわ'
           click_button '変換'
         end
 
@@ -84,7 +84,7 @@ RSpec.describe "Comments", type: :system do
         end
 
         within(".edit_comment") do
-          fill_in 'ひらがな文', with: 'こんにちわ'
+          fill_in '点字に変換するひらがな', with: 'こんにちわ'
           click_button '変換'
 
           expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
@@ -99,7 +99,7 @@ RSpec.describe "Comments", type: :system do
         end
 
         within(".edit_comment") do
-          fill_in 'ひらがな文', with: 'こんにちわ'
+          fill_in '点字に変換するひらがな', with: 'こんにちわ'
           click_button '変換'
         end
 
