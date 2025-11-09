@@ -15,7 +15,7 @@
 
     - if @notifications.any? { |n| n.read == false }
       .text-center
-        = button_to '全て既読にする', allmarks_path, class: 'btn-white'
+        = button_to '全て既読にする', allmarks_path, data: { turbo_confirm: '未読通知を全て既読にします。本当によろしいですか？'}, class: 'btn-white'
 
     .my-4
       = paginate @notifications

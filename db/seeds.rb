@@ -111,8 +111,9 @@ end
   })
 end
 
+base_time = Time.current
 20.times do |n|
-  user = user_with_multiple_groups
+  user = users.sample
   talk = first_group.talks.first
   braille = Braille.create!({
     original_text: ORIGINAL_TEXTS.sample,
@@ -124,6 +125,7 @@ end
     talk:,
     braille:
   })
+  comment.update_columns(created_at: base_time + (n*30).seconds)
   Notification.create!({
     user: talk.user,
     comment:
