@@ -1,8 +1,12 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate, only: %i[index welcome terms privacy]
+  skip_before_action :authenticate, only: %i[index welcome login_prompt terms privacy]
 
   def index
     redirect_to dashboard_path if current_user.present?
+    ua = request.user_agent.to_s.downcase
+    is_mobile = ua.include?('mobile') || ua.include?('iphone') || ua.include?('android')
+    is_web_view = ua.include?('line') || ua.include?('instagram') || ua.include?('fb')
+    redirect_to login_prompt_path if is_mobile && is_web_view
   end
 
   def welcome
@@ -25,6 +29,8 @@ class HomeController < ApplicationController
       end
     end
   end
+
+  def login_prompt; end
 
   def terms; end
 

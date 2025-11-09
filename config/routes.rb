@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'welcome', to: 'home#welcome'
   get 'terms', to: 'home#terms'
   get 'privacy', to: 'home#privacy'
+  get 'login-prompt', to: 'home#login_prompt'
 
   if Rails.env.development?
     get '/dev_login/:uid', to: 'sessions#dev_login'
