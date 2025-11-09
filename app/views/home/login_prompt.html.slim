@@ -1,11 +1,8 @@
 #inapp-warning.flex.flex-col.items-center.justify-center.m-4.bg-yellow-100.text-yellow-900.p-4.text-sm
   h1.m-4.text-center.text-lg ログインについて
   p
-   | アプリ内ブラウザではGoogleログインできません。<br>
-   | ︙メニューからSafariやChromeで開き直すか、以下のリンクをタップしてください。
-
-  = link_to 'https://tenji-grouptalk.net', target: '_blank', rel: 'noopener noreferrer',
-    class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      .flex.items-center.text-lg.underline.my-4
-        = lucide_icon('globe',class: 'w-4 h-4' )
-        | 外部ブラウザで開く
+   | 携帯アプリ内ブラウザではGoogleログインができません。<br>
+   | 以下の方法をお試しください。<br>
+  ul
+    li 画面上部・または下部にある︙メニュー・あるいは設定をクリックする。
+    li メニューから、「ブラウザで開く」または「Chromeで開く」、「Safariで開く」をクリックする。
