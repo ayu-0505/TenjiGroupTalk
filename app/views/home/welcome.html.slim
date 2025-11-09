@@ -29,6 +29,10 @@
       | ・
       = link_to 'プライバシーポリシー', privacy_path, class: 'text-teal-700 hover:underline'
       | に同意した上でログインしてください。
+    .flex.items-center.justify-center.my-1
+      = lucide_icon('circle-question-mark', class: 'stroke-gray-500 w-4, h-4')
+      = link_to 'ログイン時にエラー出る場合', login_prompt_path,
+        class: 'text-sm text-gray-500 hover:text-gray-700 active:text-gray-800 underline transition'
 
   .m-4.mt-8.p-4.border
     p.font-bold.text-2xl 利用方法
