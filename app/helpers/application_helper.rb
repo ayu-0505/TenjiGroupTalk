@@ -20,6 +20,7 @@ module ApplicationHelper
       site: '点字グループトーク',
       title: '点字グループトーク',
       reverse: true,
+      separator: '|',
       charset: 'utf-8',
       description: '点字グループトークは、点字でコミュニケーションできる招待制のグループ掲示板サービスです。',
       keywords: '点字グループトーク, tenji group talk, 点字, Braille, invitation only, 招待制',
