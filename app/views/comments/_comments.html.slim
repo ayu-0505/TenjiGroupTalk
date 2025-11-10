@@ -3,9 +3,9 @@
 #comments.my-4 data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
   - if hidden_comments(comments).size != 0
     .flex.justify-center.items-center.text-sm
-      button.btn-white.justify-center.w-60 data-comments-pagination-target="moreBtn" data-action="click->comments-pagination#moreComments"
+      button.btn-white.justify-center.w-60 data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
        | コメントを読み込む (
-       span data-comments-pagination-target="remainingCount"
+       span data-comments-pagination-target='remainingCount'
          = comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT
        | )
     = render partial: 'comments/comment', collection: hidden_comments(comments), as: :comment, locals: { hidden: true }

@@ -20,12 +20,12 @@
       = render 'groups/groups', groups: @user.groups
 
     .my-2.flex.gap-1
-      = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: "stroke-red-500")
+      = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: 'stroke-red-500')
       = button_to 'アカウント削除', @user,
         { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
         class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
 
   .my-2
     = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon("chevron-left").html_safe
+      = lucide_icon('chevron-left').html_safe
       | ダッシュボードへ戻る

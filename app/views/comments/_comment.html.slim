@@ -4,20 +4,20 @@
       = simple_format(comment.description)
 
     - if comment.braille.present?
-      .border-t data-controller="braille-display"
+      .border-t data-controller='braille-display'
         .mx-2.my-2
           .flex.gap-4.items-center
             .flex.flex-col.items-center
               p.font-bold ひらがな
               .flex.items-center.gap-1
-                = lucide_icon('eye-off', class: "stroke-gray-500", alt: "コメントID#{comment.id}のひらがな表示オフ")
+                = lucide_icon('eye-off', class: 'stroke-gray-500', alt: "コメントID#{comment.id}のひらがな表示オフ")
                 .flex.items-center.justify-center
-                  label for="#{comment.id}_original_text_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
-                    input type="checkbox" id="#{comment.id}_original_text_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='originalCheck'
-                    span class="w-2/5 h-4/5 bg-sky-300 absolute rounded-full left-0.5 top-0.5 transition-all duration-300" data-braille-display-target='originalToggle'
-                = lucide_icon('eye', class: "stroke-gray-500", alt: "コメントID#{comment.id}のひらがな表示オン")
+                  label for="#{comment.id}_original_text_check" class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
+                    input type='checkbox' id="#{comment.id}_original_text_check" class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='originalCheck'
+                    span class='w-2/5 h-4/5 bg-sky-300 absolute rounded-full left-0.5 top-0.5 transition-all duration-300' data-braille-display-target='originalToggle'
+                = lucide_icon('eye', class: 'stroke-gray-500', alt: "コメントID#{comment.id}のひらがな表示オン")
             p.original_text.border.w-full.mt-2.text-gray-500.text-sm.text-center data-braille-display-target='originalPlaceholder' ここにひらがなが表示されます
-            .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target="original"
+            .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
               = simple_format(comment.braille.original_text)
 
         .mx-2.my-2
@@ -25,14 +25,14 @@
             .flex.flex-col.items-center
               p.font-bold 凸面
               .flex.items-center.gap-1
-                = lucide_icon('eye-off', class: "stroke-gray-500", alt: "コメントID#{comment.id}の凸面表示オフ")
+                = lucide_icon('eye-off', class: 'stroke-gray-500', alt: "コメントID#{comment.id}の凸面表示オフ")
                 .flex.items-center.justify-center
-                  label for="#{comment.id}_raised_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
-                    input type="checkbox" id="#{comment.id}_raised_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='raisedCheck'
-                    span class="w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300" data-braille-display-target='raisedToggle'
-                = lucide_icon('eye', class: "stroke-gray-500", alt: "コメントID#{comment.id}の凸面表示オン")
+                  label for="#{comment.id}_raised_check" class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
+                    input type='checkbox' id="#{comment.id}_raised_check" class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='raisedCheck'
+                    span class='w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300' data-braille-display-target='raisedToggle'
+                = lucide_icon('eye', class: 'stroke-gray-500', alt: "コメントID#{comment.id}の凸面表示オン")
             p.raised_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='raisedPlaceholder' ここに凸面点字が表示されます
-            .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target="raised"
+            .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
               = simple_format(comment.braille.raised_braille)
 
         .mx-2.my-2
@@ -40,14 +40,14 @@
             .flex.flex-col.items-center
               p.font-bold 凹面
               .flex.items-center.gap-1
-                = lucide_icon('eye-off', class: "stroke-gray-500", alt: "コメントID#{comment.id}の凹面表示オフ")
+                = lucide_icon('eye-off', class: 'stroke-gray-500', alt: "コメントID#{comment.id}の凹面表示オフ")
                 .flex.items-center.justify-center
-                  label for="#{comment.id}_indented_check" class="bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400"
-                    input type="checkbox" id="#{comment.id}_indented_check" class="sr-only" data-action="click->braille-display#toggle" data-braille-display-target='indentedCheck'
-                    span class="w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300" data-braille-display-target='indentedToggle'
-                = lucide_icon('eye', class: "stroke-gray-500", alt: "コメントID#{comment.id}の凹面表示オン")
+                  label for="#{comment.id}_indented_check" class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
+                    input type='checkbox' id="#{comment.id}_indented_check" class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='indentedCheck'
+                    span class='w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300' data-braille-display-target='indentedToggle'
+                = lucide_icon('eye', class: 'stroke-gray-500', alt: "コメントID#{comment.id}の凹面表示オン")
             p.indented_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='indentedPlaceholder' ここに凹面点字が表示されます
-            .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target="indented"
+            .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
               = simple_format(comment.braille.indented_braille)
 
     .flex.flex-col.md:flex-row.justify-between.md:gap-4.p-2
