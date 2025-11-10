@@ -5,12 +5,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
   helper_method :logged_in?, :current_user
 
-  def check_logged_in
-    return if current_user
-
-    redirect_to root_path
-  end
-
   def authenticate
     return if logged_in?
 

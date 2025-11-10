@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authenticate, only: %i[create dev_login]
+  skip_before_action :authenticate, only: %i[create auth_failure dev_login]
 
   def create
     user = User.find_or_initialize_from_auth_hash!(request.env['omniauth.auth'])
@@ -40,7 +40,11 @@ class SessionsController < ApplicationController
   end
 
   def dev_login
-    return if params[:uid] == 'deleted_user'
+    if params[:uid] == 'deleted_user'
+      reset_session
+      redirect_to root_path, alert: '退会ユーザーのログインは想定していません'
+      return
+    end
 
     user = User.find_by(uid: params[:uid])
     if user

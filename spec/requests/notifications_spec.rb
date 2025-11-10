@@ -11,8 +11,15 @@ RSpec.describe 'Notifications', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      get group_talks_url(talk.group)
+      get notifications_path
       expect(response).to be_successful
+    end
+
+    it 'renders the notification content' do
+      comment = create(:comment, talk:)
+      notification = create(:notification, user:, comment:)
+      get notifications_path
+      expect(response.body).to include(notification.comment.talk.title)
     end
   end
 
