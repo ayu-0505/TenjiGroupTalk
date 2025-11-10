@@ -1,7 +1,7 @@
-.w-full.my-4.p-2.flex.flex-col.items-center data-controller="clipboard" data-clipboard-success-content-value="コピーしました"
-  span.text-lg.block.break-words.w-full.bg-yellow-200 data-clipboard-target="source"
+.w-full.my-4.p-2.flex.flex-col.items-center data-controller='clipboard' data-clipboard-success-content-value='コピーしました'
+  span.text-lg.block.break-words.w-full.bg-yellow-200 data-clipboard-target='source'
     = welcome_url(invitation_token: invitation.token)
 
-  button type="button" data-action="clipboard#copy" data-clipboard-target="button" class='btn-white inline-block my-4'
+  button type='button' data-action='clipboard#copy' data-clipboard-target='button' class='btn-white inline-block my-4'
     | URLをコピーする
   = "現在のURLの使用期限は#{l invitation.expires_at}です。"
