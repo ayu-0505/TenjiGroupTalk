@@ -195,4 +195,26 @@ RSpec.describe 'Talks', type: :system do
       expect(page).to have_content 'ここに凹面点字が表示されます'
     end
   end
+
+  describe 'disables the buttons when the form is blank', :js do
+    it 'disables the convert button' do
+      visit edit_group_talk_path(group, talks[0])
+      expect(find_field('点字に変換するひらがな').value).to eq('')
+      button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
+
+      visit group_talk_path(group, talks[0])
+      expect(find_field('点字に変換するひらがな').value).to eq('')
+      button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
+    end
+
+    it 'disables the submit button' do
+      visit new_group_talk_path(group)
+      expect(find_field('タイトル').value).to eq('')
+      expect(find_field('トーク内容').value).to eq('')
+      button = find('input[value="トークを作成する"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
+    end
+  end
 end
