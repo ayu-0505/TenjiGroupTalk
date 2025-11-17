@@ -68,7 +68,7 @@ RSpec.describe "Comments", type: :system do
         visit group_talk_path(group, talk)
         within("#new_comment") do
           fill_in '点字に変換するひらがな', with: 'こんにちわ'
-          click_button '変換'
+          click_button '点字変換'
         end
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
