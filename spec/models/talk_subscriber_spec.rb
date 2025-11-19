@@ -6,7 +6,7 @@ RSpec.describe TalkSubscriber, type: :model do
 
   it 'creates a subscription for the talk creator' do
     expect {
-      ActiveSupport::Notifications.instrument('talk.create', user: user, talk: talk)
+      ActiveSupport::Notifications.instrument('talk.create', user:, talk:)
     }.to change(Subscription, :count).by(1)
 
     subscription = Subscription.last

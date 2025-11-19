@@ -24,12 +24,12 @@ class TalkBrailleForm
 
     ActiveRecord::Base.transaction do
       if original_text.present?
-        braille = @user.brailles.create!(original_text: original_text)
+        braille = @user.brailles.create!(original_text:)
       end
 
       @talk = @user.talks.create!(
-        title: title,
-        description: description,
+        title:,
+        description:,
         group: @group,
         braille:
       )
@@ -49,16 +49,16 @@ class TalkBrailleForm
       if original_text.blank?
         existing_braille.destroy! if existing_braille.present?
         @talk.update!({
-          title: title,
-          description: description
+          title:,
+          description:
         })
 
       # NOTE: ひらがな（original_text）入力があり、既存の点字がない場合は点字を新規作成
       elsif existing_braille.nil?
         braille = @user.brailles.create!(original_text:)
         @talk.update!({
-          title: title,
-          description: description,
+          title:,
+          description:,
           braille:
         })
 
@@ -68,8 +68,8 @@ class TalkBrailleForm
           original_text:,
         )
         @talk.update!({
-          title: title,
-          description: description
+          title:,
+          description:
         })
       end
       true

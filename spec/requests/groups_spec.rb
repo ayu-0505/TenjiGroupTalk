@@ -6,7 +6,7 @@ RSpec.describe "/groups", type: :request do
   let(:non_member_user) { create(:user) }
 
   before do
-    create(:membership, user: user, group: group)
+    create(:membership, user:, group:)
   end
 
   describe "GET /index" do

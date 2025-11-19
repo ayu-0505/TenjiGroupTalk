@@ -4,7 +4,7 @@ RSpec.describe 'Talks', type: :system do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:group) { create(:group) }
-  let!(:talks) { create_list(:talk, 3, user: user, group: group) }
+  let!(:talks) { create_list(:talk, 3, user:, group:) }
 
   before do
     group.users << user

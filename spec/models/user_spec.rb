@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
 
     context 'when user is member of the group' do
       before do
-        create(:membership, user: user, group: group)
+        create(:membership, user:, group:)
       end
 
       it 'returns true' do

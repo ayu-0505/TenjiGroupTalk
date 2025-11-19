@@ -5,7 +5,7 @@ RSpec.describe '/talks', type: :request do
   let(:member_user) { create(:user) }
   let(:non_member_user) { create(:user) }
   let!(:group) { create(:group) }
-  let!(:talk) { create(:talk, group: group, user: owner_user) }
+  let!(:talk) { create(:talk, group:, user: owner_user) }
 
   let(:valid_attributes) { {
     title: 'Valid Title', description: 'this text is valid.', original_text: 'こんにちは'
