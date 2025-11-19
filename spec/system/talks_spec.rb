@@ -162,11 +162,59 @@ RSpec.describe 'Talks', type: :system do
       it 'converts to raised braille and indented braille' do
         visit edit_group_talk_path(group, talks[0])
         fill_in '点字に変換するひらがな', with: 'こんにちわ'
-        click_button '変換'
+        click_button '点字変換'
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
         expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
       end
+    end
+  end
+
+  describe 'toggling brailles visibility', :js do
+    before do
+      visit edit_group_talk_path(group, talks[0])
+      fill_in '点字に変換するひらがな', with: 'こんにちわ'
+      click_button 'トークを更新する'
+    end
+
+    it 'toggles the hiragana display on and off' do
+      expect(page).to have_content('ここにひらがなが表示されます')
+      find('label[for="talk_original_text_check"]').click
+      expect(page).to have_content 'こんにちわ'
+    end
+
+    it 'toggles the raised_braille display on and off' do
+      expect(page).to have_content('⠪⠴⠇⠗⠄')
+      find('label[for="talk_raised_check"]').click
+      expect(page).to have_content 'ここに凸面点字が表示されます'
+    end
+
+    it 'toggles the indented_braille display on and off' do
+      expect(page).to have_content('⠠⠺⠸⠦⠕')
+      find('label[for="talk_indented_check"]').click
+      expect(page).to have_content 'ここに凹面点字が表示されます'
+    end
+  end
+
+  describe 'disables the buttons when the form is blank', :js do
+    it 'disables the convert button' do
+      visit edit_group_talk_path(group, talks[0])
+      expect(find_field('点字に変換するひらがな').value).to eq('')
+      button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
+
+      visit group_talk_path(group, talks[0])
+      expect(find_field('点字に変換するひらがな').value).to eq('')
+      button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
+    end
+
+    it 'disables the submit button' do
+      visit new_group_talk_path(group)
+      expect(find_field('タイトル').value).to eq('')
+      expect(find_field('トーク内容').value).to eq('')
+      button = find('input[value="トークを作成する"]', visible: :all)
+      expect(button[:disabled]).to eq('true')
     end
   end
 end
