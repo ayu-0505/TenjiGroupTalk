@@ -1,6 +1,5 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
-  before_action :authorize_group_member, only: %i[ show edit update destroy ]
 
   def index
     @groups = current_user.groups.order(created_at: :desc).page(params[:page])
@@ -46,16 +45,10 @@ class GroupsController < ApplicationController
 
   private
     def set_group
-      @group = Group.find(params.expect(:id))
+      @group = current_user.groups.find(params.expect(:id))
     end
 
     def group_params
       params.expect(group: [ :name ])
-    end
-
-    def authorize_group_member
-      return if current_user.member_of?(@group)
-
-      redirect_back_or_to dashboard_path, status: :see_other, alert: 'この操作を行うには、グループのメンバーである必要があります'
     end
 end
