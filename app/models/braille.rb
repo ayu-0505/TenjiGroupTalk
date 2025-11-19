@@ -3,8 +3,7 @@ class Braille < ApplicationRecord
   has_one :talk, dependent: :nullify
   has_one :comment, dependent: :nullify
 
-  before_validation :initialize_raised_braille, on: %i[create update]
-  before_save :generate_indented_braille
+  before_validation :initialize_braille, on: %i[create update]
 
   def converter
     Tenji::Converter.new
@@ -16,10 +15,13 @@ class Braille < ApplicationRecord
 
     private
 
-  def initialize_raised_braille
+  def initialize_braille
     if original_text.present?
       self.raised_braille = converter.convert_to_tenji(original_text)
+    else
+      self.raised_braille = nil
     end
+    generate_indented_braille
   end
 
   def generate_indented_braille
