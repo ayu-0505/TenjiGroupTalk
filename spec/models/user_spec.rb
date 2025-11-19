@@ -13,24 +13,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#member_of?' do
-    context 'when user is not member of the group' do
-      it 'returns false' do
-        expect(user.member_of?(group)).to be false
-      end
-    end
-
-    context 'when user is member of the group' do
-      before do
-        create(:membership, user:, group:)
-      end
-
-      it 'returns true' do
-        expect(user.member_of?(group)).to be true
-      end
-    end
-  end
-
   describe '#soft_delete!' do
     it 'updates deleted_at, name, email, uid and image (soft-delete)' do
       expect(user.deleted_at).to be_nil

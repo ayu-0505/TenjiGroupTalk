@@ -15,10 +15,6 @@ class User < ApplicationRecord
     nickname.presence || name
   end
 
-  def member_of?(group)
-    groups.include?(group)
-  end
-
   def soft_delete!
     update!(
       deleted_at: Time.current,
