@@ -21,7 +21,7 @@ RSpec.describe Group, type: :model do
     it 'returns the number of users associated with the group' do
       group = create(:group)
       user = create(:user)
-      create(:membership, user: user, group: group)
+      create(:membership, user:, group:)
 
       expect(group.member_count).to eq(1)
     end

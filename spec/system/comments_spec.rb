@@ -4,8 +4,8 @@ RSpec.describe "Comments", type: :system do
   let(:user) { create(:user) }
   let(:non_owner_user) { create(:user) }
   let!(:group) { create(:group) }
-  let!(:talk) { create(:talk, group: group, user: user) }
-  let!(:comments) { create_list(:comment, 5, talk: talk, user: user) }
+  let!(:talk) { create(:talk, group:, user:) }
+  let!(:comments) { create_list(:comment, 5, talk:, user:) }
 
   before do
     group.users << user
@@ -136,7 +136,7 @@ RSpec.describe "Comments", type: :system do
 
   describe 'collapse comments', :js do
     it 'displays initial comments' do
-      additional_comments = create_list(:comment, 10, talk: talk, user: user)
+      additional_comments = create_list(:comment, 10, talk:, user:)
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
       initial_comments = all_comments[-CommentsHelper::INITIAL_DISPLAY_COUNT..]
@@ -153,7 +153,7 @@ RSpec.describe "Comments", type: :system do
     end
 
     it 'displays a few more comments each time the button is clicked' do
-      additional_comments = create_list(:comment, 10, talk: talk, user: user)
+      additional_comments = create_list(:comment, 10, talk:, user:)
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
       hidden_comments = all_comments[0...-CommentsHelper::INITIAL_DISPLAY_COUNT]
