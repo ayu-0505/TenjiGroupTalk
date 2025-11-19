@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "/groups", type: :request do
+RSpec.describe '/groups', type: :request do
   let(:group) { create(:group) }
   let(:user) { create(:user) }
   let(:non_member_user) { create(:user) }
@@ -9,24 +9,24 @@ RSpec.describe "/groups", type: :request do
     create(:membership, user:, group:)
   end
 
-  describe "GET /index" do
+  describe 'GET /index' do
     before do
       sign_in user
     end
 
-    it "renders a successful response" do
+    it 'renders a successful response' do
       get groups_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     context 'when member user accesses' do
       before do
         sign_in user
       end
 
-      it "renders a successful response" do
+      it 'renders a successful response' do
         get group_url(group)
         expect(response).to be_successful
       end
@@ -45,24 +45,24 @@ RSpec.describe "/groups", type: :request do
     end
   end
 
-  describe "GET /new" do
+  describe 'GET /new' do
     before do
       sign_in user
     end
 
-    it "renders a successful response" do
+    it 'renders a successful response' do
       get new_group_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /edit" do
+  describe 'GET /edit' do
     context 'when member user accesses' do
       before do
         sign_in user
       end
 
-      it "renders a successful response" do
+      it 'renders a successful response' do
         get edit_group_url(group)
         expect(response).to be_successful
       end
@@ -81,30 +81,30 @@ RSpec.describe "/groups", type: :request do
     end
   end
 
-  describe "POST /create" do
+  describe 'POST /create' do
     before do
       sign_in user
     end
 
-    context "with valid parameters" do
+    context 'with valid parameters' do
       let(:valid_attributes) { attributes_for(:group, name: 'Valid Group Name') }
 
-      it "creates a new Group" do
+      it 'creates a new Group' do
         expect {
           post groups_url, params: { group: valid_attributes }
         }.to change(Group, :count).by(1)
       end
 
-      it "redirects to the created group" do
+      it 'redirects to the created group' do
         post groups_url, params: { group: valid_attributes }
         expect(response).to redirect_to(group_url(Group.last))
       end
     end
 
-    context "with invalid parameters" do
+    context 'with invalid parameters' do
       let(:invalid_attributes) { attributes_for(:group, name: "#{'a' * 50} Long Name group") }
 
-      it "does not create a new Group" do
+      it 'does not create a new Group' do
         expect {
           post groups_url, params: { group: invalid_attributes }
         }.not_to change(Group, :count)
