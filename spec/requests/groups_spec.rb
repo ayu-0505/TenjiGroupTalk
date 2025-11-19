@@ -38,10 +38,9 @@ RSpec.describe "/groups", type: :request do
         get dashboard_path
       end
 
-      it "redirects to the last requested path (dashboard_path)" do
+      it 'returns a 404 status' do
         get group_url(group)
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
@@ -75,10 +74,9 @@ RSpec.describe "/groups", type: :request do
         get dashboard_path
       end
 
-      it "redirects to the last requested path (dashboard_path)" do
+      it 'returns a 404 status' do
         get edit_group_url(group)
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
@@ -141,13 +139,12 @@ RSpec.describe "/groups", type: :request do
         get dashboard_path
       end
 
-      it 'does not update the group and redirects to the last requested path (dashboard_path)' do
+      it 'does not update the group and returns a 404 status' do
         expect do
           patch group_url(group), params: { group: new_attributes }
         end.not_to change { group.reload.name }
 
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
@@ -173,12 +170,11 @@ RSpec.describe "/groups", type: :request do
         get dashboard_path
       end
 
-      it 'does not delete the group and redirects to the last requested path (dashboard_path)' do
+      it 'does not delete the group and returns a 404 status' do
         expect do
           delete group_url(group)
         end.not_to change(Group, :count)
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(dashboard_path)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
