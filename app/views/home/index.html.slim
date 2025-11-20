@@ -10,15 +10,6 @@
       p.text-lg.text-left 点字は「ひらがな、凸面、凹面」を個別に表示・非表示にできます。
       p.text-lg.text-left グループは招待制なので、プライベートな掲示板でやり取りできます。
 
-    .my-2.flex
-      = image_tag 'hiragana_kara_tenji.png', alt: 'ひらがなから簡単に点字に変換できる', class: 'w-1/3 object-contain'
-      = image_tag 'braille_switchs.png', alt: 'ひらがなと凸面点字、凹面点字はボタン一つで表示切り替えできる', class: 'w-1/3 object-contain'
-      = image_tag 'groups.png', alt: '招待制の掲示板なのでプライベート空間です', class: 'w-1/3 object-contain'
-
-    p.my-2.text-lg
-     | たくさん使って、点字を覚えよう！<br>
-     | 街中の点字が読めるようになるかも？！
-
   .my-6
     = button_to 'Googleでログイン', '/auth/google_oauth2', method: :post, data: { turbo: false },
       class: 'inline-block px-4 py-3 w-4/5 md:w-60 rounded-full bg-teal-500 text-white text-lg hover:bg-teal-600'
@@ -40,3 +31,7 @@
         li 投稿された点字は凸面と凹面で表示されます。
         li 表示・非表示スイッチで表示するかを切り替えることができます。
         li 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+
+    p.my-2.text-lg
+     | たくさん使って、点字を覚えよう！<br>
+     | 街中の点字が読めるようになるかも？！
