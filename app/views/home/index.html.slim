@@ -3,7 +3,7 @@
 .my-8.px-4.text-center
   .flex.flex-col.items-center
     = image_tag 'logo.png', alt: '点字グループトークロゴ', class: 'mx-auto w-56 h-auto'
-    = image_tag 'title.png', alt: '点字グループトークタイトル', class: 'mx-auto w-160 h-auto'
+    = image_tag 'title.png', alt: '点字グループトークタイトル', class: 'mx-auto w-[90%] h-auto', width: nil, height: nil
 
     .my-2.space-y-2.text-center
       p.text-lg.text-left ひらがなからボタンひとつで点字に変換できる、グループ掲示板！
@@ -23,15 +23,33 @@
       = link_to 'ログイン時にエラー出る場合', login_prompt_path,
         class: 'text-sm text-gray-500 hover:text-gray-700 active:text-gray-800 underline transition'
 
-  .m-4.mt-8.p-4.border
-    p.font-bold.text-2xl 利用方法
+  .mx-auto.mt-8.p-4.border.bg-teal-50.rounded-lg.border-teal-500
+    h.section-title.text-teal-700 点字変換のやり方
     .mx-4.mt-4.text-left
-      ul.space-y-2.list-disc.text-wrap
-        li 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナも可）
-        li 投稿された点字は凸面と凹面で表示されます。
-        li 表示・非表示スイッチで表示するかを切り替えることができます。
-        li 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+      ol.space-y-4.text-wrap
+        li class='relative pl-12 list-outside'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-500 font-semibold text-white' 1
+          p.text-teal-700 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナもOK）
+        = image_tag 'step1.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
 
-    p.my-2.text-lg
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-500 font-semibold text-white' 2
+          p.text-teal-700 投稿された点字は凸面と凹面で表示されます。
+        = image_tag 'step2.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
+
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-500 font-semibold text-white' 3
+          p.text-teal-700 表示・非表示スイッチで表示するかを切り替えることができます。
+        = image_tag 'step3.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto hidden sm:block'
+        = image_tag 'step3-mobile.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto block sm:hidden'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
+
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-500 font-semibold text-white' 4
+          p.text-teal-700 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+
+    p.my-8.text-lg.text-teal-700
      | たくさん使って、点字を覚えよう！<br>
      | 街中の点字が読めるようになるかも？！
