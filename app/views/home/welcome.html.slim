@@ -19,7 +19,10 @@
       = link_to '利用規約', terms_path, class: 'text-teal-700 hover:underline'
       | ・
       = link_to 'プライバシーポリシー', privacy_path, class: 'text-teal-700 hover:underline'
-      | に同意した上でログインしてください。
+      | に
+      br.md:hidden
+      | 同意した上でログインしてください。
+
     .flex.items-center.justify-center.my-1
       = lucide_icon('circle-question-mark', class: 'stroke-gray-500 w-4, h-4')
       = link_to 'ログイン時にエラー出る場合', login_prompt_path,
@@ -52,6 +55,11 @@
           span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-500 font-semibold text-white' 4
           p.text-teal-700 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
 
-    p.my-8.text-lg.text-teal-700
-     | たくさん使って、点字を覚えよう！<br>
-     | 街中の点字が読めるようになるかも？！
+    p.mt-8.text-lg.text-teal-700.font-bold
+     | たくさん使って、
+     br.md:hidden
+     | 点字を覚えよう！
+    p.mt-2.text-lg.text-teal-700.font-bold
+     | 街中の点字が
+     br.md:hidden
+     | 読めるようになるかも？！
