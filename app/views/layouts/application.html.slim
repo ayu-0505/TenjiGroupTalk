@@ -21,7 +21,7 @@ html
     = favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png'
     = favicon_link_tag 'android-touch-icon.png', rel: 'android-touch-icon', type: 'image/png'
 
-  body
+  body.text-gray-600
     - unless current_page?(root_path) || current_page?(welcome_path)
       = render 'layouts/header'
     main.mx-auto.max-w-screen-md.px-4.flex.flex-col.h-screen
