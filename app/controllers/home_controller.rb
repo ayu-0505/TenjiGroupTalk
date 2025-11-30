@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   skip_before_action :authenticate, only: %i[index welcome login_prompt terms privacy]
+  skip_before_action :set_unread_notifications, only: %i[index welcome login_prompt terms privacy]
 
   def index
     redirect_to dashboard_path if current_user.present?
