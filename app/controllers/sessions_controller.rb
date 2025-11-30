@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate, only: %i[create auth_failure dev_login]
+  skip_before_action :set_unread_notifications, only: %i[create auth_failure dev_login]
 
   def create
     user = User.find_or_initialize_from_auth_hash!(request.env['omniauth.auth'])

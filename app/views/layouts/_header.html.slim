@@ -4,6 +4,6 @@ header.bg-main-color
       = link_to image_tag('title_mini.png', class: 'h-14 object-contain block md:hidden', alt: '点字グループトークロゴ'), root_path
       = link_to image_tag('title_white.png', class: 'h-14 object-contain hidden md:block', alt: '点字グループトークロゴ'), root_path
       - if logged_in?
-        .flex.items-center.space-x-4.ml-auto
+        .flex.items-center.space-x-2.ml-auto
+          = render 'layouts/notification_menu'
           = render 'layouts/menu'
-          = image_tag current_user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full object-cover border-1 border bg-gray-300'

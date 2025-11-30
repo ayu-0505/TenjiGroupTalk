@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   skip_before_action :authenticate, only: :create
+  skip_before_action :set_unread_notifications, only: :create
 
   def create
     group = current_user.groups.find(params[:group_id])

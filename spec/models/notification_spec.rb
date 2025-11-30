@@ -35,7 +35,7 @@ RSpec.describe Notification, type: :model do
       described_class.create(user: recipient, comment:)
       notification = described_class.find_by(user: recipient)
 
-      expect(notification.link_title).to eq "#{talks[0].title}に#{comment.user.nickname}よりコメントがありました（#{I18n.l comment.created_at}）"
+      expect(notification.link_title).to eq "#{talks[0].title}に#{comment.user.nickname}よりコメントがありました\n（#{I18n.l comment.created_at}）"
     end
   end
 

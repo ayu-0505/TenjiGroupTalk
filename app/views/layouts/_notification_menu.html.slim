@@ -1,0 +1,43 @@
+div(
+  data-controller='dropdown'
+  data-action='click@window->dropdown#hide
+               touchstart@window->dropdown#hide
+               keydown.up->dropdown#previousItem
+               keydown.down->dropdown#nextItem
+               keydown.esc->dropdown#hide'
+  class='inline-block relative'
+  id='notification-menu'
+)
+  - if @unread_notifications.size != 0
+    button data-action='dropdown#toggle:stop' class='menu px-2.5 pt-1 rounded'
+      = lucide_icon('bell-plus', alt: '未読通知ありの通知メニュー', class: 'stroke-white w-10 h-10 block' )
+    div data-dropdown-target='menu' role='list' class='hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max max-h-60 overflow-y-auto'
+      div class='text-xs bg-white shadow-lg rounded border-t border-l border-r w-40 md:w-60 p-1 flex flex-col'
+        div class='sticky top-0 z-10 bg-white'
+          = link_to '通知一覧へ行く', notifications_path,
+            class: 'text-center text-sm underline block py-2 text-blue-600 hover:text-blue-800 active:text-blue-900 bg-white whitespace-nowrap focus:bg-gray-100',
+            data: {turbo: false, dropdown_target: 'menuItem'},
+            role: 'listitem'
+          hr class='border-t'
+        div class='flex-1 overflow-y-auto'
+          - @unread_notifications.each do |notification|
+            = link_to notification.link_title, notification_path(notification),
+              class: 'no-underline block pl-2 py-2 text-gray-900 bg-white hover:bg-gray-100 focus:bg-gray-100 whitespace-pre-line',
+              data: {turbo_method: :patch, dropdown_target: 'menuItem'},
+              role: 'listitem'
+      div class='sticky bottom-0 z-10 bg-white'
+        hr class='border-t'
+
+  - else
+    button data-action='dropdown#toggle:stop' class='menu px-2.5 pt-1 rounded'
+      = lucide_icon('bell', alt: '未読通知なしの通知メニュー', class: 'stroke-white w-10 h-10 block' )
+    div data-dropdown-target='menu' role='list' class='hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max max-h-60 overflow-y-auto'
+      div class='text-xs bg-white shadow-lg rounded border w-40 p-1 flex flex-col'
+        div class='sticky top-0 z-10 bg-white'
+          = link_to '通知一覧へ行く', notifications_path,
+            class: 'text-center text-sm underline block py-2 text-blue-600 hover:text-blue-800 active:text-blue-900 bg-white whitespace-nowrap focus:bg-gray-100',
+            data: {turbo: false, dropdown_target: 'menuItem'},
+            role: 'listitem'
+          hr class='border-t'
+        p.text-gray-500.text-center.mt-2 未読通知はありません
+        = lucide_icon('package-open', alt: '未読通知がないことを表す画像', class: 'stroke-gray-500 w-10 h-10 block mx-auto my-4')
