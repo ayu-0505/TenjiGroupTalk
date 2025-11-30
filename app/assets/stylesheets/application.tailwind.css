@@ -4,7 +4,7 @@
 
 @layer components {
   .section-title {
-    @apply flex justify-center text-2xl font-bold mt-8 mb-4 mx-4;
+    @apply flex justify-center text-2xl font-bold;
   }
 
   .btn {

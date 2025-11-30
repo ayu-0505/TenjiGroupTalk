@@ -1,44 +1,77 @@
 - set_meta_tags title: '招待ページ'
 - set_meta_tags description: '点字でコミュニケーションできる招待制のグループ掲示板サービスです。招待用のログイン前トップページです。'
 
-.my-8.px-4.text-center
-  .flex.flex-col.items-center
-    = image_tag 'title.png', alt: '点字グループåトークタイトル', class: 'mx-auto'
-    = image_tag 'logo.png', alt: '点字グループトークロゴ', class: 'mx-auto'
+.container.mx-auto.max-w-2xl
+  .flex.flex-col.my-6
+    = image_tag 'logo.png', alt: '点字グループトークロゴ', class: 'mx-auto w-56 h-auto'
+    = image_tag 'title.png', alt: '点字グループトークタイトル', class: 'mx-auto w-[90%] h-auto', width: nil, height: nil
+    = image_tag 'sub-title.png', alt: '点字グループトークタイトル', class: 'mx-auto w-[90%] h-auto', width: nil, height: nil
 
-    .my-2.space-y-2.text-center
-      p.text-lg.text-left ひらがなからボタンひとつで点字に変換できる、グループ掲示板！
-      p.text-lg.text-left 点字は「ひらがな、凸面、凹面」を個別に表示・非表示にできます。
-      p.text-lg.text-left グループは招待制なので、プライベートな掲示板でやり取りできます。
+  .space-y-2.text-center.text-lg
+    | ひとこと点字を送ることができる
+    br.md:hidden
+    | 掲示板サービス！
+    br
+    | しりとり？クイズ？ミニ日記？
+    br.md:hidden
+    | 点字に変換する内容はなんでもOK
+    br
+    | 色々な言葉を点字変換して送り合い、
+    br.md:hidden
+    | どんどん点字を覚えよう！
+    br
 
-    .my-2.flex
-      = image_tag 'hiragana_kara_tenji.png', alt: 'ひらがなから簡単に点字に変換できる', class: 'w-1/3 object-contain'
-      = image_tag 'braille_switchs.png', alt: 'ひらがなと凸面点字、凹面点字はボタン一つで表示切り替えできる', class: 'w-1/3 object-contain'
-      = image_tag 'groups.png', alt: '招待制の掲示板なのでプライベート空間です', class: 'w-1/3 object-contain'
-
-    p.my-2.text-lg
-     | たくさん使って、点字を覚えよう！<br>
-     | 街中の点字が読めるようになるかも？！
-
-  p.my-4.text-xl.font-bold.text-red-500 招待されています。以下のボタンからグループに参加してください。
-  .my-6
+.container.mx-auto
+  .my-6.text-center
     = button_to 'Googleでログイン', "/auth/google_oauth2/?invitation_token=#{@invitation_token}", method: :post, data: { turbo: false },
-      class: 'inline-block px-4 py-3 w-4/5 md:w-60 rounded-full bg-teal-500 text-white text-lg hover:bg-teal-600'
+      class: 'inline-block px-4 py-3 w-4/5 md:w-60 rounded-full bg-main-color text-white text-lg hover:bg-teal-600'
     p.mt-1
       = link_to '利用規約', terms_path, class: 'text-teal-700 hover:underline'
       | ・
       = link_to 'プライバシーポリシー', privacy_path, class: 'text-teal-700 hover:underline'
-      | に同意した上でログインしてください。
+      | に
+      br.md:hidden
+      | 同意した上でログインしてください。
+
     .flex.items-center.justify-center.my-1
       = lucide_icon('circle-question-mark', class: 'stroke-gray-500 w-4, h-4')
       = link_to 'ログイン時にエラー出る場合', login_prompt_path,
         class: 'text-sm text-gray-500 hover:text-gray-700 active:text-gray-800 underline transition'
 
-  .m-4.mt-8.p-4.border
-    p.font-bold.text-2xl 利用方法
-    .mx-4.mt-4.text-left
-      ul.space-y-2.list-disc.text-wrap
-        li 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナも可）
-        li 投稿された点字は凸面と凹面で表示されます。
-        li 表示・非表示スイッチで表示するかを切り替えることができます。
-        li 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+.container.mx-auto.max-w-2xl
+  .border.bg-teal-50.rounded-lg.border-main-color.py-4.mx-2
+    h1.section-title.text-teal-700 点字変換のやり方
+    .mx-4.text-left.my-6
+      ol.space-y-4.text-wrap
+        li class='relative pl-12 list-outside'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 1
+          p.text-teal-700 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナもOK）
+        = image_tag 'step1.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
+
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 2
+          p.text-teal-700 投稿された点字は凸面と凹面で表示されます。
+        = image_tag 'step2.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
+
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 3
+          p.text-teal-700 表示・非表示スイッチで表示するかを切り替えることができます。
+        = image_tag 'step3.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto hidden sm:block'
+        = image_tag 'step3-mobile.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto block sm:hidden'
+        = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
+
+        li class='relative pl-12'
+          span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 4
+          p.text-teal-700 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+
+    .text-center
+      p.text-lg.text-teal-700.font-bold
+       | たくさん使って、
+       br.md:hidden
+       | 点字を覚えよう！
+      p.mt-1.text-lg.text-teal-700.font-bold
+       | 街中の点字が
+       br.md:hidden
+       | 読めるようになるかも？！
