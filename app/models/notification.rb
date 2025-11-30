@@ -9,7 +9,7 @@ class Notification < ApplicationRecord
   DASHBOARD_LIMIT = 3
 
   def link_title
-    "#{comment.talk.title}に#{comment.user.display_name}よりコメントがありました（#{I18n.l comment.created_at}）"
+    "#{comment.talk.title}に#{comment.user.display_name}よりコメントがありました\n（#{I18n.l comment.created_at}）"
   end
 
   def link_path
