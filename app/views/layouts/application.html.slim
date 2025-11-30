@@ -24,7 +24,7 @@ html
   body.text-gray-600
     - unless current_page?(root_path) || current_page?(welcome_path)
       = render 'layouts/header'
-    main.mx-auto.max-w-screen-md.px-4.flex.flex-col.h-screen
+    main.flex.flex-col.h-screen
       = render 'layouts/flash'
       = yield
       .footer
