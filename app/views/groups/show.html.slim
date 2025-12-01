@@ -2,18 +2,49 @@
 - set_meta_tags description: 'グループ詳細ページです。メンバーや管理者の確認ができます。管理者は招待URLを作成できます。'
 
 .px-2
-  = render @group
+  h1.section-title.mb-0
+    = @group.name
+  .flex.items-center.space-x-4.mt-2
+    .flex
+      p トーク数：
+      = @group.talks.length
+    .flex
+      p メンバー数：
+      = @group.users.length
+
+  .flex.items-center.space-x-4
+    .flex
+      p 作成日：
+    = l @group.created_at, format: :short
+    .flex
+      p 管理者：
+      = @group.admin.display_name
+
+  .flex
+    = link_to 'トーク一覧へ', group_talks_path(@group), class: 'block btn-white'
+    = link_to 'グループ名を編集', edit_group_path(@group), class: 'block btn-white'
+
+  .container.flex.flex-col.justify-center.items-center.border.p-2
+    .text-xl メンバー
+    .grid.grid-cols-2.gap-4
+      - @group.users.each do |user|
+        .flex.items-center.gap-1.w-100
+          = image_tag user.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
+          span.text-sm.break-words
+            = user_name_tag(user)
+
 
   - if @group.admin == current_user
     .w-full.my-4.p-2.py-4.border.flex.flex-col.items-center
-      .text-xl.font-bold.text-center.my-4 招待URL
+      .text-xl 新メンバーを招待する
       - if (invitation = @group.last_valid_invitation)
-        p 招待したい人に以下のURLを送信し、会員登録をしてもらいましょう
+        p 招待したい人に以下のメッセージを送り、会員登録をしてもらいましょう
         = render 'copy_url', invitation:
       - else
         p 新しいメンバーを追加したいですか？
-        p 招待URLを送信し、会員登録をしてもらいましょう
-        = button_to '招待URLを作成', group_invitations_path(@group), class: 'btn-white inline-block my-4'
+        p ボタンを押すと招待メッセージが作成されます。
+        p 招待したい人にメッセージを送ってください。
+        = button_to 'メッセージを作成', group_invitations_path(@group), class: 'block btn-white'
 
       .flex.items-center.gap-2
         = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
@@ -21,8 +52,7 @@
          | 招待URLを作成できるのは管理者のみです。<br>
          | 使用期限は1週間です。使用期限を過ぎたら再作成してください。
 
-  .text-center
-    = link_to 'グループのトーク一覧へ行く', group_talks_path(@group), class: 'inline-flex text-center text-blue-600 my-2 hover:text-blue-800 active:text-blue-900 underline transition'
+  = link_to 'グループのトーク一覧へ', group_talks_path(@group), class: 'block btn-white text-center inline-block'
 
   .my-2
     = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do

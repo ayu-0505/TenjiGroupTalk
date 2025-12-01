@@ -1,7 +1,19 @@
-.w-full.my-4.p-2.flex.flex-col.items-center data-controller='clipboard' data-clipboard-success-content-value='コピーしました'
-  span.text-lg.block.break-words.w-full.bg-yellow-200 data-clipboard-target='source'
+.w-full.flex.flex-col.items-center data-controller='clipboard' data-clipboard-success-content-value='コピーしました'
+  div.w-full.bg-yellow-200.p-4
+    p 点字をひたすら使って覚える掲示板、点字グループトーク！
+    br
+    p ひとこと点字を送ることができる掲示板サービスです
+    | しりとり？クイズ？ミニ日記？点字に変換する内容はなんでもOK<br>
+    | 色々な言葉を点字変換して送り合い、どんどん点字を覚えよう！<br>
+    br
+    p ▼ 招待URL
     = welcome_url(invitation_token: invitation.token)
 
+  .hidden data-clipboard-target='source'
+    = invitation_text(invitation)
+
   button type='button' data-action='clipboard#copy' data-clipboard-target='button' class='btn-white inline-block my-4'
-    | URLをコピーする
-  = "現在のURLの使用期限は#{l invitation.expires_at}です。"
+    | メッセージをコピーする
+
+  p メッセージには使用期限があります。
+  = "現在のメッセージの使用期限は#{l invitation.expires_at}です。"
