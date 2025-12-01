@@ -1,7 +1,7 @@
 - set_meta_tags title: 'ログインについて'
 - set_meta_tags description: '携帯のアプリ用ブラウザからのGoogleログインはできません。'
 
-#inapp-warning.flex.flex-col.items-center.justify-center.m-4.bg-yellow-100.text-yellow-900.p-4.py-8.text-sm
+#inapp-warning.flex.flex-col.items-center.justify-center.m-4.bg-yellow-100.text-yellow-900.p-4.py-8.text-sm.rounded-lg
   h1.text-center.mb-4.text-lg ログインについて
 
   .w-full.max-w-sm.text-left
@@ -9,7 +9,11 @@
      | 携帯アプリ内ブラウザではGoogleログインができません。<br>
      | 以下の方法をお試しください。<br>
     br
-    ul.list-disc.pl-5
-      li 画面上部・または下部にある︙メニュー・あるいは設定をクリックする。
-      li メニューから、「ブラウザで開く」または <br>
-        「Chromeで開く」、「Safariで開く」をクリックする。
+    ul.list-disc.pl-5.space-y-8
+      div
+        li 画面上部・または下部にある︙メニュー・あるいは設定をクリックする。
+        = image_tag 'browser-option.png', alt: '３点リーダーでブラウザオプションを開く', class: 'mx-auto w-80 h-auto mt-2'
+      div
+        li メニューから、「ブラウザで開く」または <br>
+          「Chromeで開く」、「Safariで開く」をクリックする。
+        = image_tag 'browser-option2.png', alt: 'ブラウザオプションから外部ブラウザを開く', class: 'mx-auto w-80 h-auto mt-2'
