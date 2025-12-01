@@ -1,9 +1,8 @@
-header.bg-main-color
-  .container.mx-auto.p-1
-    .flex.items-center.h-16.px-4
-      = link_to image_tag('title_mini.png', class: 'h-14 object-contain block md:hidden', alt: '点字グループトークロゴ'), root_path
-      = link_to image_tag('title_white.png', class: 'h-14 object-contain hidden md:block', alt: '点字グループトークロゴ'), root_path
-      - if logged_in?
-        .flex.items-center.space-x-2.ml-auto
-          = render 'layouts/notification_menu'
-          = render 'layouts/menu'
+header.bg-main-color.w-full.max-w-screen-md.mx-auto.h-16
+  .flex.items-center.h-16.px-4
+    = link_to image_tag('title_mini.png', class: 'h-14 object-contain block md:hidden', alt: '点字グループトークロゴ'), root_path
+    = link_to image_tag('title_white.png', class: 'h-14 object-contain hidden md:block', alt: '点字グループトークロゴ'), root_path
+    - if logged_in?
+      .flex.items-center.space-x-2.ml-auto
+        = render 'layouts/notification_menu'
+        = render 'layouts/menu'
