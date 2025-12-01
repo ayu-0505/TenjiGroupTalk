@@ -10,6 +10,6 @@
   - else
     .mx-4.space-y-4.w-4/5
       - groups.each do |group|
-        = render 'groups/temp_group', group:
+        = render 'groups/group', group:
       div
         = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue block w-48 mt-8 mx-auto text-center'
