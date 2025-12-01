@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
 
   def index
-    @groups = current_user.groups.order(created_at: :desc).page(params[:page])
+    @groups = current_user.groups.preload(:talks).preload(:users).preload(:admin).order(created_at: :desc).page(params[:page])
   end
 
   def show

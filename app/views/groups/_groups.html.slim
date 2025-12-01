@@ -8,12 +8,8 @@
     div
       = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else
-    .mx-4.text-center.space-y-4.w-4/5
+    .mx-4.space-y-4.w-4/5
       - groups.each do |group|
-        .flex.gap-2.items-center
-          .w-3/5
-            = link_to group.name, group, class: 'block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-          .w-2/5
-            = link_to 'トーク一覧へ行く', group_talks_path(group), class: 'block text-lg text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+        = render 'groups/temp_group', group:
       div
-        = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue block w-48 mt-8 mx-auto'
+        = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue block w-48 mt-8 mx-auto text-center'
