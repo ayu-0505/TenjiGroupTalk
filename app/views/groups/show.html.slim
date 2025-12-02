@@ -1,32 +1,36 @@
 - set_meta_tags title: 'グループ詳細'
 - set_meta_tags description: 'グループ詳細ページです。メンバーや管理者の確認ができます。管理者は招待URLを作成できます。'
 
-.px-2
-  h1.section-title.mb-0
-    = @group.name
-  .flex.items-center.space-x-4.mt-2
-    .flex
-      p トーク数：
-      = @group.talks.length
-    .flex
-      p メンバー数：
-      = @group.users.length
+.px-2.md:px-4
+  .container.my-4.mx-auto
+    h1.font-bold.text-lg
+      = @group.name
+    .flex.items-center.space-x-4
+      .flex
+        p トーク数：
+        = @group.talks.length
+      .flex
+        p メンバー数：
+        = @group.users.length
 
-  .flex.items-center.space-x-4
-    .flex
-      p 作成日：
-    = l @group.created_at, format: :short
-    .flex
-      p 管理者：
-      = @group.admin.display_name
+    .flex.items-center.space-x-2.md:space-x-4
+      .flex.flex-col.sm:flex-row
+        p.flex-shrink-0 作成日：
+        p.flex-1.break-words
+          = l @group.created_at, format: :short
+      .flex.flex-col.sm:flex-row
+        p.flex-shrink-0 管理者：
+        p.flex-1.break-words
+          = @group.admin.display_name
 
-  .flex
-    = link_to 'トーク一覧へ', group_talks_path(@group), class: 'block btn-white'
-    = link_to 'グループ名を編集', edit_group_path(@group), class: 'block btn-white'
+  .container.flex.justify-between.mx-auto.gap-4
+    = link_to 'トーク一覧へ', group_talks_path(@group), class: 'block btn-white text-center w-1/2 text-sm'
+    = link_to 'グループ名を編集', edit_group_path(@group), class: 'block btn-white text-center w-1/2 text-sm'
 
-  .container.flex.flex-col.justify-center.items-center.border.p-2
-    .text-xl メンバー
-    .grid.grid-cols-2.gap-4
+  .container.flex.flex-col.justify-center.items-center.border.my-4.mx-auto
+    .border-b.w-full.py-2
+      .text-center メンバー
+    .grid.grid-cols-2.gap-4.py-2
       - @group.users.each do |user|
         .flex.items-center.gap-1.w-100
           = image_tag user.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
@@ -35,52 +39,58 @@
 
 
   - if @group.admin == current_user
-    .w-full.my-4.p-2.py-4.border.flex.flex-col.items-center
-      .text-xl 新メンバーを招待する
+    .container.flex.flex-col.justify-center.border.my-4.mx-auto
+      .border-b.w-full.py-2
+        .text-center 新メンバーを招待する
       - if (invitation = @group.last_valid_invitation)
-        p 招待したい人に以下のメッセージを送り、会員登録をしてもらいましょう
-        = render 'copy_url', invitation:
+        .px-2.my-4
+          p 招待したい人に以下のメッセージを送り、会員登録をしてもらいましょう
+          = render 'copy_url', invitation:
       - else
-        p 新しいメンバーを追加したいですか？
-        p ボタンを押すと招待メッセージが作成されます。
-        p 招待したい人にメッセージを送ってください。
-        = button_to 'メッセージを作成', group_invitations_path(@group), class: 'block btn-white'
+        .my-2
+          p 新しいメンバーを追加したいですか？
+          p ボタンを押すと招待メッセージが作成されます。
+          p 招待したい人にメッセージを送ってください。
+          = button_to 'メッセージを作成', group_invitations_path(@group), class: 'block btn-white mx-auto my-2'
 
-      .flex.items-center.gap-2
+      .flex.items-center.gap-2.px-2
         = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
         p.text-sm.text-gray-500.p-2
          | 招待URLを作成できるのは管理者のみです。<br>
          | 使用期限は1週間です。使用期限を過ぎたら再作成してください。
 
-  = link_to 'グループのトーク一覧へ', group_talks_path(@group), class: 'block btn-white text-center inline-block'
+  .flex.justify-center
+    = link_to 'グループのトーク一覧へ', group_talks_path(@group), class: 'block btn-white text-center inline-block'
 
-  - if @membership.present?
-    .container.bg-red-200.rounded-lg.text-center.py-4.my-4
-      .flex.justify-center
-        = lucide_icon('triangle-alert', alt: '危険なリンク。グループ脱退は元に戻せません', class: 'stroke-red-800')
-        p.text-red-800.font-bold グループメンバー操作
+  .container.mb-8.mx-auto
+    - if @membership.present?
+      .container.bg-red-200.rounded-lg.text-center.py-4.my-4.max-w-sm.mx-auto
+        .flex.justify-center
+          = lucide_icon('triangle-alert', alt: '危険なリンク。グループ脱退は元に戻せません', class: 'stroke-red-800')
+          p.text-red-800.font-bold グループメンバー操作
 
-      = button_to 'グループから抜ける', group_membership_path(@group, @membership),
-                { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
-                class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition'}
-      p グループの削除は管理者のみが行えます。
+        = button_to 'グループから抜ける', group_membership_path(@group, @membership),
+                  { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
+                  class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition'}
+        p グループの削除は管理者のみが行えます。
 
-  - if current_user == @group.admin
-    .container.bg-red-200.rounded-lg.text-center.py-4.my-4
-      .flex.justify-center
-        = lucide_icon('triangle-alert', alt: '危険なリンク。グループ削除は元に戻せません', class: 'stroke-red-500')
-        p.text-red-800.font-bold 管理者操作
+    - if current_user == @group.admin
+      .container.bg-red-200.rounded-lg.text-center.py-4.my-4.max-w-sm.mx-auto
+        .flex.justify-center
+          = lucide_icon('triangle-alert', alt: '危険なリンク。グループ削除は元に戻せません', class: 'stroke-red-500')
+          p.text-red-800.font-bold 管理者操作
 
-      = button_to 'グループを削除する', @group,
-        { method: :delete, data: { turbo_confirm: 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'},
-        class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition' }
-      p 管理者はグループを抜けることができません。
+        = button_to 'グループを削除する', @group,
+          { method: :delete, data: { turbo_confirm: 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'},
+          class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition' }
+        p 管理者はグループを抜けることができません。
 
-  .my-2
-    = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | グループ一覧へ戻る
-  .my-2
-    = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | ダッシュボードへ戻る
+  .container.flex.flex-col.gap-4.mb-8
+    div
+      = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+        = lucide_icon('chevron-left').html_safe
+        | グループ一覧へ戻る
+    div
+      = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+        = lucide_icon('chevron-left').html_safe
+        | ダッシュボードへ戻る
