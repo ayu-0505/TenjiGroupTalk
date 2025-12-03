@@ -1,8 +1,8 @@
 - set_meta_tags title: 'グループ一覧'
 - set_meta_tags description: '所属しているグループが一覧で表示されます。'
 
-.px-2
-  h1.section-title 所属グループ
+h1.section-title 所属グループ
+.px-2.mt-8
   = render 'groups', groups: @groups
   .my-4
     = paginate @groups

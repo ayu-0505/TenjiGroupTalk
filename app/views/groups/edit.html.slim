@@ -1,17 +1,16 @@
 - set_meta_tags title: 'グループ名編集'
 - set_meta_tags description: '所属しているグループ名を編集できます。'
 
+h1.section-title グループ名を編集する
 .px-2
-  h1.section-title グループ名を編集
-
   = render 'form', group: @group
 
-
-  .my-2
-    = link_to group_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | グループページへ戻る
-  .my-2
-    = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | グループ一覧へ戻る
+  .container.flex.flex-col.mx-auto.space-y-2.w-full.mt-8.md:max-w-md
+    div
+      = link_to group_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+        = lucide_icon('chevron-left').html_safe
+        | グループページへ戻る
+    div
+      = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
+        = lucide_icon('chevron-left').html_safe
+        | グループ一覧へ戻る
