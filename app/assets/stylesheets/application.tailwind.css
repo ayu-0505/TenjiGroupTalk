@@ -4,7 +4,7 @@
 
 @layer components {
   .section-title {
-    @apply flex justify-center text-2xl font-bold;
+    @apply flex justify-center items-center text-lg font-bold bg-teal-100 h-12;
   }
 
   .btn {
@@ -12,13 +12,13 @@
   }
 
   .btn-blue {
-    @apply bg-blue-500 text-white;
+    @apply bg-blue-500 text-white text-sm;
   }
 
   .btn-blue:hover {
     @apply bg-blue-700;
   }
   .btn-white {
-    @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded;
+    @apply bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 text-sm border border-blue-500 hover:border-transparent rounded;
   }
 }
