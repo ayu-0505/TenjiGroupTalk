@@ -10,10 +10,10 @@
       = group.users.length
 
   .flex.items-center.space-x-4
-    .flex
+    .flex.flex-col.sm:flex-row
       p 作成日：
-    = l group.created_at, format: :short
-    .flex
+      = l group.created_at, format: :short
+    .flex.flex-col.sm:flex-row
       p 管理者：
       = group.admin.display_name
   .flex.flex-wrap.mx-auto.w-auto.mt-2

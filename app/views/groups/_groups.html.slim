@@ -8,7 +8,7 @@
     div
       = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
   - else
-    .mx-4.space-y-4.w-4/5
+    .container.space-y-2
       - groups.each do |group|
         = render 'groups/group', group:
       div
