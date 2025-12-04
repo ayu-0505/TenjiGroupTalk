@@ -102,7 +102,7 @@ RSpec.describe 'Talks', type: :system do
   describe 'create a new talk' do
     it 'creates a talk with valid input', :js do
       visit group_talks_path(group)
-      click_on '新しいトークを作成する'
+      click_on 'トークテーマを作成する'
       fill_in 'タイトル', with: '点字しりとり！'
       fill_in '内容', with: '点字を使ってしりとりしましょう'
       expect(page).to have_button('トークを作成する', disabled: false)
