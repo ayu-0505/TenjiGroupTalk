@@ -3,21 +3,29 @@
 
 h1.section-title ダッシュボード
 
-.px-2.mt-8
-  - if @group.nil?
-    .container.border.max-w-xl.mx-auto
-      h2.text-lg.text-center.border-b まずはグループを作成しましょう
-      p.mt-4.p-2
-       | 作成したグループにユーザーを招待すると、グループメンバーだけで使える掲示板ができます。<br>
-       | <br>
-       | まずはグループを作成し、他のユーザーを招待してみましょう。<br>
-      .flex.flex-col.items-center.mb-4
-        = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
-        = link_to 'グループを作成する', new_group_path, class: 'btn btn-blue text-lg'
-  - else
-    .container.mt-8
-      h2.border-t.border-r.border-l グループ情報
+- if @group.nil?
+  .container.border.max-w-xl.mx-auto
+    h2.text-lg.text-center.border-b まずはグループを作成しましょう
+    p.mt-4.p-2
+     | 作成したグループにユーザーを招待すると、グループメンバーだけで使える掲示板ができます。<br>
+     | <br>
+     | まずはグループを作成し、他のユーザーを招待してみましょう。<br>
+    .flex.flex-col.items-center.mb-4
+      = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
+      = link_to 'グループを作成する', new_group_path, class: 'btn btn-blue text-lg'
+- else
+  .container
+    .mx-2.md:px-4
+      = form_with url: dashboard_path, method: :get, local: true do |form|
+        = form.select :group_id,
+          options_for_select(@groups.pluck(:name, :id), @group.id),
+          {},
+          onchange: 'this.form.submit()',
+          class: 'w-full mx-auto mt-4 border h-8 rounded-lg text-lg border-2 border-gray-400'
+  .container
+    .mx-2.my-4.md:px-4
+      h2.border-t.border-r.border-l.p-1 グループ情報
       = render 'groups/group', group: @group
 
-    .container
-      = render 'talks/talks', group: @group, talks: @group.talks
+  .container
+    = render 'talks/talks', group: @group, talks: @group.talks
