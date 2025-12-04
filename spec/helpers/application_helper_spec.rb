@@ -21,7 +21,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg
         text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800
         focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800
-        bg-teal-300 active:text-white active:bg-slate-800
+        bg-teal-100 active:text-white active:bg-slate-800
         disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none
       CLASSES
       expect(pagination_page_class(is_current_page: true, is_last_page: true)).to eq class_names
@@ -33,7 +33,7 @@ RSpec.describe ApplicationHelper, type: :helper do
         py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg
         text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800
         focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800
-        bg-teal-300 active:text-white active:bg-slate-800
+        bg-teal-100 active:text-white active:bg-slate-800
         disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none border-r-0
       CLASSES
       expect(pagination_page_class(is_current_page: true, is_last_page: false)).to eq class_names
