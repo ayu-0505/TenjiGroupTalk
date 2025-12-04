@@ -1,12 +1,11 @@
-.flex.flex-col.items-center.mx-4.mt-8
-  = link_to '新しいトークを作成する', new_group_talk_path(group), class: 'btn btn-blue'
+.flex.flex-col.items-center.mx-2.md:px-4
 
   - if talks.size == 0
-    .flex.flex-col.items-center.my-4.text-center
+    .flex.flex-col.items-center.text-center
       p.text-sm.text-gray-500 トークはありません
       = lucide_icon('package-open', alt: 'トークがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
   - else
-    .talks.m-4.w-full
+    .talks.w-full
       - talks.each do |talk|
         .talk.my-2.w-full
           = link_to group_talk_path(group, talk), class: 'block p-4 mb-4 border rounded-lg hover:bg-gray-100 transition bg-white w-full' do
