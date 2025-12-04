@@ -2,9 +2,10 @@
   = link_to group.name, group_path(group), class: 'block text-xl text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
 
   .flex.items-center.space-x-4.mt-2
-    .flex
-      p トーク数：
-      = group.talks.length
+    = link_to group_talks_path(group), class: 'text-center text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition' do
+      .flex
+        p トーク数：
+        = group.talks.length
     .flex
       p メンバー数：
       = group.users.length
@@ -19,5 +20,3 @@
   .flex.flex-wrap.mx-auto.w-auto.mt-2
     - group.users.each do |member|
       = image_tag member.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
-  = link_to 'トーク一覧へ', group_talks_path(group), class: 'mt-2 block text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
-

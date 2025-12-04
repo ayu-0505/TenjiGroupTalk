@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @groups = current_user.groups.order(created_at: :desc)
+    @group = current_user.groups.order(created_at: :desc).first
   end
 end

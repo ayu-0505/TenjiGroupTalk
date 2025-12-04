@@ -1,5 +1,4 @@
-.flex.flex-col.items-center.mx-4.mt-8
-  = link_to '新しいトークを作成する', new_group_talk_path(group), class: 'btn btn-blue'
+.flex.flex-col.items-center.mx-4.my-8
 
   - if talks.size == 0
     .flex.flex-col.items-center.my-4.text-center
@@ -16,3 +15,5 @@
               span.text-gray-500
                 = "（#{talk.comments.size}）"
             = truncate(strip_tags(simple_format(talk.description)), length: 150, separator: ' ')
+
+  = link_to 'トークテーマを作成する', new_group_talk_path(group), class: 'btn btn-blue'

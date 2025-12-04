@@ -1,22 +1,23 @@
 - set_meta_tags title: 'ダッシュボード'
 - set_meta_tags description: '点字グループトークのダッシュボードページです。コメント通知の有無や所属グループのトーク状況が一覧で確認できます。'
 
-.px-2.text-center
-  h1.section-title ダッシュボード
+h1.section-title ダッシュボード
 
-  - if @groups.size == 0
-    .mx-4.mt-4.text-center
-      p.mb-2.text-lg
-       | 所属グループがありません！<br>
-       | このサービスはグループ毎に掲示板を作成します。<br>
+.px-2.mt-8
+  - if @group.nil?
+    .container.border.max-w-xl.mx-auto
+      h2.text-lg.text-center.border-b まずはグループを作成しましょう
+      p.mt-4.p-2
+       | 作成したグループにユーザーを招待すると、グループメンバーだけで使える掲示板ができます。<br>
+       | <br>
        | まずはグループを作成し、他のユーザーを招待してみましょう。<br>
-      .flex.flex-col.items-center
+      .flex.flex-col.items-center.mb-4
         = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
-        = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg'
-      p.mt-8.text-lg
-       |グループに招待されていますか？<br>
-       |送られた招待URLページにアクセスし、グループに参加してください。<br>
-
+        = link_to 'グループを作成する', new_group_path, class: 'btn btn-blue text-lg'
   - else
-    - @groups.each do |group|
-      = render 'group_talks_preview', group:
+    .container.mt-8
+      h2.border-t.border-r.border-l グループ情報
+      = render 'groups/group', group: @group
+
+    .container
+      = render 'talks/talks', group: @group, talks: @group.talks
