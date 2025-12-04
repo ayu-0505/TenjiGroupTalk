@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
   def index
     @groups = current_user.groups.order(created_at: :desc)
     @group = @selected_group || @groups.first
+    @talks = @group.talks.sort_by_latest_comments.page(params[:page]).per(10) if @group
   end
 
   private
