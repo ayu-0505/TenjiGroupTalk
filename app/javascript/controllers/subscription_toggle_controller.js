@@ -37,8 +37,8 @@ export default class extends Controller {
     this.idTarget.setAttribute("id", data.id);
     const flashContainer = document.getElementById("flash");
     flashContainer.innerHTML = data.html;
-    this.switchTarget.classList.remove("left-[3px]", "bg-sky-300");
-    this.switchTarget.classList.add("left-8", "bg-sky-600");
+    this.switchTarget.classList.remove("left-0.5", "bg-sky-300");
+    this.switchTarget.classList.add("left-5", "bg-sky-600");
   }
 
   async deleteSubscription() {
@@ -59,7 +59,7 @@ export default class extends Controller {
     flashContainer.innerHTML = data.html;
     this.idTarget.removeAttribute("id");
     this.switchTarget.removeAttribute("checked");
-    this.switchTarget.classList.remove("left-8", "bg-sky-600");
-    this.switchTarget.classList.add("left-[3px]", "bg-sky-300");
+    this.switchTarget.classList.remove("left-5", "bg-sky-600");
+    this.switchTarget.classList.add("left-0.5", "bg-sky-300");
   }
 }
