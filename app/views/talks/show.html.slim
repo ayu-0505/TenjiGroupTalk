@@ -4,15 +4,15 @@
 .talk
 
   .container
-    .mt-4.border.rounded-lg.bg-white.mx-2.md:mx-4
+    .mt-4.border.rounded-lg.bg-white.mx-2.pb-2.md:mx-4
       = render 'talks/talk', talk: @talk, braille: @talk.braille
 
-      - if @talk.user == current_user
-        .flex.flex-row.items-center.justify-center.gap-4.mb-2
-          = link_to '編集する', edit_group_talk_path(@group, @talk), class: 'btn-white'
-          = button_to '削除する', group_talk_path(@group, @talk),
-          { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
-          class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition' }
+    - if @talk.user == current_user
+      .flex.flex-row.items-center.justify-end.gap-4.mb-2.mx-4.my-2
+        = link_to 'トーク内容を編集する', edit_group_talk_path(@group, @talk), class: 'btn-white text-xs'
+        = button_to 'トークを削除する', group_talk_path(@group, @talk),
+        { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
+        class: 'text-gray-400 text-xs hover:text-gray-500 active:text-gray-600 underline transition' }
 
     = render 'comments/comments', talk: @talk, comments: @comments, comment_form: @comment_form
 

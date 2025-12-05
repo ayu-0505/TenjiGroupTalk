@@ -1,8 +1,8 @@
 h1.text-xl.font-bold.px-4.pt-2
   = talk.title
 
-.grid.grid-cols-8.gap-2.p-2.md:flex.md:flex-row.md:items-center.md:gap-4.border-b
-  .col-span-1.row-span-2.flex.items-start
+.grid.grid-cols-8.gap-2.py-2.px-4.md:flex.md:flex-row.md:items-center.md:gap-4.border-b
+  .col-span-1.row-span-2.flex.items-center
     = image_tag @talk.user.image, alt: 'ユーザーアイコン',
       class: 'w-8 h-8 rounded-full'
   .col-span-7.flex.items-center.gap-2
@@ -16,52 +16,28 @@ h1.text-xl.font-bold.px-4.pt-2
 
 #subscription_toggle
   = render 'subscriptions/toggle', subscription: @subscription, talk: @talk
-.px-4.py-2
+.px-4.my-2.md:my-4
   = simple_format(talk.description)
 
 - if braille.present?
   .braille.border-t data-controller='braille-display'
-    .mx-2.my-2
-      .flex.gap-4.items-center
-        .flex.flex-col.items-center
-          p.font-bold ひらがな
-          .flex.items-center.gap-1
-            = lucide_icon('eye-off', class: 'stroke-gray-500', alt: 'トークのひらがな表示オフ')
-            .flex.items-center.justify-center
-              label for='talk_original_text_check' class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
-                input type='checkbox' id='talk_original_text_check' class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='originalCheck'
-                span class='w-2/5 h-4/5 bg-sky-300 absolute rounded-full left-0.5 top-0.5 transition-all duration-300' data-braille-display-target='originalToggle'
-            = lucide_icon('eye', class: 'stroke-gray-500', alt: 'トークのひらがな表示オン')
-        p.original_text.border.w-full.mt-2.text-gray-500.text-sm.text-center data-braille-display-target='originalPlaceholder' ここにひらがなが表示されます
-        .original_text.border.w-full.mt-2.hidden.text-lg data-braille-display-target='original'
-          = simple_format(braille.original_text)
+    .mx-4
+      p.text-sm.font-bold.mt-2 点字クイズ！これはなに？
 
-    .mx-2.my-2
-      .flex.gap-4.items-center
-        .flex.flex-col.items-center
-          p.font-bold 凸面
-          .flex.items-center.gap-1
-            = lucide_icon('eye-off', class: 'stroke-gray-500', alt: 'トークの凸面表示オフ')
-            .flex.items-center.justify-center
-              label for='talk_raised_check' class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
-                input type='checkbox' id='talk_raised_check' class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='raisedCheck'
-                span class='w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300' data-braille-display-target='raisedToggle'
-            = lucide_icon('eye', class: 'stroke-gray-500', alt: 'トークの凸面表示オン')
-        p.raised_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='raisedPlaceholder' ここに凸面点字が表示されます
-        .raised_braille.border.w-full.mt-2.text-2xl data-braille-display-target='raised'
-          = simple_format(braille.raised_braille)
-
-    .mx-2.my-2
-      .flex.gap-4.items-center
-        .flex.flex-col.items-center
-          p.font-bold 凹面
-          .flex.items-center.gap-1
-            = lucide_icon('eye-off', class: 'stroke-gray-500', alt: 'トークの凹面表示オフ')
-            .flex.items-center.justify-center
-              label for='talk_indented_check' class='bg-gray-100 cursor-pointer relative w-10 h-5 rounded-full border border-gray-400'
-                input type='checkbox' id='talk_indented_check' class='sr-only' data-action='click->braille-display#toggle' data-braille-display-target='indentedCheck'
-                span class='w-2/5 h-4/5 bg-sky-600 absolute rounded-full left-5 top-0.5 transition-all duration-300' data-braille-display-target='indentedToggle'
-            = lucide_icon('eye', class: 'stroke-gray-500', alt: 'トークの凹面表示オン')
-        p.indented_braille.border.w-full.mt-2.text-gray-500.text-sm.text-center.hidden data-braille-display-target='indentedPlaceholder' ここに凹面点字が表示されます
-        .indented_braille.border.w-full.mt-2.text-2xl data-braille-display-target='indented'
-          = simple_format(braille.indented_braille)
+      .my-2
+        .flex.gap-4.items-center
+          p.text-sm 凸面
+          .raised_braille.text-2xl data-braille-display-target='raised'
+            = simple_format(braille.raised_braille)
+      .my-2
+        .flex.gap-4.items-center
+          p.text-sm 凹面
+          .indented_braille.text-2xl data-braille-display-target='indented'
+            = simple_format(braille.indented_braille)
+      .my-2.hidden data-braille-display-target='original'
+        .flex.gap-4.items-center
+          p.text-sm ひらがな
+          .indented_braille.text-xl
+            = simple_format(braille.original_text)
+      .flex.items-center
+        button data-action='click->braille-display#toggle' data-braille-display-target='buttonText' class='btn-white' 正解を見る
