@@ -8,7 +8,7 @@
       = render 'talks/talk', talk: @talk, braille: @talk.braille
 
     - if @talk.user == current_user
-      .flex.flex-row.items-center.justify-end.gap-4.mb-2.mx-4.my-2
+      .flex.flex-row.items-center.justify-end.gap-2.mt-1.mb-2.mx-4
         = link_to 'トーク内容を編集する', edit_group_talk_path(@group, @talk), class: 'btn-white text-xs'
         = button_to 'トークを削除する', group_talk_path(@group, @talk),
         { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},

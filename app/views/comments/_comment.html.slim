@@ -1,46 +1,47 @@
 = turbo_frame_tag comment do
-  .comment.block.mx-4.mt-4.border.rounded-lg.bg-white data-comments-pagination-target='comment' id="#{comment.id}" class="#{'hidden' if hidden}"
-    .grid.grid-cols-8.gap-2.py-2.px-4.md:flex.md:flex-row.md:items-center.md:gap-4.border-b
-      .col-span-1.row-span-2.flex.items-center
-        = image_tag comment.user.image, alt: 'ユーザーアイコン',
-          class: 'w-6 h-6 rounded-full'
-      .col-span-7.flex.items-center.gap-2
-        p.text-sm 作成者:
-        p.text-sm
-          = user_name_tag(comment.user)
-      .col-span-7.flex.items-center.gap-2
-        p.text-sm 登録日:
-        .text-gray-500.text-xs
-          = l comment.created_at
-    .px-4.my-2.md:my-4
-      = simple_format(comment.description)
+  .comment.block.bg-white data-comments-pagination-target='comment' id="#{comment.id}" class="#{'hidden' if hidden}"
+    .border.rounded-lg
+      .grid.grid-cols-8.gap-2.py-2.px-4.md:flex.md:flex-row.md:items-center.md:gap-4.border-b
+        .col-span-1.row-span-2.flex.items-center
+          = image_tag comment.user.image, alt: 'ユーザーアイコン',
+            class: 'w-6 h-6 rounded-full'
+        .col-span-7.flex.items-center.gap-2
+          p.text-sm 作成者:
+          p.text-sm
+            = user_name_tag(comment.user)
+        .col-span-7.flex.items-center.gap-2
+          p.text-sm 登録日:
+          .text-gray-500.text-xs
+            = l comment.created_at
+      .px-4.my-2.md:my-4
+        = simple_format(comment.description)
 
-    - if comment.braille.present?
-      .border-t.pb-2 data-controller='braille-display'
-        .mx-4
-          p.text-sm.font-bold.mt-2 点字クイズ！これはなに？
+      - if comment.braille.present?
+        .border-t.pb-2 data-controller='braille-display'
+          .mx-4
+            p.text-sm.font-bold.mt-2 点字クイズ！これはなに？
 
-          .my-2
-            .flex.gap-4.items-center
-              p.text-sm 凸面
-              .raised_braille.text-2xl data-braille-display-target='raised'
-                = simple_format(comment.braille.raised_braille)
-          .my-2
-            .flex.gap-4.items-center
-              p.text-sm 凹面
-              .indented_braille.text-2xl data-braille-display-target='indented'
-                = simple_format(comment.braille.indented_braille)
-          .my-2.hidden data-braille-display-target='original'
-            .flex.gap-4.items-center
-              p.text-sm ひらがな
-              .indented_braille.text-xl
-                = simple_format(comment.braille.original_text)
-          .flex.items-center
-            button data-action='click->braille-display#toggle' data-braille-display-target='buttonText' class='btn-white' 正解を見る
+            .my-2
+              .flex.gap-4.items-center
+                p.text-sm 凸面
+                .raised_braille.text-2xl data-braille-display-target='raised'
+                  = simple_format(comment.braille.raised_braille)
+            .my-2
+              .flex.gap-4.items-center
+                p.text-sm 凹面
+                .indented_braille.text-2xl data-braille-display-target='indented'
+                  = simple_format(comment.braille.indented_braille)
+            .my-2.hidden data-braille-display-target='original'
+              .flex.gap-4.items-center
+                p.text-sm ひらがな
+                .indented_braille.text-xl
+                  = simple_format(comment.braille.original_text)
+            .flex.items-center
+              button data-action='click->braille-display#toggle' data-braille-display-target='buttonText' class='btn-white' 正解を見る
 
-  - if comment.user == current_user
-    .flex.flex-row.items-center.justify-end.gap-4.mb-2.mx-4.my-2
-      = link_to 'コメント内容を編集する', edit_talk_comment_path(@talk, comment), class: 'btn-white text-xs'
-      = button_to '削除する', talk_comment_path(@talk, comment),
-       { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'},
-       class: 'text-gray-400 text-xs hover:text-gray-500 active:text-gray-600 underline transition' }
+    .flex.flex-row.items-center.justify-end.gap-2.mt-1.mb-4
+      - if comment.user == current_user
+        = link_to 'コメント内容を編集する', edit_talk_comment_path(@talk, comment), class: 'btn-white text-xs'
+        = button_to '削除する', talk_comment_path(@talk, comment),
+         { method: :delete, data: { turbo_confirm: 'コメントを削除します。よろしいですか？'},
+         class: 'text-gray-400 text-xs hover:text-gray-500 active:text-gray-600 underline transition' }

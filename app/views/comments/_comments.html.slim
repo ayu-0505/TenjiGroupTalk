@@ -1,9 +1,9 @@
 = render 'comments/count', comments:
 
-#comments.my-4 data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
+#comments.mx-2.md:mx-4 data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
   - if hidden_comments(comments).size != 0
-    .flex.justify-center.items-center.text-sm
-      button.btn-white.justify-center.w-60 data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
+    .flex.items-center.mb-4.text-sm
+      button.btn-white.w-60.text-xs data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
        | コメントを読み込む (
        span data-comments-pagination-target='remainingCount'
          = comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT
