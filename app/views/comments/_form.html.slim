@@ -1,67 +1,77 @@
 = form_with(model: comment_form, **comment_form.form_with_options) do |form|
   - if comment_form.errors.any?
-    .m-4 style='color: red'
+    div style='color: red'
       h2 = "#{t('errors.template.header', model: CommentBrailleForm.model_name.human, count: comment_form.errors.count)}"
       ul
         - comment_form.errors.each do |error|
           li = error.full_message
 
-  .my-4 data-controller='disable-button'
-    .pb-4.mx-4
+  div data-controller='disable-button'
+    .pb-4
       = form.label :description, style: 'display: block'
       = form.textarea :description, required: true, placeholder:'例）トーク作成ありがとうございます！',
         data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
         class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
-    div data-controller='braille-converter'
-      .pb-4.mx-4
-        div.sm:flex.sm:gap-2
-          = form.label :original_text, '点字に変換するひらがな', style: 'display: block'
-          .flex.items-center.gap-1.mb-1
-            = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
-            p.text-sm.text-gray-500 点字なしでも投稿できます
-        = form.textarea :original_text, placeholder:'例）かんじ',
-          class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y',
-          data: { action: 'input->disable-button#whiteBtnToggle',
-            disable_button_target: 'whiteInput',
-            braille_converter_target: 'input' }
+    div data-controller='braille-form-visibility'
+      .flex.flex-col.mb-1.md:gap-4.md:flex-row
+        label for='braille-form-visibility'
+          .flex.items-center
+            input type='checkbox' id='braille-form-visibility' checked='checked' data-action='braille-form-visibility#switchFormVisiblity' class='w-5 h-5'
+            span コメントに点字クイズを付ける
+        .flex.items-center data-controller='modal'
+          dialog data-modal-target='dialog' class='p-8 rounded-lg backdrop:bg-black/80 pointer-events-auto'
+            p.text-sm.text-gray-600 点字クイズを出し合うことで、「接触する頻度が増えて記憶に定着しやすく」なります。
+            p.text-sm.text-gray-600 掲示板を使う流れの中でよりたくさん点字に触れて、覚えていきましょう！
+            button data-action='modal#close' type='button' class='btn-white block mx-auto mt-4' 閉じる
+          = button_tag data: {action: 'modal#open' }, type: 'button' do
+            .flex
+              = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-400 w-5 h-5')
+              p.text-sm 点字クイズについて詳しく
 
-      .sm:flex.items-center.mx-4.gap-2
-        button type='button' data-action='click->braille-converter#convert' data-disable-button-target='whiteBtn' class='btn-white w-auto' 点字変換
-        .flex.items-center.gap-1.mt-2
-          = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
-          p.text-sm.text-gray-500 投稿前に点字を確認できます
+      div data-braille-form-visibility-target='form'
+        .p-2.border.rounded-lg.bg-teal-100
+          div data-controller='braille-converter'
+            .pb-4
+              .flex.flex-col.gap-1.md:flex-row
+                = form.label :original_text, '点字クイズにする言葉をひらがなで入力', style: 'display: block'
+              .flex.justify-center
+                = form.textarea :original_text, placeholder:'例）かんじ',
+                  class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y',
+                  data: { action: 'input->disable-button#whiteBtnToggle',
+                    disable_button_target: 'whiteInput',
+                    braille_converter_target: 'input' }
+            button type='button' data-action='click->braille-converter#convert' data-disable-button-target='whiteBtn' class='btn-white' 点字を確認する
 
-      - if params[:action] == 'edit' && @comment.braille.present?
-        div data-braille-converter-target='result'
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:raised_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='raised' class='text-2xl'
-                = simple_format(@comment.braille.raised_braille)
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:indented_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='indented' class='text-2xl'
-                = simple_format(@comment.braille.indented_braille)
-      - else
-        .hidden data-braille-converter-target='result'
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:raised_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='raised' class='text-2xl'
+            - if params[:action] == 'edit' && @comment.braille.present?
+              div data-braille-converter-target='result'
+                .flex.items-center.my-2
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:raised_braille)
+                  .p-2
+                    span data-braille-converter-target='raised' class='text-2xl'
+                      = simple_format(@comment.braille.raised_braille)
+                .flex.items-center
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:indented_braille)
+                  .p-2
+                    span data-braille-converter-target='indented' class='text-2xl'
+                      = simple_format(@comment.braille.indented_braille)
+            - else
+              .hidden data-braille-converter-target='result'
+                .flex.items-center.my-2
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:raised_braille)
+                  .p-2
+                    span data-braille-converter-target='raised' class='text-2xl'
+                .flex.items-center
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:indented_braille)
+                  .p-2
+                    span data-braille-converter-target='indented' class='text-2xl'
 
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:indented_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='indented' class='text-2xl'
-
-    .m-4.mt-8
+    .mt-4
       - if params[:action] == 'edit'
-        = form.submit '更新', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue'
+        = form.submit 'コメントを更新する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
       - else
-        = form.submit '新規作成', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue'
+        = form.submit 'コメントを投稿する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
