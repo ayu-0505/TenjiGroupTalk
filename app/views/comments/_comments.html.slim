@@ -2,7 +2,7 @@
 
 #comments.mx-2.md:mx-4 data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
   - if hidden_comments(comments).size != 0
-    .flex.items-center.mb-4.text-sm
+    .flex.items-center.mb-2.text-sm
       button.btn-white.w-60.text-xs data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
        | コメントを読み込む (
        span data-comments-pagination-target='remainingCount'
@@ -10,5 +10,5 @@
        | )
     = render partial: 'comments/comment', collection: hidden_comments(comments), as: :comment, locals: { hidden: true }
   = render partial: 'comments/comment', collection: display_comments(comments), as: :comment, locals: { hidden: false }
-.mx-4.mt-8.px-4.text-xl.font-bold コメント追加
-= render 'comments/new_comment', comment_form: comment_form
+  .mt-8.mb-2.text-lg.font-bold コメント追加
+  = render 'comments/new_comment', comment_form: comment_form
