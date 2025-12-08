@@ -1,20 +1,16 @@
 - set_meta_tags title: 'トーク一覧'
 - set_meta_tags description: 'グループに所属しているトークの一覧が表示されます。'
 
-.px-2
-  h1.section-title
-    = "#{@group.name}のトーク一覧"
-  = render 'talks', group: @group, talks: @talks
-  = paginate @talks
+h1.section-title
+  = "#{@group.name}のトーク一覧"
+.container
+  .px-2.md:px-4
   .flex.justify-center.my-4
     = link_to 'トークテーマを作成する', new_group_talk_path(@group), class: 'btn-white inline-block text-center'
+  = render 'talks', group: @group, talks: @talks
+  = paginate @talks
 
-
-  .my-2
-    = link_to group_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | グループページへ戻る
-  .my-2
-    = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | ダッシュボードへ戻る
+.container
+  .flex.flex-col.gap-4.my-8.items-center
+    = link_to 'グループページへ戻る', group_path(@group), class: 'btn-white inline-block text-center'
+    = link_to 'ダッシュボードへ戻る', dashboard_path, class: 'btn-white inline-block text-center'
