@@ -17,4 +17,4 @@
     = render 'comments/comments', talk: @talk, comments: @comments, comment_form: @comment_form
 
   .my-8.flex
-    = link_to 'トークページに戻る', group_talk_path(@group, @talk), class: 'btn-white block mx-auto'
+    = link_to 'トーク一覧に戻る', group_talks_path(@group), class: 'btn-white block mx-auto'
