@@ -1,12 +1,9 @@
 - set_meta_tags title: 'ニックネーム編集'
 - set_meta_tags description: 'ユーザー名編集ページです。'
 
-.px-2
-  h1.section-title ニックネーム編集
-
+h1.section-title ニックネームを変更する
+.px-2.md:px-4
   = render 'form', user: @user
 
-  .my-2
-    = link_to @user, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | プロフィールへ戻る
+  .flex.justify-center.mt-8
+    = link_to 'プロフィールへ戻る', @user, class: 'btn-white'

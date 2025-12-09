@@ -1,15 +1,15 @@
 = form_with(model: user) do |form|
   - if user.errors.any?
-    .m-4 style='color: red'
+    div style='color: red'
       h2 = "#{t('errors.template.header', model: User.model_name.human, count: user.errors.count)}"
       ul
         - user.errors.each do |error|
           li = error.full_message
 
-  .text-center.space-y-2 data-controller='disable-button'
-    = form.label :nickname, style: 'display: block', class: 'text-lg'
+  .container.flex.flex-col.mx-auto.mt-4.w-full.md:max-w-md data-controller='disable-button'
+    = form.label :nickname, 'ニックネームを入力してください', style: 'display: block'
     = form.text_field :nickname, placeholder: '例）点字太郎', required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません',
       data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
-      class: 'p-2 border mr-2 border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+      class: 'p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-    = form.submit '更新', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue'
+    = form.submit 'ニックネームを更新する', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue text-lg my-2'
