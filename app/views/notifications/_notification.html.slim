@@ -1,11 +1,11 @@
 - if notification.read == true
-  .notification.my-2
+  .notification
     = link_to notification.link_title,
       notification_path(notification),
       data: { turbo_method: :patch },
       class: 'text-gray-400 hover:text-gray-500 active:text-grey-600 underline transition'
 - else
-  .notification.my-2
+  .notification
     = link_to notification.link_title,
       notification_path(notification),
       data: { turbo_method: :patch },

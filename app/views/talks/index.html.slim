@@ -8,7 +8,8 @@ h1.section-title
   .flex.justify-center.my-4
     = link_to 'トークテーマを作成する', new_group_talk_path(@group), class: 'btn-white inline-block text-center'
   = render 'talks', group: @group, talks: @talks
-  = paginate @talks
+  .my-4
+    = paginate @talks
 
 .container
   .flex.flex-col.gap-4.my-8.items-center

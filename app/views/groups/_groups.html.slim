@@ -6,10 +6,11 @@
        | グループを作成し、他のユーザーを招待してみましょう
       = lucide_icon('package-open', alt: 'グループがないことを表す画像', class: 'stroke-gray-500 w-10 h-10 inline-block m-4')
     div
-      = link_to 'グループ作成', new_group_path, class: 'btn btn-blue text-lg inline-block mb-4'
+      = link_to 'グループを作成する', new_group_path, class: 'btn-white'
   - else
-    .container.space-y-2
-      - groups.each do |group|
-        = render 'groups/group', group:
-      div
-        = link_to 'グループを新規作成', new_group_path, class: 'btn btn-blue block w-48 mt-8 mx-auto text-center'
+    .container
+      .space-y-2
+        - groups.each do |group|
+          = render 'groups/group', group:
+      .text-center.my-4
+        = link_to 'グループを新規作成', new_group_path, class: 'btn-white'

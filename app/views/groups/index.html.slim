@@ -2,12 +2,7 @@
 - set_meta_tags description: '所属しているグループが一覧で表示されます。'
 
 h1.section-title 所属グループ
-.px-2.mt-8
+.px-2.mt-4
   = render 'groups', groups: @groups
-  .my-4
+  .mt-4.mb-8
     = paginate @groups
-
-  .my-2
-    = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | ダッシュボードへ戻る

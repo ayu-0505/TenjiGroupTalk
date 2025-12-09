@@ -7,11 +7,11 @@
     = image_tag 'sub-title.png', alt: '点字グループトークタイトル', class: 'mx-auto w-[90%] h-auto', width: nil, height: nil
 
   .space-y-2.text-center.text-lg
-    | ひとこと点字を送ることができる
+    | ひとこと点字クイズを送ることができる
     br.md:hidden
     | 掲示板サービス！
     br
-    | しりとり？クイズ？ミニ日記？
+    | しりとり？ミニ日記？
     br.md:hidden
     | 点字に変換する内容はなんでもOK
     br
@@ -39,31 +39,30 @@
 
 .container.mx-auto.max-w-2xl
   .border.bg-teal-50.rounded-lg.border-main-color.py-4.mx-2
-    h1.flex.justify-center.items-center.text-lg.font-bold.text-teal-700 点字変換のやり方
+    h1.flex.justify-center.items-center.text-lg.font-bold.text-teal-700 点字クイズのやり方
     .mx-4.text-left.my-6
       ol.space-y-4.text-wrap
         li class='relative pl-12 list-outside'
           span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 1
-          p.text-teal-700 点字専用入力欄にひらがなで入力して投稿します。（全角カタカナもOK）
+          p.text-teal-700 点字クイズ欄にひらがなを入力します。（全角カタカナもOK）
         = image_tag 'step1.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
         = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
 
         li class='relative pl-12'
           span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 2
-          p.text-teal-700 投稿された点字は凸面と凹面で表示されます。
+          p.text-teal-700 投稿された点字は凸面と凹面で表示され、ひらがなは隠れています。
         = image_tag 'step2.png', alt: '点字入力欄の様子', class: 'mx-auto w-60 h-auto'
         = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
 
         li class='relative pl-12'
           span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 3
-          p.text-teal-700 表示・非表示スイッチで表示するかを切り替えることができます。
-        = image_tag 'step3.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto hidden sm:block'
-        = image_tag 'step3-mobile.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto block sm:hidden'
+          p.text-teal-700 ボタンを押すと正解にひらがなを見ることができます。
+        = image_tag 'step3.png', alt: '点字の表示・非表示切り替えの様子', class: 'mx-auto w-60 h-auto'
         = image_tag 'down_arrow.png', alt: '下矢印', class: 'mx-auto w-8 h-auto'
 
         li class='relative pl-12'
           span class='absolute top-1/2 left-0 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-main-color font-semibold text-white' 4
-          p.text-teal-700 他の人の投稿した点字も自由に表示を切り替えて確認することができます。
+          p.text-teal-700 他の人の投稿した点字クイズも自由に正解を切り替えて確認できます。
 
     .text-center
       p.text-lg.text-teal-700.font-bold
