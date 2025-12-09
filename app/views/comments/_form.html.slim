@@ -72,6 +72,6 @@
 
     .mt-4
       - if params[:action] == 'edit'
-        = form.submit 'コメントを更新する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
+        = form.submit 'コメントを更新する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
       - else
-        = form.submit 'コメントを投稿する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
+        = form.submit 'コメントを投稿する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'

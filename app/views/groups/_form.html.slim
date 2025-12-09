@@ -13,6 +13,6 @@
       class: 'p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
     - if params[:action] == 'edit'
-      = form.submit 'グループ名を更新する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
+      = form.submit 'グループ名を更新する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
     - else
-      = form.submit 'グループを作成する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
+      = form.submit 'グループを作成する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
