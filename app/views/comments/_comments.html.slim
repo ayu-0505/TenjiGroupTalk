@@ -10,5 +10,5 @@
        | )
     = render partial: 'comments/comment', collection: hidden_comments(comments), as: :comment, locals: { hidden: true }
   = render partial: 'comments/comment', collection: display_comments(comments), as: :comment, locals: { hidden: false }
-  .mt-8.mb-2.text-lg.font-bold コメント追加
+  .mt-4.mb-2.text-lg.font-bold コメント追加
   = render 'comments/new_comment', comment_form: comment_form
