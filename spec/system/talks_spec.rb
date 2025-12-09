@@ -44,29 +44,6 @@ RSpec.describe 'Talks', type: :system do
       end
     end
 
-    context 'when the content contains braille' do
-      it 'shows a toggle buttonand allows switching visibility', :js do
-        braille = create(:braille, user:)
-        talks[0].update!(braille:)
-        visit group_talk_path(group, talks[0])
-
-        expect(page).to have_css('.original_text.hidden', visible: :all)
-        expect(page).to have_content ("#{braille.raised_braille}")
-        expect(page).to have_content ("#{braille.indented_braille}")
-
-        within '.talk' do
-          find('label[for="talk_original_text_check"]').click
-          expect(page).to have_content ("#{braille.original_text}")
-
-          find('label[for="talk_raised_check"]').click
-          expect(page).to have_css('.raised_braille.hidden', visible: :all)
-
-          find('label[for="talk_indented_check"]').click
-          expect(page).to have_css('.indented_braille.hidden', visible: :all)
-        end
-      end
-    end
-
     context 'when the subscription toggle button is OFF' do
       it 'turns ON, creates the subscription, and shows a flash message', :js do
         visit group_talk_path(group, talks[0])
@@ -150,8 +127,8 @@ RSpec.describe 'Talks', type: :system do
     context 'when clicking the convert button in the new form' do
       it 'converts to raised braille and indented braille' do
         visit new_group_talk_path(group)
-        fill_in '点字に変換するひらがな', with: 'こんにちわ'
-        click_button '変換'
+        fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
+        click_button '点字を確認する'
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
         expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
@@ -161,8 +138,8 @@ RSpec.describe 'Talks', type: :system do
     context 'when clicking the convert button in the edit form' do
       it 'converts to raised braille and indented braille' do
         visit edit_group_talk_path(group, talks[0])
-        fill_in '点字に変換するひらがな', with: 'こんにちわ'
-        click_button '点字変換'
+        fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
+        click_button '点字を確認する'
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
         expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
@@ -170,41 +147,43 @@ RSpec.describe 'Talks', type: :system do
     end
   end
 
-  describe 'toggling brailles visibility', :js do
+  describe 'a braille quiz is provided with a button to reveal the correct answer', :js do
     before do
       visit edit_group_talk_path(group, talks[0])
-      fill_in '点字に変換するひらがな', with: 'こんにちわ'
+      fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
       click_button 'トークを更新する'
     end
 
-    it 'toggles the hiragana display on and off' do
-      expect(page).to have_content('ここにひらがなが表示されます')
-      find('label[for="talk_original_text_check"]').click
-      expect(page).to have_content 'こんにちわ'
+    it 'can reveal the correct hiragana for the braille quiz', :js do
+      within '#talk_braille' do
+        expect(page).to have_content ("#{Braille.last.raised_braille}")
+        expect(page).to have_content ("#{Braille.last.indented_braille}")
+        expect(page).to have_css('.talk_original_text.hidden', visible: :all)
+
+        click_on '正解を見る'
+        expect(page).to have_content ("#{Braille.last.original_text}")
+      end
     end
 
-    it 'toggles the raised_braille display on and off' do
-      expect(page).to have_content('⠪⠴⠇⠗⠄')
-      find('label[for="talk_raised_check"]').click
-      expect(page).to have_content 'ここに凸面点字が表示されます'
-    end
-
-    it 'toggles the indented_braille display on and off' do
-      expect(page).to have_content('⠠⠺⠸⠦⠕')
-      find('label[for="talk_indented_check"]').click
-      expect(page).to have_content 'ここに凹面点字が表示されます'
+    it 'hides the correct hiragana when the button is pressed', :js do
+      within '#talk_braille' do
+        click_on '正解を見る'
+        expect(page).to have_content '正解をかくす'
+        click_on '正解をかくす'
+        expect(page).to have_css('.talk_original_text.hidden', visible: :all)
+      end
     end
   end
 
   describe 'disables the buttons when the form is blank', :js do
     it 'disables the convert button' do
       visit edit_group_talk_path(group, talks[0])
-      expect(find_field('点字に変換するひらがな').value).to eq('')
+      expect(find_field('点字クイズにする言葉をひらがなで入力').value).to eq('')
       button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
       expect(button[:disabled]).to eq('true')
 
       visit group_talk_path(group, talks[0])
-      expect(find_field('点字に変換するひらがな').value).to eq('')
+      expect(find_field('点字クイズにする言葉をひらがなで入力').value).to eq('')
       button = find('button[data-disable-button-target="whiteBtn"]', visible: :all)
       expect(button[:disabled]).to eq('true')
     end

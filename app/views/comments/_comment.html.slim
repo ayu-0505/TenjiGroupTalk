@@ -21,20 +21,20 @@
           .mx-4
             p.text-sm.font-bold.mt-2 点字クイズ！これはなに？
 
-            .my-2
+            .comment_raised_braille.my-2
               .flex.gap-4.items-center
                 p.text-sm 凸面
                 .raised_braille.text-2xl data-braille-display-target='raised'
                   = simple_format(comment.braille.raised_braille)
-            .my-2
+            .comment_indented_braille.my-2
               .flex.gap-4.items-center
                 p.text-sm 凹面
                 .indented_braille.text-2xl data-braille-display-target='indented'
                   = simple_format(comment.braille.indented_braille)
-            .my-2.hidden data-braille-display-target='original'
+            .comment_original_text.my-2.hidden data-braille-display-target='original'
               .flex.gap-4.items-center
                 p.text-sm ひらがな
-                .indented_braille.text-xl
+                .original_text.text-xl
                   = simple_format(comment.braille.original_text)
             .flex.items-center
               button data-action='click->braille-display#toggle' data-braille-display-target='buttonText' class='btn-white' 正解を見る
