@@ -1,31 +1,32 @@
 - set_meta_tags title: 'プロフィール'
 - set_meta_tags description: 'ユーザー詳細ページです。現在の所属グループの一覧が表示されます。'
 
-.px-2
-  h1.section-title プロフィール
-
-  .flex.flex-col.items-center.mx-4
-    .flex.items-center.h-14.w-full.md:w-1/2
-      p.w-2/6.text-sm アイコン：
+h1.section-title プロフィール
+.px-2.md:px-4
+  .container.my-4
+    .flex.items-center.gap-4
       = image_tag current_user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full'
-    .flex.items-center.h-14.w-full.md:w-1/2
-      p.w-2/6.text-sm ニックネーム：
-      .w-3/6.text-lg
-        = current_user.display_name
-      .w-1/6.text-center
-        = link_to '編集', edit_user_path(@user), class: 'text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+      .flex.flex-col.gap-2
+        p.font-bold
+          = current_user.display_name
+        .flex.items-center
+          p.text-sm 登録日：
+          = l current_user.created_at, format: :short
+    .text-center.my-2
+      = link_to 'ニックネームを変更する', edit_user_path(@user), class: 'btn-white'
 
-    .border.w-full.mx-4.pb-4
-      .text-xl.font-bold.text-center.my-4 所属グループ
-      = render 'groups/groups', groups: @groups
+  .container.flex.flex-col.justify-center.items-center.mx-auto
+    p 所属グループ
+    = render 'groups/groups', groups: @groups
 
-    .my-2.flex.gap-1
-      = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: 'stroke-red-500')
-      = button_to 'アカウント削除', @user,
-        { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
-        class: 'text-gray-400 text-sm hover:text-gray-500 active:text-gray-600 underline transition'}
+    - if @user == current_user
+      .container.bg-red-200.rounded-lg.text-center.py-4.my-8.max-w-sm.mx-auto
+        .flex.justify-center
+          = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: 'stroke-red-500')
+          p.text-red-800.font-bold ユーザー操作
 
-  .my-2
-    = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | ダッシュボードへ戻る
+        = button_to 'アカウントを削除する', @user,
+          { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
+          class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition'}
+        p ユーザーを削除して退会します。
+        p この操作は元に戻すことができません。
