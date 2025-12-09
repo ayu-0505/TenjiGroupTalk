@@ -1,6 +1,6 @@
 = form_with( model: talk_form, **talk_form.form_with_options) do |form|
   - if talk_form.errors.any?
-    .m-4 style='color: red'
+    div style='color: red'
       h2 = "#{t('errors.template.header', model: TalkBrailleForm.model_name.human, count: talk_form.errors.count)}"
       ul
         - talk_form.errors.each do |error|
@@ -8,69 +8,78 @@
 
   div data-controller='disable-button'
     .pb-4
-      = form.label :title, style: 'display: block', class: 'mx-4 text-lg'
+      = form.label :title, style: 'display: block'
       .flex.justify-center
         = form.text_field :title, required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '例）点字でしりとりをしましょう！',
           data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
-          class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+          class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
     .pb-4
-      = form.label :description, style: 'display: block', class: 'mx-4 text-lg'
+      = form.label :description, style: 'display: block'
       .flex.justify-center
         = form.textarea :description, rows: 10, required: true, placeholder:'例）しりとりをしましょう。点字を読んでみてください。',
           data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
-          class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
+          class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y'
 
-    div data-controller='braille-converter'
-      .pb-4
-        .flex.flex-col.mx-4.gap-1.md:flex-row
-          = form.label :original_text, '点字に変換するひらがな', style: 'display: block', class: 'text-lg'
-          .flex.items-center.gap-1.mb-2
-            = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
-            p.text-sm.text-gray-500 点字なしでも投稿できます
-        .flex.justify-center
-          = form.textarea :original_text, placeholder:'例）いるか',
-            class: 'w-full p-2 mx-4 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y',
-            data: { action: 'input->disable-button#whiteBtnToggle',
-              disable_button_target: 'whiteInput',
-              braille_converter_target: 'input' }
+    div data-controller='braille-form-visibility'
+      .flex.flex-col.mb-1.md:gap-4.md:flex-row
+        label for='braille-form-visibility'
+          .flex.items-center
+            input type='checkbox' id='braille-form-visibility' checked='checked' data-action='braille-form-visibility#switchFormVisiblity' class='w-5 h-5'
+            span トークに点字クイズを付ける
+        .flex.items-center data-controller='modal'
+          dialog data-modal-target='dialog' class='p-8 rounded-lg backdrop:bg-black/80 pointer-events-auto'
+            p.text-sm.text-gray-600 点字クイズを出し合うことで、「接触する頻度が増えて記憶に定着しやすく」なります。
+            p.text-sm.text-gray-600 掲示板を使う流れの中でよりたくさん点字に触れて、覚えていきましょう！
+            button data-action='modal#close' type='button' class='btn-white block mx-auto mt-4' 閉じる
+          = button_tag data: {action: 'modal#open' }, type: 'button' do
+            .flex
+              = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-400 w-5 h-5')
+              p.text-sm 点字クイズについて詳しく
 
-      .flex.flex-col.mx-4.gap-1.md:flex-row
-        button type='button' data-action='click->braille-converter#convert' data-disable-button-target='whiteBtn' class='btn-white' 点字変換
-        .flex.items-center.gap-1
-          = lucide_icon('circle-question-mark', alt: 'ヒント', class: 'stroke-gray-500')
-          p.text-sm.text-gray-500 投稿前に点字を確認できます
+      div data-braille-form-visibility-target='form'
+        .p-2.border.rounded-lg.bg-teal-100
+          div data-controller='braille-converter'
+            .pb-4
+              .flex.flex-col.gap-1.md:flex-row
+                = form.label :original_text, '点字クイズにする言葉をひらがなで入力', style: 'display: block'
+              .flex.justify-center
+                = form.textarea :original_text, placeholder:'例）いるか',
+                  class: 'w-full p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y',
+                  data: { action: 'input->disable-button#whiteBtnToggle',
+                    disable_button_target: 'whiteInput',
+                    braille_converter_target: 'input' }
+            button type='button' data-action='click->braille-converter#convert' data-disable-button-target='whiteBtn' class='btn-white' 点字を確認する
 
-      - if params[:action] == 'edit' && @talk.braille.present?
-        div data-braille-converter-target='result'
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:raised_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='raised' class='text-2xl'
-                = @talk.braille.raised_braille
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:indented_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='indented' class='text-2xl'
-                = @talk.braille.indented_braille
-      - else
-        .hidden data-braille-converter-target='result'
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:raised_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='raised'
+            - if params[:action] == 'edit' && @talk.braille.present?
+              div data-braille-converter-target='result'
+                .flex.items-center.my-2
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:raised_braille)
+                  .p-2
+                    span data-braille-converter-target='raised' class='text-2xl'
+                      = @talk.braille.raised_braille
+                .flex.items-center
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:indented_braille)
+                  .p-2
+                    span data-braille-converter-target='indented' class='text-2xl'
+                      = @talk.braille.indented_braille
+            - else
+              .hidden data-braille-converter-target='result'
+                .flex.items-center.my-2
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:raised_braille)
+                  .p-2
+                    span data-braille-converter-target='raised' class='text-2xl'
+                .flex.items-center
+                  p.text-sm.leading-none
+                    = Braille.human_attribute_name(:indented_braille)
+                  .p-2
+                    span data-braille-converter-target='indented' class='text-2xl'
 
-          .mx-4.my-2
-            p.text-lg
-              = Braille.human_attribute_name(:indented_braille)
-            .p-2.border.bg-white
-              span data-braille-converter-target='indented'
-
-    .m-4.mt-8
+    .mt-4
       - if params[:action] == 'edit'
-        = form.submit 'トークを更新する', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue'
+        = form.submit 'トークを更新する', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
       - else
-        = form.submit 'トークを作成する', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue'
+        = form.submit 'トークを作成する', data: { disable_button_target: 'buleBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'

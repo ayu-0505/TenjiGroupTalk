@@ -28,7 +28,8 @@ h1.section-title ダッシュボード
       = render 'groups/group', group: @group
 
   .container
-    = render 'talks/talks', group: @group, talks: @group.talks
-    = paginate @talks
     .flex.justify-center.my-4
       = link_to 'トークテーマを作成する', new_group_talk_path(@group), class: 'btn-white inline-block text-center'
+    = render 'talks/talks', group: @group, talks: @talks
+    = paginate @talks
+

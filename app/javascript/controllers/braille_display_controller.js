@@ -1,40 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = [
-    "originalCheck",
-    "originalToggle",
-    "originalPlaceholder",
-    "original",
+  static targets = ["original", "buttonText"];
 
-    "raisedCheck",
-    "raisedToggle",
-    "raisedPlaceholder",
-    "raised",
-
-    "indentedCheck",
-    "indentedToggle",
-    "indentedPlaceholder",
-    "indented",
-  ];
-
-  toggle(event) {
-    const targetName = event.currentTarget.dataset.brailleDisplayTarget.replace(
-      "Check",
-      ""
-    );
-    const content = this[`${targetName}Target`];
+  toggle() {
+    const content = this.originalTarget;
     content.classList.toggle("hidden");
-    const placeholder = this[`${targetName}PlaceholderTarget`];
-    placeholder.classList.toggle("hidden");
-    const toggle = this[`${targetName}ToggleTarget`];
-
     if (content.classList.contains("hidden")) {
-      toggle.classList.remove("bg-sky-600", "left-5");
-      toggle.classList.add("bg-sky-300", "left-0.5");
+      this.buttonTextTarget.textContent = "正解を見る";
     } else {
-      toggle.classList.remove("bg-sky-300", "left-0.5");
-      toggle.classList.add("bg-sky-600", "left-5");
+      this.buttonTextTarget.textContent = "正解をかくす";
     }
   }
 }

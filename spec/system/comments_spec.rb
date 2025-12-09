@@ -27,7 +27,7 @@ RSpec.describe "Comments", type: :system do
     it 'creates a comment with valid input' do
       visit group_talk_path(group, talk)
       fill_in 'コメント内容', with: '面白そう！'
-      click_on '新規作成'
+      click_on 'コメントを投稿する'
       expect(page).to have_content('面白そう！')
       expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
     end
@@ -67,8 +67,8 @@ RSpec.describe "Comments", type: :system do
       it 'converts to raised braille and indented braille' do
         visit group_talk_path(group, talk)
         within("#new_comment") do
-          fill_in '点字に変換するひらがな', with: 'こんにちわ'
-          click_button '点字変換'
+          fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
+          click_button '点字を確認する'
         end
 
         expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
@@ -84,8 +84,8 @@ RSpec.describe "Comments", type: :system do
         end
 
         within(".edit_comment") do
-          fill_in '点字に変換するひらがな', with: 'こんにちわ'
-          click_button '変換'
+          fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
+          click_button '点字を確認する'
 
           expect(page).to have_css('span[data-braille-converter-target="raised"]', text: '⠪⠴⠇⠗⠄')
           expect(page).to have_css('span[data-braille-converter-target="indented"]', text: '⠠⠺⠸⠦⠕')
@@ -99,8 +99,8 @@ RSpec.describe "Comments", type: :system do
         end
 
         within(".edit_comment") do
-          fill_in '点字に変換するひらがな', with: 'こんにちわ'
-          click_button '変換'
+          fill_in '点字クイズにする言葉をひらがなで入力', with: 'こんにちわ'
+          click_button '点字を確認する'
         end
 
         within("#comment_#{comments[2].id}") do
@@ -111,25 +111,31 @@ RSpec.describe "Comments", type: :system do
     end
   end
 
-  describe 'has a braille with toggle visiblity button' do
-    it 'shows a toggle buttonand allows switching visibility', :js do
+  describe 'a braille quiz is provided with a button to reveal the correct answer', :js do
+    it 'can reveal the correct hiragana for the braille quiz', :js do
       braille = create(:braille, user:)
       comments[0].update!(braille:)
       visit group_talk_path(group, talk)
 
       within "#comment_#{comments[0].id}" do
-        expect(page).to have_css('.original_text.hidden', visible: :all)
         expect(page).to have_content ("#{braille.raised_braille}")
         expect(page).to have_content ("#{braille.indented_braille}")
+        expect(page).to have_css('.comment_original_text.hidden', visible: :all)
 
-        find("label[for='#{comments[0].id}_original_text_check']").click
+        click_on '正解を見る'
         expect(page).to have_content ("#{braille.original_text}")
+      end
+    end
 
-        find("label[for='#{comments[0].id}_raised_check']").click
-        expect(page).to have_css('.raised_braille.hidden', visible: :all)
-
-        find("label[for='#{comments[0].id}_indented_check']").click
-        expect(page).to have_css('.indented_braille.hidden', visible: :all)
+    it 'hides the correct hiragana when the button is pressed', :js do
+      braille = create(:braille, user:)
+      comments[0].update!(braille:)
+      visit group_talk_path(group, talk)
+      within "#comment_#{comments[0].id}" do
+        click_on '正解を見る'
+        expect(page).to have_content '正解をかくす'
+        click_on '正解をかくす'
+        expect(page).to have_css('.comment_original_text.hidden', visible: :all)
       end
     end
   end

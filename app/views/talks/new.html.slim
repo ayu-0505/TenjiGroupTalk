@@ -1,12 +1,9 @@
-- set_meta_tags title: 'トーク新規作成'
+- set_meta_tags title: 'トークテーマ新規作成'
 - set_meta_tags description: 'トークを新規作成するページです。点字用ひらがな入力フォームから点字を変換できます。'
 
-.px-2
-  h1.section-title トーク新規作成
-
+h1.section-title トークテーマを新規作成する
+.px-2.my-4.md:mx-4
   = render 'form', talk_form: @talk_form
 
-  .my-2
-    = link_to group_talks_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | トーク一覧に戻る
+  .mt-8.flex
+    = link_to 'トーク一覧に戻る', group_talks_path(@group), class: 'btn-white block mx-auto'

@@ -1,5 +1,5 @@
 = turbo_frame_tag @comment do
-  .edit_comment.border.mx-4.pb-4
+  .edit_comment.border.p-1.rounded-lg.mb-4
     = render 'comments/form', comment_form: @comment_form
-
-    = link_to 'キャンセル', group_talk_path(@talk.group, @talk), class: 'mx-4 text-blue-600 hover:text-blue-800 active:text-blue-900 underline transition'
+    .flex.justify-center.mt-4
+      = link_to 'キャンセル', group_talk_path(@talk.group, @talk), class: 'btn-white inline-block'

@@ -1,12 +1,10 @@
 - set_meta_tags title: 'トーク編集'
 - set_meta_tags description: 'トークを編集するページです。'
 
-.px-2
-  h1.section-title トークを編集する
+h1.section-title トークテーマを編集する
+.container
+  .mx-2.my-4.md:mx-4
+    = render 'form', talk_form: @talk_form
 
-  = render 'form', talk_form: @talk_form
-
-  .my-2
-    = link_to group_talk_path(@group, @talk), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-      = lucide_icon('chevron-left').html_safe
-      | トークページに戻る
+    .my-8.flex
+      = link_to 'トークページに戻る', group_talk_path(@group, @talk), class: 'btn-white block mx-auto'
