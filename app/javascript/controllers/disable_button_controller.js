@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["blueInput", "buleBtn", "whiteInput", "whiteBtn"];
+  static targets = ["blueInput", "blueBtn", "whiteInput", "whiteBtn"];
 
   connect() {
     this.blueBtnToggle();
@@ -9,11 +9,12 @@ export default class extends Controller {
   }
 
   blueBtnToggle() {
+    if (!this.hasBlueBtnTarget) return;
+
+    const button = this.blueBtnTarget;
     const isAllFilled = this.blueInputTargets.every(
       (input) => input.value.trim().length > 0
     );
-    const button = this.buleBtnTarget;
-
     if (!isAllFilled) {
       button.disabled = true;
       button.classList.remove("text-white");
@@ -34,9 +35,10 @@ export default class extends Controller {
   }
 
   whiteBtnToggle() {
-    const isFilled = this.whiteInputTarget.value.trim().length > 0;
-    const button = this.whiteBtnTarget;
+    if (!this.hasWhiteBtnTarget) return;
 
+    const button = this.whiteBtnTarget;
+    const isFilled = this.whiteInputTarget.value.trim().length > 0;
     if (!isFilled) {
       button.disabled = true;
       button.classList.remove("text-blue-700");
