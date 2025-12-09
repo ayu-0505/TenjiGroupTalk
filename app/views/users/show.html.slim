@@ -13,7 +13,7 @@ h1.section-title プロフィール
           p.text-sm 登録日：
           = l current_user.created_at, format: :short
     .text-center.my-2
-      = link_to 'ニックネームを変更する', edit_user_path(@user), class: 'btn-white'
+      = link_to 'ネームを変更する', edit_user_path(@user), class: 'btn-white'
 
   .container.flex.flex-col.justify-center.items-center.mx-auto
     p 所属グループ
