@@ -1,18 +1,18 @@
 = form_with(model: group) do |form|
   - if group.errors.any?
-    .m-4 style='color: red'
+    div style='color: red'
       h2 = "#{t('errors.template.header', model: Group.model_name.human, count: group.errors.count)}"
       ul
         - group.errors.each do |error|
           li = error.full_message
 
-  .container.flex.flex-col.mx-auto.mt-8.space-y-2.w-full.md:max-w-md data-controller='disable-button'
+  .container.flex.flex-col.mx-auto.mt-4.w-full.md:max-w-md data-controller='disable-button'
     = form.label :name, 'グループ名を入力してください', style: 'display: block'
     = form.text_field :name ,required: true, pattern: '.*[^\s]+.*', title: '空白だけの入力はできません', placeholder: '例）点訳ボランティアサークル',
         data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
       class: 'p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
     - if params[:action] == 'edit'
-      = form.submit '更新', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue'
+      = form.submit 'グループ名を更新する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
     - else
-      = form.submit '作成', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue'
+      = form.submit 'グループを作成する', data: { disable_button_target: 'buleBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'

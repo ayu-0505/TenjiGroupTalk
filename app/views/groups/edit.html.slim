@@ -5,12 +5,9 @@ h1.section-title グループ名を編集する
 .px-2
   = render 'form', group: @group
 
-  .container.flex.flex-col.mx-auto.space-y-2.w-full.mt-8.md:max-w-md
-    div
-      = link_to group_path(@group), class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-        = lucide_icon('chevron-left').html_safe
-        | グループページへ戻る
-    div
-      = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-        = lucide_icon('chevron-left').html_safe
-        | グループ一覧へ戻る
+  .flex.justify-center.mt-8
+    = link_to 'グループページへ戻る', group_path(@group), class: 'btn-white w-44 text-center'
+
+  .flex.justify-center.mt-4
+    = link_to 'グループ一覧へ戻る', groups_path, class: 'btn-white w-44 text-center'
+

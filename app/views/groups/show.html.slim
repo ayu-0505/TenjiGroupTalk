@@ -62,7 +62,7 @@
   .flex.justify-center
     = link_to 'グループのトーク一覧へ', group_talks_path(@group), class: 'block btn-white text-center inline-block'
 
-  .container.mb-8.mx-auto
+  .container.my-8.mx-auto
     - if @membership.present?
       .container.bg-red-200.rounded-lg.text-center.py-4.my-4.max-w-sm.mx-auto
         .flex.justify-center
@@ -85,12 +85,5 @@
           class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition' }
         p 管理者はグループを抜けることができません。
 
-  .container.flex.flex-col.gap-4.mb-8
-    div
-      = link_to groups_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-        = lucide_icon('chevron-left').html_safe
-        | グループ一覧へ戻る
-    div
-      = link_to dashboard_path, class: 'inline-flex items-center text-blue-600 hover:text-blue-800 active:text-blue-900 transition' do
-        = lucide_icon('chevron-left').html_safe
-        | ダッシュボードへ戻る
+  .flex.justify-center.my-8
+    = link_to 'グループ一覧へ戻る', groups_path, class: 'btn-white'
