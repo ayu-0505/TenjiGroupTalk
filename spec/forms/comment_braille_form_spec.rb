@@ -6,6 +6,21 @@ RSpec.describe CommentBrailleForm, type: :model do
   let(:talk) { create(:talk, group:, user:) }
   let(:comment) { create(:comment, user:, talk:) }
 
+  describe 'when creating a new form with no input parameters' do
+    it 'does not have original_text when braille is absent' do
+      form = described_class.new(user:, talk:, comment:)
+      expect(form.description).to eq comment.description
+      expect(form.original_text).to be_nil
+    end
+
+    it 'has original_text when braille is present' do
+      comment.update!(braille: create(:braille))
+      form = described_class.new(user:, talk:, comment:)
+      expect(form.description).to eq comment.description
+      expect(form.original_text).to eq comment.braille.original_text
+    end
+  end
+
   describe '#save' do
     context 'when there are validation errors' do
       it 'returns false' do
@@ -35,11 +50,11 @@ RSpec.describe CommentBrailleForm, type: :model do
 
   describe '#update' do
     shared_context 'with original_text' do
-       let(:form) { described_class.new(user:, talk:, comment:, attributes: { description: 'valid description', original_text: 'てんじ' }) }
+      let(:form) { described_class.new(user:, talk:, comment:, attributes: { description: 'valid description', original_text: 'てんじ' }) }
     end
 
     shared_context 'without original_text' do
-       let(:form) { described_class.new(user:, talk:, comment:, attributes: { description: 'valid description' }) }
+      let(:form) { described_class.new(user:, talk:, comment:, attributes: { description: 'valid description' }) }
     end
 
     shared_context 'with existing braille' do

@@ -5,6 +5,23 @@ RSpec.describe TalkBrailleForm, type: :model do
   let(:group) { create(:group) }
   let(:talk) { create(:talk, group:, user:) }
 
+  describe 'when creating a new form with no input parameters' do
+    it 'does not have original_text when braille is absent' do
+      form = described_class.new(user:, group:, talk:)
+      expect(form.title).to eq talk.title
+      expect(form.description).to eq talk.description
+      expect(form.original_text).to be_nil
+    end
+
+    it 'has original_text when braille is present' do
+      talk.update!(braille: create(:braille))
+      form = described_class.new(user:, group:, talk:)
+      expect(form.title).to eq talk.title
+      expect(form.description).to eq talk.description
+      expect(form.original_text).to eq talk.braille.original_text
+    end
+  end
+
   describe '#save' do
     context 'when there are validation errors' do
       it 'returns false' do
