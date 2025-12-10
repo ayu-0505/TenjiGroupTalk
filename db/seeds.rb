@@ -41,7 +41,7 @@ user_with_multiple_groups = User.create!(
   image: (ActionController::Base.helpers.asset_path 'test_user_icon.png'))
 
 
-User.create!(
+deleted_user = User.create!(
   uid: 'deleted_user',
   nickname: 'サービスやめお',
   name: 'deleted_name',
@@ -73,6 +73,7 @@ end
 first_group = Group.find_by(name: 'First Admin Group 0')
 second_admin.groups << first_group
 users.each { |user| user.groups << first_group }
+deleted_user.groups << first_group
 
 3.times do |n|
   group = Group.create!({
@@ -131,3 +132,15 @@ base_time = Time.current
     comment:
   })
 end
+
+talk = Talk.create!({
+    title: '退会者の作成したトーク',
+    description: '退会者によるトーク、退会者は名前の表示形態が変化する。',
+    user: deleted_user,
+    group: first_group
+  })
+Comment.create!({
+  description: '退会者によるコメント、退会者は名前の表示形態が変化する。',
+  user: deleted_user,
+  talk:
+})
