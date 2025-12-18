@@ -79,4 +79,4 @@ group :test do
   gem 'simplecov', require: false
 end
 
-gem 'tailwindcss-ruby', '~> 3.3'
+gem 'tailwindcss-ruby', '~> 3.4'
