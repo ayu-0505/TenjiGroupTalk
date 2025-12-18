@@ -444,7 +444,7 @@ GEM
     tailwindcss-ruby (3.4.17-arm64-darwin)
     tailwindcss-ruby (3.4.17-x86_64-linux)
     temple (0.10.4)
-    tenji (0.1.1)
+    tenji (0.1.2)
     thor (1.4.0)
     thruster (0.1.16)
     thruster (0.1.16-aarch64-linux)
