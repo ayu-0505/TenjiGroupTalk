@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params.expect(:id))
+      @user = User.where(id: current_user.id).find(params.expect(:id))
     end
 
     def user_params
