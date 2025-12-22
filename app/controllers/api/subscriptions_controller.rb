@@ -2,8 +2,8 @@ class Api::SubscriptionsController < ApplicationController
   def create
     talk = Talk.find(params[:talk_id])
     return unless current_user.groups.exists?(id: talk.group.id)
-    subscription = current_user.subscriptions.build(talk: talk)
-    if subscription.save
+
+    subscription = current_user.subscriptions.build(talk:)
       flash.now[:notice] = '通知登録しました'
       html = render_to_string partial: 'layouts/flash'
       render json: { id: subscription.id, html: }, status: :ok
