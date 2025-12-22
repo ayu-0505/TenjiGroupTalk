@@ -40,6 +40,7 @@ class SessionsController < ApplicationController
     redirect_to root_url, alert: 'Googleログインがキャンセルされました', status: :see_other
   end
 
+  # NOTE: 以下は開発環境専用のログインアクションであり、routes.rbで制限しているため本番環境では無効である
   def dev_login
     if params[:uid] == 'deleted_user'
       reset_session
