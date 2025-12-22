@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def current_user
     return unless (user_id = session[:user_id])
 
-    @current_user ||= User.find_by(id: user_id)
+    @current_user ||= User.active.find_by(id: user_id)
   end
 
   def set_unread_notifications
