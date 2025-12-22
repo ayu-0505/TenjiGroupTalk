@@ -6,18 +6,10 @@ export default class extends Controller {
   static targets = ["subscriptionCheck", "id", "switch"];
 
   async toggle() {
-    try {
-      if (this.subscriptionCheckTarget.checked) {
-        await this.createSubscription();
-      } else {
-        await this.deleteSubscription();
-      }
-    } catch (error) {
-      console.warn(error.message);
-      if (error.responseData.html) {
-        const flashContainer = document.getElementById("flash");
-        flashContainer.innerHTML = error.responseData.html;
-      }
+    if (this.subscriptionCheckTarget.checked) {
+      await this.createSubscription();
+    } else {
+      await this.deleteSubscription();
     }
   }
 
@@ -26,12 +18,7 @@ export default class extends Controller {
       body: JSON.stringify({ talk_id: this.talkIdValue }),
     });
     const response = await request.perform();
-
-    if (!response.ok) {
-      const error = new Error("通信中にエラーが発生しました");
-      error.responseData = await response.json;
-      throw error;
-    }
+    if (!response.ok) return;
 
     const data = await response.json;
     this.idTarget.setAttribute("id", data.id);
@@ -47,12 +34,7 @@ export default class extends Controller {
       `/api/subscriptions/${this.idTarget.getAttribute("id")}`
     );
     const response = await request.perform();
-
-    if (!response.ok) {
-      const error = new Error("通信中にエラーが発生しました");
-      error.responseData = await response.json;
-      throw error;
-    }
+    if (!response.ok) return;
 
     const data = await response.json;
     const flashContainer = document.getElementById("flash");
