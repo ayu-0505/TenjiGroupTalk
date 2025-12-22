@@ -50,9 +50,11 @@ RSpec.describe 'Talks', type: :system do
 
         span = find('span[data-subscription-toggle-target="switch"]')
         expect(span[:class]).to include('bg-sky-300')
+        expect(span[:class]).to include('left-0.5')
         find('label[for="subscription_check"]').click
         expect(page).to have_content '通知登録しました'
         expect(span[:class]).to include('bg-sky-600')
+        expect(span[:class]).to include('left-5')
 
         subscription = Subscription.last
         expect(subscription.user_id).to eq user.id
@@ -67,11 +69,13 @@ RSpec.describe 'Talks', type: :system do
 
         span = find('span[data-subscription-toggle-target="switch"]')
         expect(span[:class]).to include('bg-sky-600')
+        expect(span[:class]).to include('left-5')
         find('label[for="subscription_check"]').click
         expect(page).to have_content '通知登録を解除しました'
 
         expect(Subscription.find_by(id: subscription_id)).to be_nil
         expect(span[:class]).to include('bg-sky-300')
+        expect(span[:class]).to include('left-0.5')
       end
     end
   end
