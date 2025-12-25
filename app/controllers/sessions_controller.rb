@@ -25,8 +25,8 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     redirect_to dashboard_path, notice: 'ログインしました', status: :see_other
 
-  rescue => e
-    Rails.logger.error("Session#create failed: #{e.message}")
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::StatementInvalid => e
+    Rails.logger.error(e.full_message)
     redirect_to root_path, alert: 'ログインに失敗しました', status: :see_other
   end
 
@@ -40,6 +40,7 @@ class SessionsController < ApplicationController
     redirect_to root_url, alert: 'Googleログインがキャンセルされました', status: :see_other
   end
 
+  # NOTE: 以下は開発環境専用のログインアクションであり、routes.rbで制限しているため本番環境では無効である
   def dev_login
     if params[:uid] == 'deleted_user'
       reset_session
