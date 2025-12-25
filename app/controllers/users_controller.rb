@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def show
-    @groups = @user.groups.preload(:talks).preload(:users).preload(:admin).order(created_at: :desc)
+    @groups = @user.groups.preload(:talks, :users, :admin).order(created_at: :desc)
   end
 
   def edit
