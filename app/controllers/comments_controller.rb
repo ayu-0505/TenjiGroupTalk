@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_talk, only: %i[ edit create update destroy ]
   before_action :set_comment, only: %i[ edit update destroy ]
-  before_action :authorize_group_member
 
   def edit
     @comment_form = CommentBrailleForm.new(talk: @talk, comment: @comment)
@@ -48,20 +47,14 @@ class CommentsController < ApplicationController
 
   private
     def set_talk
-      @talk = Talk.find(params.expect(:talk_id))
+      @talk = Talk.joins(:group).where(group: { id: current_user.group_ids }).find(params.expect(:talk_id))
     end
 
     def set_comment
-      @comment = current_user.comments.find(params.expect(:id))
+      @comment = @talk.comments.where(user: current_user).find(params.expect(:id))
     end
 
     def comment_braille_params
       params.expect(comment_braille_form: [ :description, :original_text ])
-    end
-
-    def authorize_group_member
-      return if current_user.groups.include?(@talk.group)
-
-      head :not_found
     end
 end
