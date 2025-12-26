@@ -1,7 +1,6 @@
 class Api::SubscriptionsController < ApplicationController
   def create
-    talk = Talk.find(params[:talk_id])
-    return unless current_user.groups.exists?(id: talk.group.id)
+    talk = Talk.joins(:group).where(group: { id: current_user.group_ids }).find(params.expect(:talk_id))
 
     subscription = current_user.subscriptions.build(talk:)
     if subscription.save!
