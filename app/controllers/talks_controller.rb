@@ -25,7 +25,6 @@ class TalksController < ApplicationController
     @talk_form = TalkBrailleForm.new(user: current_user, group: @group, attributes: talk_braille_params)
 
     if @talk_form.save
-      ActiveSupport::Notifications.instrument('talk.create', user: current_user, talk: @talk_form.talk)
       redirect_to group_talk_path(@group, @talk_form.talk), notice: 'トークが作成されました！'
     else
       render :new, status: :unprocessable_entity
