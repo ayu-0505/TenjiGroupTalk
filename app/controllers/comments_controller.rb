@@ -10,30 +10,24 @@ class CommentsController < ApplicationController
   def create
     @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, attributes: comment_braille_params)
 
-    respond_to do |format|
-      if @comment_form.save
-        ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: @comment_form.comment)
-        format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントを投稿しました！' }
-        format.turbo_stream {
-          flash.now[:notice] = 'コメントを投稿しました！'
-          render :create, locals: { success: true }
-        }
-      else
-        format.turbo_stream { render :create, locals: { success: false, comment_form: @comment_form }, status: :unprocessable_entity }
-        format.html { redirect_to group_talk_path(@talk.group, @talk), flash: { error: @comment_form.errors.full_messages } }
-      end
+    if @comment_form.save
+      ActiveSupport::Notifications.instrument('comment.create', user: current_user, talk: @talk, comment: @comment_form.comment)
+      flash.now[:notice] = 'コメントを投稿しました！'
+      render :create_success, formats: :turbo_stream
+    else
+      flash.now[:notice] = 'コメントが投稿できませんでした'
+      render :create_false, formats: :turbo_stream, status: :unprocessable_entity
     end
   end
 
   def update
     @comment_form = CommentBrailleForm.new(user: current_user, talk: @talk, comment: @comment, attributes: comment_braille_params)
-    respond_to do |format|
-      if @comment_form.update
-        format.html { redirect_to group_talk_path(@talk.group, @talk), notice: 'コメントが更新されました！' }
-        format.turbo_stream { flash.now[:notice] = 'コメントが更新されました！' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @comment_form.update
+      flash.now[:notice] = 'コメントが更新されました！'
+      render :update_success, formats: :turbo_stream
+    else
+      flash.now[:notice] = 'コメントが更新できませんでした'
+      render :update_false, formats: :turbo_stream, status: :unprocessable_entity
     end
   end
 
@@ -41,9 +35,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
     @talk.reload
 
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = 'コメントを削除しました' }
-    end
+    flash.now[:notice] = 'コメントを削除しました'
   end
 
   private
