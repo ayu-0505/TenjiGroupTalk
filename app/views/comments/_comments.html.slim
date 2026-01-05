@@ -1,15 +1,15 @@
-= render 'comments/count', comments:
+= render 'comments/count', comments_count:
 
 .mx-2.md:mx-4
-  #comments data-controller='comments-pagination' data-comments-pagination-ids-value="#{ids(hidden_comments(comments))}"
-    - if hidden_comments(comments).size != 0
+  #comments data-controller='comments-pagination' data-comments-pagination-ids-value="#{hidden_comments.pluck(:id)}"
+    - if hidden_comments.present?
       .flex.items-center.mb-2.text-sm
         button.btn-white.w-60.text-xs data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
          | コメントを読み込む (
          span data-comments-pagination-target='remainingCount'
-           = comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT
+           = hidden_comments.size
          | )
-      = render partial: 'comments/comment', collection: hidden_comments(comments), as: :comment, locals: { hidden: true }
-    = render partial: 'comments/comment', collection: display_comments(comments), as: :comment, locals: { hidden: false }
+      = render partial: 'comments/comment', collection: hidden_comments, as: :comment, locals: { hidden: true }
+    = render partial: 'comments/comment', collection: displayed_comments, as: :comment, locals: { hidden: false }
     .mt-4.mb-2.text-lg.font-bold コメント追加
   = render 'comments/new_comment', comment_form: comment_form
