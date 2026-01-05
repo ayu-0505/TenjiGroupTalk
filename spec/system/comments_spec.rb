@@ -145,11 +145,11 @@ RSpec.describe "Comments", type: :system do
       additional_comments = create_list(:comment, 10, talk:, user:)
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
-      initial_comments = all_comments[-CommentsHelper::INITIAL_DISPLAY_COUNT..]
-      hidden_comments = all_comments[0..-(CommentsHelper::INITIAL_DISPLAY_COUNT + 1)]
+      initial_comments = all_comments[-Comment::INITIAL_DISPLAY_COUNT..]
+      hidden_comments = all_comments[0..-(Comment::INITIAL_DISPLAY_COUNT + 1)]
 
       expect(page).to have_content "コメント （#{all_comments.size}）"
-      expect(page).to have_content "コメントを読み込む (#{all_comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT})"
+      expect(page).to have_content "コメントを読み込む (#{all_comments.size - Comment::INITIAL_DISPLAY_COUNT})"
       initial_comments.each do |comment|
         expect(page).to have_content(comment.description)
       end
@@ -162,15 +162,15 @@ RSpec.describe "Comments", type: :system do
       additional_comments = create_list(:comment, 10, talk:, user:)
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
-      hidden_comments = all_comments[0...-CommentsHelper::INITIAL_DISPLAY_COUNT]
+      hidden_comments = all_comments[0...-Comment::INITIAL_DISPLAY_COUNT]
       hidden_count = hidden_comments.size
 
-      hidden_comments.reverse.each_slice(CommentsHelper::INITIAL_DISPLAY_COUNT) do |next_comments|
+      hidden_comments.reverse.each_slice(Comment::INITIAL_DISPLAY_COUNT) do |next_comments|
         click_on "コメントを読み込む (#{hidden_count})"
         next_comments.reverse.each do |comment|
           expect(page).to have_content(comment.description)
         end
-        hidden_count -= CommentsHelper::INITIAL_DISPLAY_COUNT
+        hidden_count -= Comment::INITIAL_DISPLAY_COUNT
       end
       expect(page).to have_no_content('コメントを読み込む')
     end
