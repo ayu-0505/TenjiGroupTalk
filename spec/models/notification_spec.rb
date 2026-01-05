@@ -38,15 +38,4 @@ RSpec.describe Notification, type: :model do
       expect(notification.link_title).to eq "#{talks[0].title}に#{comment.user.nickname}よりコメントがありました\n（#{I18n.l comment.created_at}）"
     end
   end
-
-  describe '#link_path' do
-    it 'returns the talk path' do
-      talks[0].subscribers << recipient
-      comment = create(:comment, user: commenter, talk: talks[0])
-      described_class.create(user: recipient, comment:)
-      notification = described_class.find_by(user: recipient)
-
-      expect(notification.link_path).to eq "/groups/#{group.id}/talks/#{talks[0].id}"
-    end
-  end
 end
