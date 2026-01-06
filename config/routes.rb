@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :sessions, only: %i[create destroy]
   resources :notifications, only: %i[index update] do
     collection do
-      resources :allmarks, only: :create, controller: 'notifications/allmarks'
+      resources :allmarks, only: :create, module: :notifications
     end
   end
 
