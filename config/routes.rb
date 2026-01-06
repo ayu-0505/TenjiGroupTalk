@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     resources :subscriptions, only: %i[create destroy]
   end
 
-  resources :users, only: %i[show edit update destroy]
+  resources :users, only: :show
+  resource :current_user, only: %i[edit update destroy]
   resources :groups do
     resources :talks
     resources :memberships, only: %i[destroy]

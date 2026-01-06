@@ -1,4 +1,4 @@
-= form_with(model: user) do |form|
+= form_with(model: user, url: current_user_path, method: :patch) do |form|
   - if user.errors.any?
     div style='color: red'
       h2 = "#{t('errors.template.header', model: User.model_name.human, count: user.errors.count)}"
