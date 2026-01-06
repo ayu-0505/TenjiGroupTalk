@@ -33,6 +33,8 @@ class TalkBrailleForm
         group: @group,
         braille:
       )
+
+      Subscription.find_or_create_by!(user: @user, talk: @talk)
     true
     end
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved

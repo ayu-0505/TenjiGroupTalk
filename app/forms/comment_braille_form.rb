@@ -30,6 +30,15 @@ class CommentBrailleForm
         talk: @talk,
         braille:
       )
+
+      Subscription.find_or_create_by!(user: @user, talk: @talk)
+      subscribers = @talk.subscribers.where.not(id: @user.id)
+      subscribers.each do |subscriber|
+        Notification.find_or_create_by!(
+          user: subscriber,
+          comment: @comment
+        )
+      end
     true
     end
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
