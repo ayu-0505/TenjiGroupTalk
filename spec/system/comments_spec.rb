@@ -34,12 +34,12 @@ RSpec.describe "Comments", type: :system do
   end
 
   describe 'update the comment' do
-    it 'updates the comment with valid input' do
+    it 'updates the comment with valid input', :js do
       visit group_talk_path(group, talk)
       within("#comment_#{comments[0].id}") do
-        click_on '編集する', match: :first
+        click_on 'コメント内容を編集する', match: :first
         fill_in 'コメント内容', with: '新規コメント', match: :first
-        click_on '更新', match: :first
+        click_on 'コメントを更新する', match: :first
       end
       expect(page).to have_content('新規コメント')
       expect(page).to have_no_content(comments[0].description)
