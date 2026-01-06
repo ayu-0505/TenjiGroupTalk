@@ -3,10 +3,10 @@ class User < ApplicationRecord
   has_many :comments
   has_many :brailles
   has_many :subscriptions
-  has_many :memberships, dependent: :destroy
+  has_many :memberships
   has_many :groups, through: :memberships
   has_many :invitations
-  has_many :notifications, dependent: :destroy
+  has_many :notifications
   has_many :admin_groups, class_name: 'Group', foreign_key: :admin_id
 
   validates :nickname, format: { without: /\A\s*\z/, message: 'を入力してください' }, allow_nil: true
