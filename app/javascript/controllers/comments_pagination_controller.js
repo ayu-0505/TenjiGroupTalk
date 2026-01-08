@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static values = { ids: Array };
-  static targets = ["comment", "moreBtn", "remainingCount"];
+  static values = { ids: Array, incrementSize: Number };
+  static targets = ["comment", "commentContainer", "remainingCount"];
 
   connect() {
     this.remainingCount = this.idsValue.length;
@@ -10,28 +10,29 @@ export default class extends Controller {
   }
 
   moreComments() {
-    const incrementSize = 5;
-
     if (this.remainingCount === 0) {
-      const parent = this.moreBtnTarget.closest(".flex");
+      const parent = this.commentContainerTarget;
       if (parent) {
         parent.remove();
       }
       return;
     }
 
-    if (this.remainingCount <= incrementSize) {
+    if (this.remainingCount <= this.incrementSizeValue) {
       this.commentTargets.forEach((comment) => {
         comment.classList.remove("hidden");
       });
       this.remainingCount = 0;
-      const parent = this.moreBtnTarget.closest(".flex");
+      const parent = this.commentContainerTarget;
       if (parent) {
         parent.remove();
       }
     } else {
-      const nextCommentIds = this.remainingIds.splice(-incrementSize);
-      this.remainingCount = this.remainingCount - incrementSize;
+      const nextCommentIds = this.remainingIds.splice(
+        0,
+        this.incrementSizeValue
+      );
+      this.remainingCount = this.remainingCount - this.incrementSizeValue;
       this.remainingCountTarget.textContent = this.remainingCount;
       nextCommentIds.forEach((id) => {
         const comment = this.commentTargets.find(

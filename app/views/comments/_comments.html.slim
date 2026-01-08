@@ -1,15 +1,17 @@
 = render 'comments/count', comments_count:
 
 .mx-2.md:mx-4
-  #comments data-controller='comments-pagination' data-comments-pagination-ids-value="#{hidden_comments.pluck(:id)}"
+  #comments data-controller='comments-pagination' data-comments-pagination-increment-size-value="#{Comment::INCREMENT_SIZE}" data-comments-pagination-ids-value="#{hidden_comments&.pluck(:id)}"
+    = render partial: 'comments/comment', collection: initial_comments, as: :comment, locals: { hidden: false }
     - if hidden_comments.present?
-      .flex.items-center.mb-2.text-sm
-        button.btn-white.w-60.text-xs data-comments-pagination-target='moreBtn' data-action='click->comments-pagination#moreComments'
-         | コメントを読み込む (
+      = render partial: 'comments/comment', collection: hidden_comments, as: :comment, locals: { hidden: true }
+      .flex.items-center.mb-2.text-sm data-comments-pagination-target='commentContainer'
+        button.btn-white.w-60.text-xs data-action='click->comments-pagination#moreComments'
+         | コメントをさらに表示 (残り
          span data-comments-pagination-target='remainingCount'
            = hidden_comments.size
-         | )
-      = render partial: 'comments/comment', collection: hidden_comments, as: :comment, locals: { hidden: true }
-    = render partial: 'comments/comment', collection: displayed_comments, as: :comment, locals: { hidden: false }
+         | 件)
+    - if recent_comments.present?
+      = render partial: 'comments/comment', collection: recent_comments, as: :comment, locals: { hidden: false }
     .mt-4.mb-2.text-lg.font-bold コメント追加
   = render 'comments/new_comment', comment_form: comment_form
