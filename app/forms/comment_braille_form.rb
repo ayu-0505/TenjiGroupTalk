@@ -32,7 +32,7 @@ class CommentBrailleForm
       )
 
       Subscription.find_or_create_by!(user: @user, talk: @talk)
-      subscribers = @talk.subscribers.where.not(id: @user.id)
+      subscribers = @talk.subscribers.active.where.not(id: @user.id)
       subscribers.each do |subscriber|
         Notification.find_or_create_by!(
           user: subscriber,
