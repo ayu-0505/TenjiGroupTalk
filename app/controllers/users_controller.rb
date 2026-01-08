@@ -7,6 +7,6 @@ class UsersController < ApplicationController
 
   private
     def set_user
-      @user = User.find(params.expect(:id))
+      @user = User.active.find(params.expect(:id))
     end
 end
