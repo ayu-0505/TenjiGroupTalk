@@ -152,7 +152,9 @@ RSpec.describe "Comments", type: :system do
       hidden_comments = remaining_comments
 
       expect(page).to have_content "コメント （#{all_comments.size}）"
-      expect(page).to have_content "コメントをさらに表示 (残り#{all_comments.size - count*2}件)"
+      expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_comments.size)
+      expect(page).to have_content('件のコメントを省略中')
+      expect(page).to have_content 'コメントをさらに表示'
       initial_comments.each do |comment|
         expect(page).to have_content(comment.description)
       end
@@ -174,18 +176,17 @@ RSpec.describe "Comments", type: :system do
       remaining_comments.slice!(-count, count)
       hidden_comments = remaining_comments
       hidden_count = hidden_comments.size
-      pp hidden_count
 
       hidden_comments.each_slice(Comment::INCREMENT_SIZE) do |next_comments|
         return if hidden_count <= 0
 
-        click_on "コメントをさらに表示 (残り#{hidden_count}件)"
+        expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_count)
+        expect(page).to have_content('件のコメントを省略中')
+        click_on 'コメントをさらに表示'
         next_comments.each do |comment|
           expect(page).to have_content(comment.description)
         end
-        pp hidden_count
         hidden_count -= Comment::INCREMENT_SIZE
-        pp hidden_count
       end
       expect(page).to have_no_content('コメントをさらに表示')
     end
