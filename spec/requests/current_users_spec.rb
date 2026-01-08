@@ -7,8 +7,8 @@ RSpec.describe 'Current_users', type: :request do
     sign_in(user)
   end
 
-describe 'GET /edit' do
-   it 'renders a successful response' do
+  describe 'GET /edit' do
+    it 'renders a successful response' do
       get edit_current_user_path
       expect(response).to be_successful
     end
