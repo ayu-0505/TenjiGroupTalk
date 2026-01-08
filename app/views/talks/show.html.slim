@@ -13,7 +13,7 @@
         { method: :delete, data: { turbo_confirm: 'トークを削除します。一度削除すると元に戻すことはできません。本当によろしいですか？'},
         class: 'text-gray-400 text-xs hover:text-gray-500 active:text-gray-600 underline transition' }
 
-    = render 'comments/comments', talk: @talk, comments_count: @comments_count, displayed_comments: @displayed_comments, hidden_comments: @hidden_comments, comment_form: @comment_form
+    = render 'comments/comments', talk: @talk, comments_count: @comments_count, initial_comments: @initial_comments, recent_comments: @recent_comments, hidden_comments: @hidden_comments, comment_form: @comment_form
 
   .my-8.flex
     = link_to 'トーク一覧に戻る', group_talks_path(@group), class: 'btn-white block mx-auto'

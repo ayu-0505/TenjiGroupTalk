@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   INITIAL_DISPLAY_COUNT = 5
+  INCREMENT_SIZE = 10
 
   belongs_to :user
   belongs_to :talk, counter_cache: true
@@ -7,7 +8,4 @@ class Comment < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   validates :description, presence: true
-
-  scope :displayed, -> { order(created_at: :desc).limit(INITIAL_DISPLAY_COUNT).reverse }
-  scope :hidden, -> { order(created_at: :desc).offset(INITIAL_DISPLAY_COUNT).reverse }
 end

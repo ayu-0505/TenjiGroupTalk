@@ -1,7 +1,7 @@
 = turbo_stream_flash
 = turbo_stream.append 'comments' do
   = render 'comments/comment' , comment: @comment_form.comment, hidden: false
-= turbo_stream.replace 'comment_count' do
-  = render 'comments/count', comments: @talk.comments
+= turbo_stream.replace 'comments_count' do
+  = render 'comments/count', comments_count: @talk.comments.size
 = turbo_stream.replace 'new_comment' do
   = render 'comments/new_comment', comment_form: CommentBrailleForm.new(talk: @talk)

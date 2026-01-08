@@ -8,9 +8,12 @@ class TalksController < ApplicationController
   end
 
   def show
-    @displayed_comments = @talk.comments.preload(:user, :braille).displayed
-    @hidden_comments = @talk.comments.preload(:user, :braille).hidden
-    @comments_count = (@displayed_comments + @hidden_comments).size
+    comments = @talk.comments.preload(:user, :braille).order(:created_at).to_a
+    remaining_comments = comments.dup
+    @initial_comments = remaining_comments.slice!(0, Comment::INITIAL_DISPLAY_COUNT)
+    @recent_comments = remaining_comments.slice!(-Comment::INITIAL_DISPLAY_COUNT, Comment::INITIAL_DISPLAY_COUNT)
+    @hidden_comments = remaining_comments
+    @comments_count = comments.size
     @comment_form = CommentBrailleForm.new(talk: @talk)
     @subscription = current_user.subscriptions.find_by(talk: @talk)
   end
