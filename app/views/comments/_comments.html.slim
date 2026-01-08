@@ -5,13 +5,17 @@
     = render partial: 'comments/comment', collection: initial_comments, as: :comment, locals: { hidden: false }
     - if hidden_comments.present?
       = render partial: 'comments/comment', collection: hidden_comments, as: :comment, locals: { hidden: true }
-      .flex.items-center.mb-2.text-sm data-comments-pagination-target='commentContainer'
-        button.btn-white.w-60.text-xs data-action='click->comments-pagination#moreComments'
-         | コメントをさらに表示 (残り
-         span data-comments-pagination-target='remainingCount'
-           = hidden_comments.size
-         | 件)
+      .mb-8.text-sm data-comments-pagination-target='moreButtonContainer'
+        .flex.items-center.my-4
+          .flex-grow.border-t.border-dashed.border-gray-300
+          span.ml-1.text-xs.text-gray-500 data-comments-pagination-target='remainingCount'
+            = hidden_comments.size
+          | 件のコメントを省略中
+          .flex-grow.border-t.border-dashed.border-gray-300
+        .flex.justify-center
+          button.btn-white.w-40.text-xs data-action='click->comments-pagination#moreComments'
+           p コメントをさらに表示
     - if recent_comments.present?
       = render partial: 'comments/comment', collection: recent_comments, as: :comment, locals: { hidden: false }
-    .mt-4.mb-2.text-lg.font-bold コメント追加
+  .mt-4.mb-2.text-lg.font-bold コメント追加
   = render 'comments/new_comment', comment_form: comment_form

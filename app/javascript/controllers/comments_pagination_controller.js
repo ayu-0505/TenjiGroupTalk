@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = { ids: Array, incrementSize: Number };
-  static targets = ["comment", "commentContainer", "remainingCount"];
+  static targets = ["comment", "moreButtonContainer", "remainingCount"];
 
   connect() {
     this.remainingCount = this.idsValue.length;
@@ -11,7 +11,7 @@ export default class extends Controller {
 
   moreComments() {
     if (this.remainingCount === 0) {
-      const parent = this.commentContainerTarget;
+      const parent = this.moreButtonContainerTarget;
       if (parent) {
         parent.remove();
       }
@@ -23,7 +23,7 @@ export default class extends Controller {
         comment.classList.remove("hidden");
       });
       this.remainingCount = 0;
-      const parent = this.commentContainerTarget;
+      const parent = this.moreButtonContainerTarget;
       if (parent) {
         parent.remove();
       }
