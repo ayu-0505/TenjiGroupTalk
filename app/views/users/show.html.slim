@@ -13,7 +13,7 @@ h1.section-title プロフィール
           p.text-sm 登録日：
           = l current_user.created_at, format: :short
     .text-center.my-2
-      = link_to 'ネームを変更する', edit_user_path(@user), class: 'btn-white'
+      = link_to 'ネームを変更する', edit_current_user_path, class: 'btn-white'
 
   .container.flex.flex-col.justify-center.items-center.mx-auto
     p 所属グループ
@@ -25,7 +25,7 @@ h1.section-title プロフィール
           = lucide_icon('triangle-alert', alt: '危険なリンク。アカウント削除は元に戻せません', class: 'stroke-red-500')
           p.text-red-800.font-bold ユーザー操作
 
-        = button_to 'アカウントを削除する', @user,
+        = button_to 'アカウントを削除する', current_user_path,
           { method: :delete, data: { turbo_confirm: 'ユーザーを削除して退会します。本当によろしいですか？'},
           class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition'}
         p ユーザーを削除して退会します。
