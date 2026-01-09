@@ -1,6 +1,6 @@
 = form_with(model: group) do |form|
   - if group.errors.any?
-    div style='color: red'
+    .text-red-500
       h2 = "#{t('errors.template.header', model: Group.model_name.human, count: group.errors.count)}"
       ul
         - group.errors.each do |error|
