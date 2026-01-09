@@ -79,7 +79,5 @@
                     span data-braille-converter-target='indented' class='text-2xl'
 
     .mt-4
-      - if talk_form.talk.persisted?
-        = form.submit 'トークを更新する', data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
-      - else
-        = form.submit 'トークを作成する', data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
+      - submit_text = talk_form.talk.persisted? ? 'トークを更新する' : 'トークを作成する'
+      = form.submit submit_text, data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
