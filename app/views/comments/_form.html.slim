@@ -71,7 +71,5 @@
                     span data-braille-converter-target='indented' class='text-2xl'
 
     .mt-4
-      - if comment_form.comment.persisted?
-        = form.submit 'コメントを更新する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
-      - else
-        = form.submit 'コメントを投稿する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
+      - submit_text = comment_form.comment.persisted? ? 'コメントを更新する' : 'コメントを投稿する'
+      = form.submit submit_text, data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
