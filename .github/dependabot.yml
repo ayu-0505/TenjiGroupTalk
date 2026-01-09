@@ -6,6 +6,8 @@ updates:
       interval: daily
     open-pull-requests-limit: 10
     ignore:
+      - dependency-name: "rails"
+
       # tailwind v4とkamalでデプロイ先にCSSが反映されない不具合があるため、v4を一時的に除外
       - dependency-name: "tailwindcss-ruby"
         versions: ["~> 4.0"]
