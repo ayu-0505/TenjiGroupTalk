@@ -8,7 +8,7 @@ div(
   class='inline-block relative'
   id='notification-menu'
 )
-  - if @unread_notifications.size != 0
+  - if @unread_notifications.size > 0
     button data-action='dropdown#toggle:stop' class='menu px-2.5 pt-1 rounded'
       = lucide_icon('bell-plus', alt: '未読通知ありの通知メニュー', class: 'stroke-white w-10 h-10 block' )
     div data-dropdown-target='menu' role='list' class='hidden absolute top-4 right-0 z-10 mt-5 w-screen max-w-max max-h-60 overflow-y-auto'
