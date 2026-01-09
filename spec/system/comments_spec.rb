@@ -141,38 +141,54 @@ RSpec.describe "Comments", type: :system do
   end
 
   describe 'collapse comments', :js do
-    it 'displays initial comments' do
-      additional_comments = create_list(:comment, 10, talk:, user:)
+    it 'displays initial comments and recent_comments' do
+      additional_comments = create_list(:comment, 20, talk:, user:) # rubocop:disable FactoryBot/ExcessiveCreateList
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
-      initial_comments = all_comments[-CommentsHelper::INITIAL_DISPLAY_COUNT..]
-      hidden_comments = all_comments[0..-(CommentsHelper::INITIAL_DISPLAY_COUNT + 1)]
+      count = Comment::INITIAL_DISPLAY_COUNT
+      remaining_comments = all_comments.dup
+      initial_comments = remaining_comments.slice!(0, count)
+      recent_comments = remaining_comments.slice!(-count, count)
+      hidden_comments = remaining_comments
 
       expect(page).to have_content "コメント （#{all_comments.size}）"
-      expect(page).to have_content "コメントを読み込む (#{all_comments.size - CommentsHelper::INITIAL_DISPLAY_COUNT})"
+      expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_comments.size)
+      expect(page).to have_content('件のコメントを省略中')
+      expect(page).to have_content 'コメントをさらに表示'
       initial_comments.each do |comment|
         expect(page).to have_content(comment.description)
       end
       hidden_comments.each do |comment|
         expect(page).to have_no_content(comment.description)
       end
+      recent_comments.each do |comment|
+        expect(page).to have_content(comment.description)
+      end
     end
 
     it 'displays a few more comments each time the button is clicked' do
-      additional_comments = create_list(:comment, 10, talk:, user:)
+      additional_comments = create_list(:comment, 20, talk:, user:) # rubocop:disable FactoryBot/ExcessiveCreateList
       visit group_talk_path(group, talk)
       all_comments = comments + additional_comments
-      hidden_comments = all_comments[0...-CommentsHelper::INITIAL_DISPLAY_COUNT]
+      count = Comment::INITIAL_DISPLAY_COUNT
+      remaining_comments = all_comments.dup
+      remaining_comments.slice!(0, count)
+      remaining_comments.slice!(-count, count)
+      hidden_comments = remaining_comments
       hidden_count = hidden_comments.size
 
-      hidden_comments.reverse.each_slice(CommentsHelper::INITIAL_DISPLAY_COUNT) do |next_comments|
-        click_on "コメントを読み込む (#{hidden_count})"
-        next_comments.reverse.each do |comment|
+      hidden_comments.each_slice(Comment::INCREMENT_SIZE) do |next_comments|
+        return if hidden_count <= 0
+
+        expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_count)
+        expect(page).to have_content('件のコメントを省略中')
+        click_on 'コメントをさらに表示'
+        next_comments.each do |comment|
           expect(page).to have_content(comment.description)
         end
-        hidden_count -= CommentsHelper::INITIAL_DISPLAY_COUNT
+        hidden_count -= Comment::INCREMENT_SIZE
       end
-      expect(page).to have_no_content('コメントを読み込む')
+      expect(page).to have_no_content('コメントをさらに表示')
     end
   end
 end
