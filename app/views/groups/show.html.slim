@@ -72,7 +72,7 @@
         = button_to 'グループから抜ける', group_membership_path(@group, @membership),
                   { method: :delete, data: { turbo_confirm: 'グループを抜けると、再参加する場合は招待してもらう必要があります。本当に抜けますか？'},
                   class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition'}
-        p グループの削除は管理者のみが行えます。
+        p 管理者はグループを抜けることができません。
 
     - if current_user == @group.admin
       .container.bg-red-200.rounded-lg.text-center.py-4.my-4.max-w-sm.mx-auto
@@ -83,7 +83,7 @@
         = button_to 'グループを削除する', @group,
           { method: :delete, data: { turbo_confirm: 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'},
           class: 'text-red-800 text-sm my-2 hover:text-gray-500 active:text-gray-600 underline transition' }
-        p 管理者はグループを抜けることができません。
+        p グループの削除は管理者のみが行えます。
 
   .flex.justify-center.my-8
     = link_to 'グループ一覧へ戻る', groups_path, class: 'btn-white'
