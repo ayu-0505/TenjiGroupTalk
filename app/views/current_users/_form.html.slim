@@ -1,6 +1,6 @@
 = form_with(model: user, url: current_user_path, method: :patch) do |form|
   - if user.errors.any?
-    div style='color: red'
+    .text-red-500
       h2 = "#{t('errors.template.header', model: User.model_name.human, count: user.errors.count)}"
       ul
         - user.errors.each do |error|

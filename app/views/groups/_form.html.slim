@@ -1,6 +1,6 @@
 = form_with(model: group) do |form|
   - if group.errors.any?
-    div style='color: red'
+    .text-red-500
       h2 = "#{t('errors.template.header', model: Group.model_name.human, count: group.errors.count)}"
       ul
         - group.errors.each do |error|
@@ -12,7 +12,5 @@
         data: { action: 'input->disable-button#blueBtnToggle', disable_button_target: 'blueInput' },
       class: 'p-2 border border-gray-300 border-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
 
-    - if params[:action] == 'edit'
-      = form.submit 'グループ名を更新する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
-    - else
-      = form.submit 'グループを作成する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'
+    - submit_text = group.persisted? ? 'グループ名を更新する' : 'グループを作成する'
+    = form.submit submit_text, data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg my-2'

@@ -2,6 +2,7 @@
   ul class='error'
     - flash[:error].each do |error|
       li
-        p style='color: red' = error
+        p.text-red-500
+          = error
 #new_comment
   = render 'comments/form', comment_form: comment_form

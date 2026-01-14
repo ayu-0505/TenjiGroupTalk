@@ -1,6 +1,6 @@
 = form_with( model: talk_form, **talk_form.form_with_options) do |form|
   - if talk_form.errors.any?
-    div style='color: red'
+    .text-red-500
       h2 = "#{t('errors.template.header', model: TalkBrailleForm.model_name.human, count: talk_form.errors.count)}"
       ul
         - talk_form.errors.each do |error|
@@ -79,7 +79,5 @@
                     span data-braille-converter-target='indented' class='text-2xl'
 
     .mt-4
-      - if params[:action] == 'edit'
-        = form.submit 'トークを更新する', data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
-      - else
-        = form.submit 'トークを作成する', data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'
+      - submit_text = talk_form.talk.persisted? ? 'トークを更新する' : 'トークを作成する'
+      = form.submit submit_text, data: { disable_button_target: 'blueBtn'}, disabled: true, class: 'btn btn-blue text-lg block mx-auto'

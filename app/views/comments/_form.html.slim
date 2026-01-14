@@ -1,6 +1,6 @@
 = form_with(model: comment_form, **comment_form.form_with_options) do |form|
   - if comment_form.errors.any?
-    div style='color: red'
+    .text-red-500
       h2 = "#{t('errors.template.header', model: CommentBrailleForm.model_name.human, count: comment_form.errors.count)}"
       ul
         - comment_form.errors.each do |error|
@@ -71,7 +71,5 @@
                     span data-braille-converter-target='indented' class='text-2xl'
 
     .mt-4
-      - if params[:action] == 'edit'
-        = form.submit 'コメントを更新する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
-      - else
-        = form.submit 'コメントを投稿する', data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
+      - submit_text = comment_form.comment.persisted? ? 'コメントを更新する' : 'コメントを投稿する'
+      = form.submit submit_text, data: { disable_button_target: 'blueBtn'}, disable: true, class: 'btn btn-blue text-lg block mx-auto'
