@@ -4,6 +4,9 @@ class HomeController < ApplicationController
 
   def index
     redirect_to dashboard_path if current_user.present?
+
+    # NOTE: Googleログインはモバイルアプリ用ブラウザでは利用できない。
+    # そのため、モバイルアプリブラウザ（主要なもののみ対応）の場合は、外部ブラウザ利用を促すページに誘導する
     ua = request.user_agent.to_s.downcase
     is_mobile = ua.include?('mobile') || ua.include?('iphone') || ua.include?('android')
     is_web_view = ua.include?('line') || ua.include?('instagram') || ua.include?('fb')
