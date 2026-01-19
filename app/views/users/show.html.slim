@@ -5,15 +5,16 @@ h1.section-title プロフィール
 .px-2.md:px-4
   .container.my-4
     .flex.items-center.gap-4
-      = image_tag current_user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full'
+      = image_tag @user.image, alt: 'ログインユーザーアイコン', class: 'w-12 h-12 rounded-full'
       .flex.flex-col.gap-2
         p.font-bold
-          = current_user.display_name
+          = @user.display_name
         .flex.items-center
           p.text-sm 登録日：
-          = l current_user.created_at, format: :short
-    .text-center.my-2
-      = link_to 'ネームを変更する', edit_current_user_path, class: 'btn-white'
+          = l @user.created_at, format: :short
+    - if @user == current_user
+      .text-center.my-2
+        = link_to 'ネームを変更する', edit_current_user_path, class: 'btn-white'
 
   .container.flex.flex-col.justify-center.items-center.mx-auto
     p 所属グループ
