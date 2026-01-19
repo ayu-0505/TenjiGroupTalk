@@ -35,7 +35,7 @@
         .flex.items-center.gap-1.w-100
           = image_tag user.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
           span.text-sm.break-words
-            = user_name_tag(user)
+            = link_to user_name_tag(user), user_path(user)
 
 
   - if @group.admin == current_user
