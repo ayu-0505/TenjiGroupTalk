@@ -17,6 +17,6 @@
     .flex.flex-col.sm:flex-row
       p 管理者：
       = group.admin.display_name
-  .flex.flex-wrap.mx-auto.w-auto.mt-2
+  .flex.flex-wrap.mx-auto.w-auto.mt-2.gap-1
     - group.users.each do |member|
       = image_tag member.image, alt: 'メンバーユーザーアイコン', class: 'w-8 h-8 rounded-full flex-shrink-0'
