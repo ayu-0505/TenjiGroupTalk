@@ -56,27 +56,27 @@
                 .flex.items-center.my-2
                   p.text-sm.leading-none
                     = Braille.human_attribute_name(:raised_braille)
-                  .p-2
-                    span data-braille-converter-target='raised' class='text-2xl'
+                  .p-2.min-w-0
+                    span.text-2xl.min-w-0.break-words.whitespace-pre-wrap data-braille-converter-target='raised'
                       = @talk.braille.raised_braille
                 .flex.items-center
                   p.text-sm.leading-none
                     = Braille.human_attribute_name(:indented_braille)
-                  .p-2
-                    span data-braille-converter-target='indented' class='text-2xl'
+                  .p-2.min-w-0
+                    span.text-2xl.min-w-0.break-words.whitespace-pre-wrap data-braille-converter-target='indented'
                       = @talk.braille.indented_braille
             - else
               .hidden data-braille-converter-target='result'
                 .flex.items-center.my-2
                   p.text-sm.leading-none
                     = Braille.human_attribute_name(:raised_braille)
-                  .p-2
-                    span data-braille-converter-target='raised' class='text-2xl'
+                  .p-2.min-w-0
+                    span.text-2xl.min-w-0.break-words.whitespace-pre-wrap data-braille-converter-target='raised'
                 .flex.items-center
                   p.text-sm.leading-none
                     = Braille.human_attribute_name(:indented_braille)
-                  .p-2
-                    span data-braille-converter-target='indented' class='text-2xl'
+                  .p-2.min-w-0
+                    span.text-2xl.min-w-0.break-words.whitespace-pre-wrap data-braille-converter-target='indented'
 
     .mt-4
       - submit_text = talk_form.talk.persisted? ? 'トークを更新する' : 'トークを作成する'
