@@ -15,7 +15,10 @@ gem 'turbo-rails'
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'stimulus-rails'
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
+# NOTE: tailwindcssはv4において反映されない不具合あり。
+# Kamal、あるいはDockerとの相性が悪い可能性があるが、まだ原因特定できていないので、一旦v3で据え置く。
 gem 'tailwindcss-rails', '~> 3.2'
+gem 'tailwindcss-ruby', '~> 3.4'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -79,4 +82,3 @@ group :test do
   gem 'simplecov', require: false
 end
 
-gem 'tailwindcss-ruby', '~> 3.4'
