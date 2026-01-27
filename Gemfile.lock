@@ -521,7 +521,7 @@ DEPENDENCIES
   slim_lint
   solid_cache
   solid_queue
-  sqlite3 (>= 2.1)
+  sqlite3
   stimulus-rails
   tailwindcss-rails (~> 3.2)
   tailwindcss-ruby (~> 3.4)
