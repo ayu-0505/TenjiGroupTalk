@@ -503,7 +503,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   propshaft
-  puma (>= 5.0)
+  puma
   rails (~> 8.0.3)
   rails-i18n
   requestjs-rails
@@ -521,7 +521,7 @@ DEPENDENCIES
   slim_lint
   solid_cache
   solid_queue
-  sqlite3 (>= 2.1)
+  sqlite3
   stimulus-rails
   tailwindcss-rails (~> 3.2)
   tailwindcss-ruby (~> 3.4)
