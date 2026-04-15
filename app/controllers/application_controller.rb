@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_unread_notifications
+    @unread_notifications = Notification.none
+    return unless logged_in?
+
     @unread_notifications = current_user.notifications.unread.preload(comment: [ :talk, :user ]).order(created_at: :desc)
   end
 end
