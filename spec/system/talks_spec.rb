@@ -36,10 +36,10 @@ RSpec.describe 'Talks', type: :system do
 
       it 'does not display the edit and delete links' do
         visit group_talk_path(group, talks[0])
-        expect(page).to have_content(talks[0].title)
+        expect(page).to have_text(talks[0].title)
         within('.talk') do
-          expect(page).to have_no_content('編集する')
-          expect(page).to have_no_content('削除する')
+          expect(page).to have_no_text('編集する')
+          expect(page).to have_no_text('削除する')
         end
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe 'Talks', type: :system do
         expect(span[:class]).to include('bg-sky-300')
         expect(span[:class]).to include('left-0.5')
         find('label[for="subscription_check"]').click
-        expect(page).to have_content '通知登録しました'
+        expect(page).to have_text '通知登録しました'
         expect(span[:class]).to include('bg-sky-600')
         expect(span[:class]).to include('left-5')
 
@@ -71,7 +71,7 @@ RSpec.describe 'Talks', type: :system do
         expect(span[:class]).to include('bg-sky-600')
         expect(span[:class]).to include('left-5')
         find('label[for="subscription_check"]').click
-        expect(page).to have_content '通知登録を解除しました'
+        expect(page).to have_text '通知登録を解除しました'
 
         expect(Subscription.find_by(id: subscription_id)).to be_nil
         expect(span[:class]).to include('bg-sky-300')
@@ -88,9 +88,9 @@ RSpec.describe 'Talks', type: :system do
       fill_in '内容', with: '点字を使ってしりとりしましょう'
       expect(page).to have_button('トークを作成する', disabled: false)
       click_on 'トークを作成する'
-      expect(page).to have_content('トークが作成されました！')
-      expect(page).to have_content('点字しりとり！')
-      expect(page).to have_content('点字を使ってしりとりしましょう')
+      expect(page).to have_text('トークが作成されました！')
+      expect(page).to have_text('点字しりとり！')
+      expect(page).to have_text('点字を使ってしりとりしましょう')
     end
   end
 
@@ -104,11 +104,11 @@ RSpec.describe 'Talks', type: :system do
       fill_in '内容', with: 'これは新しいトークです！'
       expect(page).to have_button('トークを更新する', disabled: false)
       click_on 'トークを更新する'
-      expect(page).to have_content('トークを更新しました！')
-      expect(page).to have_no_content(talks[0].title)
-      expect(page).to have_no_content(talks[0].description)
-      expect(page).to have_content('新規トーク')
-      expect(page).to have_content('これは新しいトークです！')
+      expect(page).to have_text('トークを更新しました！')
+      expect(page).to have_no_text(talks[0].title)
+      expect(page).to have_no_text(talks[0].description)
+      expect(page).to have_text('新規トーク')
+      expect(page).to have_text('これは新しいトークです！')
     end
   end
 
@@ -122,8 +122,8 @@ RSpec.describe 'Talks', type: :system do
           click_on '削除する'
         end
       end
-      expect(page).to have_content('トークは削除されました')
-      expect(page).to have_no_content(talks[0].title)
+      expect(page).to have_text('トークは削除されました')
+      expect(page).to have_no_text(talks[0].title)
     end
   end
 
@@ -160,19 +160,19 @@ RSpec.describe 'Talks', type: :system do
 
     it 'can reveal the correct hiragana for the braille quiz', :js do
       within '#talk_braille' do
-        expect(page).to have_content ("#{Braille.last.raised_braille}")
-        expect(page).to have_content ("#{Braille.last.indented_braille}")
+        expect(page).to have_text ("#{Braille.last.raised_braille}")
+        expect(page).to have_text ("#{Braille.last.indented_braille}")
         expect(page).to have_css('.talk_original_text.hidden', visible: :all)
 
         click_on '正解を見る'
-        expect(page).to have_content ("#{Braille.last.original_text}")
+        expect(page).to have_text ("#{Braille.last.original_text}")
       end
     end
 
     it 'hides the correct hiragana when the button is pressed', :js do
       within '#talk_braille' do
         click_on '正解を見る'
-        expect(page).to have_content '正解をかくす'
+        expect(page).to have_text '正解をかくす'
         click_on '正解をかくす'
         expect(page).to have_css('.talk_original_text.hidden', visible: :all)
       end

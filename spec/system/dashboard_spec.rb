@@ -17,11 +17,11 @@ RSpec.describe 'Dashboard', type: :system do
 
       visit root_path
       find_by_id('notification-menu').click
-      expect(page).to have_content("#{talk.title}に#{comment.user.nickname}よりコメントがありました")
+      expect(page).to have_text("#{talk.title}に#{comment.user.nickname}よりコメントがありました")
       click_on "#{talk.title}に#{comment.user.nickname}よりコメントがありました"
-      expect(page).to have_content(talk.description)
+      expect(page).to have_text(talk.description)
       find_by_id('notification-menu').click
-      expect(page).to have_no_content("#{talk.title}に#{comment.user.nickname}よりコメントがありました")
+      expect(page).to have_no_text("#{talk.title}に#{comment.user.nickname}よりコメントがありました")
     end
   end
 

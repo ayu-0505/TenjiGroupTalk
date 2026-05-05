@@ -12,9 +12,9 @@ RSpec.describe 'Users', type: :system do
   describe 'show the user' do
     it 'displays the user' do
       visit user_path(user)
-      expect(page).to have_content user.display_name
+      expect(page).to have_text user.display_name
       user.groups.each do |group|
-        expect(page).to have_content group.name
+        expect(page).to have_text group.name
       end
     end
   end
@@ -25,7 +25,7 @@ RSpec.describe 'Users', type: :system do
       click_on 'ネームを変更する'
       fill_in 'ネームを入力してください', with: '新しいニックネーム'
       click_on 'ネームを更新する'
-      expect(page).to have_content '新しいニックネーム'
+      expect(page).to have_text '新しいニックネーム'
     end
 
     it 'does not save when nickname is blank', :js do
@@ -33,9 +33,9 @@ RSpec.describe 'Users', type: :system do
       click_on 'ネームを変更する'
       fill_in 'user_nickname', with: '       '
       expect(page).to have_button('ネームを更新する', disabled: true)
-      expect(page).to have_content 'ネームを変更する'
+      expect(page).to have_text 'ネームを変更する'
       click_on 'プロフィールへ戻る'
-      expect(page).to have_content user.display_name
+      expect(page).to have_text user.display_name
     end
   end
 end
