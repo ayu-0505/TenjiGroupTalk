@@ -12,10 +12,10 @@ RSpec.describe "Groups", type: :system do
     context 'when a non-member user accesses' do
       it 'is prevented' do
         visit group_path(group)
-        expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+        expect(page).to have_text 'この操作を行うには、グループのメンバーである必要があります'
 
         visit edit_group_path(group)
-        expect(page).to have_content 'この操作を行うには、グループのメンバーである必要があります'
+        expect(page).to have_text 'この操作を行うには、グループのメンバーである必要があります'
       end
     end
   end
@@ -28,9 +28,9 @@ RSpec.describe "Groups", type: :system do
 
       log_in_as user
       visit group_path(group)
-      expect(page).to have_content(user.display_name)
+      expect(page).to have_text(user.display_name)
       members.each do |member|
-        expect(page).to have_content(member.display_name)
+        expect(page).to have_text(member.display_name)
       end
     end
 
@@ -43,20 +43,20 @@ RSpec.describe "Groups", type: :system do
       it 'prevents the user from leaving the group' do
         visit group_path(group)
         click_button 'グループから抜ける'
-        expect(page).to have_content '管理者はグループを抜けられません。グループ削除を行なってください。'
+        expect(page).to have_text '管理者はグループを抜けられません。グループ削除を行なってください。'
       end
 
       it 'creates an invitation URL when the create button is clicked' do
         visit group_path(group)
         click_button 'メッセージを作成'
-        expect(page).to have_content "http://www.example.com/welcome?invitation_token=#{Invitation.last.token}"
+        expect(page).to have_text "http://www.example.com/welcome?invitation_token=#{Invitation.last.token}"
       end
 
       it 'deletes the group when the user confirms deletion', :js do
         visit group_path(group)
         click_button 'グループを削除する'
         expect(page.accept_confirm).to eq 'グループを削除すると今までのトークとコメントのデータが全て削除されます。この操作は元に戻すことができません。本当によろしいですか？'
-        expect(page).to have_content 'グループを削除しました'
+        expect(page).to have_text 'グループを削除しました'
         expect(Group.all.include?(group)).to be false
       end
 

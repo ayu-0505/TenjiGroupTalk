@@ -28,8 +28,8 @@ RSpec.describe "Comments", type: :system do
       visit group_talk_path(group, talk)
       fill_in 'コメント内容', with: '面白そう！'
       click_on 'コメントを投稿する'
-      expect(page).to have_content('面白そう！')
-      expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
+      expect(page).to have_text('面白そう！')
+      expect(page).to have_text("コメント （#{talk.reload.comments.size}）")
     end
   end
 
@@ -41,8 +41,8 @@ RSpec.describe "Comments", type: :system do
         fill_in 'コメント内容', with: '新規コメント', match: :first
         click_on 'コメントを更新する', match: :first
       end
-      expect(page).to have_content('新規コメント')
-      expect(page).to have_no_content(comments[0].description)
+      expect(page).to have_text('新規コメント')
+      expect(page).to have_no_text(comments[0].description)
     end
   end
 
@@ -56,9 +56,9 @@ RSpec.describe "Comments", type: :system do
           click_on '削除する', match: :first
         end
       end
-      expect(page).to have_content(comments[0].description)
-      expect(page).to have_no_content(comments[1].description)
-      expect(page).to have_content("コメント （#{talk.reload.comments.size}）")
+      expect(page).to have_text(comments[0].description)
+      expect(page).to have_no_text(comments[1].description)
+      expect(page).to have_text("コメント （#{talk.reload.comments.size}）")
     end
   end
 
@@ -118,12 +118,12 @@ RSpec.describe "Comments", type: :system do
       visit group_talk_path(group, talk)
 
       within "#comment_#{comments[0].id}" do
-        expect(page).to have_content ("#{braille.raised_braille}")
-        expect(page).to have_content ("#{braille.indented_braille}")
+        expect(page).to have_text ("#{braille.raised_braille}")
+        expect(page).to have_text ("#{braille.indented_braille}")
         expect(page).to have_css('.comment_original_text.hidden', visible: :all)
 
         click_on '正解を見る'
-        expect(page).to have_content ("#{braille.original_text}")
+        expect(page).to have_text ("#{braille.original_text}")
       end
     end
 
@@ -133,7 +133,7 @@ RSpec.describe "Comments", type: :system do
       visit group_talk_path(group, talk)
       within "#comment_#{comments[0].id}" do
         click_on '正解を見る'
-        expect(page).to have_content '正解をかくす'
+        expect(page).to have_text '正解をかくす'
         click_on '正解をかくす'
         expect(page).to have_css('.comment_original_text.hidden', visible: :all)
       end
@@ -151,18 +151,18 @@ RSpec.describe "Comments", type: :system do
       recent_comments = remaining_comments.slice!(-count, count)
       hidden_comments = remaining_comments
 
-      expect(page).to have_content "コメント （#{all_comments.size}）"
+      expect(page).to have_text "コメント （#{all_comments.size}）"
       expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_comments.size)
-      expect(page).to have_content('件のコメントを省略中')
-      expect(page).to have_content 'コメントをさらに表示'
+      expect(page).to have_text('件のコメントを省略中')
+      expect(page).to have_text 'コメントをさらに表示'
       initial_comments.each do |comment|
-        expect(page).to have_content(comment.description)
+        expect(page).to have_text(comment.description)
       end
       hidden_comments.each do |comment|
-        expect(page).to have_no_content(comment.description)
+        expect(page).to have_no_text(comment.description)
       end
       recent_comments.each do |comment|
-        expect(page).to have_content(comment.description)
+        expect(page).to have_text(comment.description)
       end
     end
 
@@ -181,14 +181,14 @@ RSpec.describe "Comments", type: :system do
         return if hidden_count <= 0
 
         expect(page).to have_css('[data-comments-pagination-target="remainingCount"]', text: hidden_count)
-        expect(page).to have_content('件のコメントを省略中')
+        expect(page).to have_text('件のコメントを省略中')
         click_on 'コメントをさらに表示'
         next_comments.each do |comment|
-          expect(page).to have_content(comment.description)
+          expect(page).to have_text(comment.description)
         end
         hidden_count -= Comment::INCREMENT_SIZE
       end
-      expect(page).to have_no_content('コメントをさらに表示')
+      expect(page).to have_no_text('コメントをさらに表示')
     end
   end
 end
