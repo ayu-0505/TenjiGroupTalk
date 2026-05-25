@@ -48,6 +48,7 @@ gem 'requestjs-rails'
 gem 'kaminari'
 gem 'lucide-rails'
 gem 'meta-tags'
+gem 'hanmoto'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

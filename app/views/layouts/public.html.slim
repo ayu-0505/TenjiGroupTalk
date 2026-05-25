@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    meta charset='utf-8'
+    meta name='viewport' content='width=device-width,initial-scale=1'
+    title = "#{yield(:title)} | TenjiGroupTalk"
+    = stylesheet_link_tag 'tailwind', 'inter-font'
+    = favicon_link_tag 'favicon.ico'
+  body.text-gray-600.bg-gray-200.min-h-screen.flex.flex-col
+    main.flex-1.flex.flex-col.max-w-screen-md.mx-auto.bg-white.w-full
+      = yield
