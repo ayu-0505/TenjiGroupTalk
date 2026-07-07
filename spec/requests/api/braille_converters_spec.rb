@@ -5,7 +5,7 @@ RSpec.describe '/api/braille_converters', type: :request do
     it 'returns converted braille' do
       user = create(:user)
       sign_in(user)
-      post '/api/braille_converter', params: { text: 'こんにちわ' }
+      post api_braille_converter_path, params: { text: 'こんにちわ' }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json['raised']).to eq('⠪⠴⠇⠗⠄')
@@ -18,7 +18,7 @@ RSpec.describe '/api/braille_converters', type: :request do
     it 'returns an empty string' do
       user = create(:user)
       sign_in(user)
-      post '/api/braille_converter', params: { text: '' }
+      post api_braille_converter_path, params: { text: '' }
       expect(response).to have_http_status(:success)
       json = JSON.parse(response.body)
       expect(json['raised']).to eq('')
