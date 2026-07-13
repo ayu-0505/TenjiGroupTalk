@@ -31,7 +31,7 @@ RSpec.describe 'Notifications', type: :request do
       patch notification_path(notification)
       notification.reload
       expect(notification.read).to be true
-      expect(response).to redirect_to("/groups/#{talk.group.id}/talks/#{talk.id}")
+      expect(response).to redirect_to group_talk_path(talk.group, talk)
     end
   end
 end
