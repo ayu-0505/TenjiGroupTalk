@@ -47,6 +47,18 @@ RSpec.describe TalkBrailleForm, type: :model do
         expect(form.talk.braille).to be_nil
       end
     end
+
+    context 'when a talk is created' do
+      it 'creates a subscription for the user who created the talk' do
+        form = described_class.new(user:, group:, attributes: { title: 'test', description: 'test description' })
+
+        expect {
+          expect(form.save).to be true
+        }.to change(Subscription, :count).by(1)
+
+        expect(Subscription.find_by(user:, talk: form.talk)).to be_present
+      end
+    end
   end
 
   describe '#update' do
