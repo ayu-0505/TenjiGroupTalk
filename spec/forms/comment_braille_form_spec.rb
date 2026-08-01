@@ -46,6 +46,29 @@ RSpec.describe CommentBrailleForm, type: :model do
         expect(form.comment.braille).to be_nil
       end
     end
+
+    context 'when the talk has subscribers' do
+      let(:subscriber) { create(:user) }
+      let(:inactive_subscriber) { create(:user, deleted_at: Time.current) }
+      let(:form) { described_class.new(user:, talk:, attributes: { description: 'test description' }) }
+
+      before do
+        create(:subscription, user: subscriber, talk:)
+        create(:subscription, user: inactive_subscriber, talk:)
+      end
+
+      it 'creates a subscription for the commenter and a notification for each active subscriber' do
+        expect {
+          expect(form.save).to be true
+        }.to change(Subscription, :count).by(1)
+          .and change(Notification, :count).by(1)
+
+        expect(Subscription.find_by(user:, talk:)).to be_present
+        expect(Notification.find_by(user: subscriber, comment: form.comment)).to be_present
+        expect(Notification.find_by(user:, comment: form.comment)).to be_nil
+        expect(Notification.find_by(user: inactive_subscriber, comment: form.comment)).to be_nil
+      end
+    end
   end
 
   describe '#update' do
